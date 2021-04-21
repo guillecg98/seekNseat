@@ -3,7 +3,7 @@ import {
   EditUserDTO,
   Role,
   UserDTO,
-} from '@boilerplate/contracts';
+} from '@seekNseat/contracts';
 import {
   BadRequestException,
   Body,

@@ -1,4 +1,4 @@
-import { UserDTO } from '@boilerplate/contracts';
+import { UserDTO } from '@seekNseat/contracts';
 import { UnauthorizedException } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { JwtModule } from '@nestjs/jwt';

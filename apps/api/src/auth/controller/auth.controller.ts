@@ -1,4 +1,4 @@
-import { AccessTokenInterface } from '@boilerplate/contracts';
+import { AccessTokenInterface } from '@seekNseat/contracts';
 import {
   Body,
   Controller,

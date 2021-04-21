@@ -50,7 +50,7 @@ export function Navbar({
           noWrap
           className={classes.title}
         >
-          Boilerplate
+          seekNseat
         </Typography>
         {session && (
           <Link href="/api/auth/signout">

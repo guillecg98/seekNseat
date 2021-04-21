@@ -3,7 +3,7 @@ import {
   isCredentials,
   isJwtPayload,
   JwtPayloadInterface,
-} from '@boilerplate/contracts';
+} from '@seekNseat/contracts';
 import axios from 'axios';
 import jwt from 'jwt-decode';
 import { AuthProvider } from 'react-admin';

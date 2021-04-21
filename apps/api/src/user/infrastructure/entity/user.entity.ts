@@ -1,4 +1,4 @@
-import { UserDTO } from '@boilerplate/contracts';
+import { UserDTO } from '@seekNseat/contracts';
 import { Exclude } from 'class-transformer';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 

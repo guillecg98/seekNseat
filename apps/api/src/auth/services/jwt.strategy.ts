@@ -1,4 +1,4 @@
-import { JwtPayloadInterface, UserDTO } from '@boilerplate/contracts';
+import { JwtPayloadInterface, UserDTO } from '@seekNseat/contracts';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { PassportStrategy } from '@nestjs/passport';
