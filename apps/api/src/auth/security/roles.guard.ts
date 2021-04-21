@@ -1,4 +1,4 @@
-import { Role, UserDTO } from '@boilerplate/contracts';
+import { Role, UserDTO } from '@seekNseat/contracts';
 import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { AuthGuard } from '@nestjs/passport';

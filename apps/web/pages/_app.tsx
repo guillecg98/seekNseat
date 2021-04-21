@@ -1,4 +1,4 @@
-import { theme } from '@boilerplate/ui';
+import { theme } from '@seekNseat/ui';
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
@@ -19,7 +19,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     <NextAuthProvider session={pageProps.session}>
       <React.Fragment>
         <Head>
-          <title>NX Boilerplate</title>
+          <title>NX seekNseat</title>
           <meta
             name="viewport"
             content="minimum-scale=1, initial-scale=1, width=device-width"
