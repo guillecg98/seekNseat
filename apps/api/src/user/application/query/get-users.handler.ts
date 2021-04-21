@@ -1,6 +1,6 @@
-import { UserDTO } from '@seekNseat/contracts';
 import { Inject } from '@nestjs/common';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
+import { UserDTO } from '@seekNseat/contracts';
 
 import { USERS, Users } from '../../domain';
 import { UserMapper } from '../../infrastructure/repository/user.mapper';

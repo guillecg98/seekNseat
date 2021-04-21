@@ -1,5 +1,5 @@
-import { CredentialsInterface } from '@seekNseat/contracts';
 import { ApiProperty } from '@nestjs/swagger';
+import { CredentialsInterface } from '@seekNseat/contracts';
 
 export class LoginDTO implements CredentialsInterface {
   @ApiProperty()

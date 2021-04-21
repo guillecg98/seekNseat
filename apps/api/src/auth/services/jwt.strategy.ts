@@ -1,7 +1,7 @@
-import { JwtPayloadInterface, UserDTO } from '@seekNseat/contracts';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { PassportStrategy } from '@nestjs/passport';
+import { JwtPayloadInterface, UserDTO } from '@seekNseat/contracts';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 
 import { GetUserByUsernameQuery } from '../../user/application';

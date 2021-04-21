@@ -1,7 +1,7 @@
-import { Role, UserDTO } from '@seekNseat/contracts';
 import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { AuthGuard } from '@nestjs/passport';
+import { Role, UserDTO } from '@seekNseat/contracts';
 
 import { ROLES_KEY } from './roles.decorator';
 

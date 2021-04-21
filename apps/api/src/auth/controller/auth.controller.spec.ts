@@ -1,8 +1,8 @@
-import { UserDTO } from '@seekNseat/contracts';
 import { UnauthorizedException } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { JwtModule } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
+import { UserDTO } from '@seekNseat/contracts';
 
 import { AuthService } from '../services/auth.service';
 import { AuthController } from './auth.controller';
