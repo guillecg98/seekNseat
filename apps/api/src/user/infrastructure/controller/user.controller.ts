@@ -1,10 +1,4 @@
 import {
-  CreateUserDTO,
-  EditUserDTO,
-  Role,
-  UserDTO,
-} from '@seekNseat/contracts';
-import {
   BadRequestException,
   Body,
   ClassSerializerInterceptor,
@@ -26,6 +20,12 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import {
+  CreateUserDTO,
+  EditUserDTO,
+  Role,
+  UserDTO,
+} from '@seekNseat/contracts';
 import { Response } from 'express';
 
 import { Roles } from '../../../auth/security/roles.decorator';

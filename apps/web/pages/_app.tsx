@@ -1,5 +1,5 @@
-import { theme } from '@seekNseat/ui';
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
+import { theme } from '@seekNseat/ui';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { Provider as NextAuthProvider } from 'next-auth/client';
