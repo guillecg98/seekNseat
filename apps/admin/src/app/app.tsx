@@ -3,7 +3,14 @@ import { Admin, Resource } from 'react-admin';
 
 import { Dashboard } from '../components';
 import { authProvider, dataProvider } from '../lib';
-import { UserCreate, UserEdit, UserList } from '../resources';
+import {
+  CategoryCreate,
+  CategoryEdit,
+  CategoryList,
+  UserCreate,
+  UserEdit,
+  UserList
+} from '../resources';
 
 const App = () => (
   <Admin
@@ -16,6 +23,12 @@ const App = () => (
       list={UserList}
       edit={UserEdit}
       create={UserCreate}
+    />
+    <Resource
+      name="categories"
+      list={CategoryList}
+      edit={CategoryEdit}
+      create={CategoryCreate}
     />
   </Admin>
 );
