@@ -11,8 +11,8 @@ import { JwtStrategy } from './services/jwt.strategy';
   imports: [
     CqrsModule,
     JwtModule.register({
-      secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: process.env.JWT_EXPIRES || '60d' },
+      secret: process.env.NODE_JWT_SECRET,
+      signOptions: { expiresIn: process.env.NODE_JWT_EXPIRES || '60d' },
     }),
     PassportModule,
   ],
