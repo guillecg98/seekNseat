@@ -28,9 +28,9 @@ const options: InitOptions = {
       return Promise.resolve(token);
     },
   },
-  secret: process.env.JWT_SECRET,
+  secret: process.env.NODE_JWT_SECRET,
   jwt: {
-    secret: process.env.JWT_SECRET,
+    secret: process.env.NODE_JWT_SECRET,
     encode: async ({ secret, token, maxAge }) => {
       const signingOptions: jose.JWT.SignOptions = {
         expiresIn: `${maxAge}s`,
@@ -81,7 +81,7 @@ const options: InitOptions = {
 
           const verify = jwt.verify(
             res.data.access_token,
-            process.env.JWT_SECRET
+            process.env.NODE_JWT_SECRET
           );
 
           if (!isJwtPayload(verify)) {
