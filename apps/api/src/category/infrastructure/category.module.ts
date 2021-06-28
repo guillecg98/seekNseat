@@ -15,6 +15,7 @@ import { CategoryMapper } from "./repository/category.mapper";
 const CommandHandlers = [
     CreateCategoryHandler,
     UpdateCategoryHandler,
+    DeleteCategoryHandler,
 ];
 const QueryHandlers = [
     GetCategoryHanlder,

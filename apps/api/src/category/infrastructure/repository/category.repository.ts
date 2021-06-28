@@ -12,8 +12,8 @@ export class CategoryRepository implements Categories {
         private eventStore: EventStore,
     ) {}
 
-    async find(categoryId: CategoryId): Promise<Category | null> {
-        const events = await this.eventStore.getEvents('category', categoryId.value);
+    async find(id: CategoryId): Promise<Category | null> {
+        const events = await this.eventStore.getEvents('category', id.value);
         if (events.length === 0) {
             return null;
         }

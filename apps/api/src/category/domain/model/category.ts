@@ -13,17 +13,6 @@ export class Category extends AggregateRoot {
         super();
     }
 
-    public static add(
-        id: CategoryId,
-        name: CategoryName
-    ): Category {
-        const category = new Category();
-        category.apply(
-            new CategoryWasCreated(id.value, name.value)
-        );
-        return category;
-    }
-
     get id(): CategoryId {
         return this._id;
     }
@@ -32,19 +21,41 @@ export class Category extends AggregateRoot {
         return this._name;
     }
 
+    public static add(id: CategoryId, name: CategoryName): Category {
+        const category = new Category();
+        category.apply(
+            new CategoryWasCreated(id.value, name.value)
+        );
+        return category;
+    }
+
+    private onCategoryWasCreated(event: CategoryWasCreated) {
+        this._id = CategoryId.fromString(event.id);
+        this._name = CategoryName.fromString(event.name);
+        this._deleted = undefined;
+    }
+
     delete(): void {
         if(this._deleted) {
             return;
         }
-
         this.apply(new CategoryWasDeleted(this.id.value))
+    }
+
+    private onCategoryWasDeleted(event: CategoryWasDeleted) {
+        this._deleted = event.modifiedOn;
     }
 
     updateCategoryName(categoryName: CategoryName) {
         if(this._name.equals(categoryName)) {
             return;
         }
-
         this.apply(new CategoryNameWasUpdated(this.id.value, categoryName.value));
     }
+
+    private onCategoryNameWasUpdated(event: CategoryNameWasUpdated) {
+        this._name = CategoryName.fromString(event.name);
+    }
+
+
 }
