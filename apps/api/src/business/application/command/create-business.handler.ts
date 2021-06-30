@@ -1,7 +1,13 @@
 import { Inject } from "@nestjs/common";
 import { CommandHandler, ICommandHandler } from "@nestjs/cqrs";
 
-import { BUSINESSES,Businesses } from "../../domain";
+import {
+    Business,
+    BUSINESSES,
+    Businesses,
+    BusinessId,
+    BusinessName,
+} from "../../domain";
 import { CreateBusinessCommand } from "./create-business.command";
 
 @CommandHandler(CreateBusinessCommand)
@@ -11,7 +17,15 @@ export class CreateBusinessHandler implements ICommandHandler<CreateBusinessComm
     ) {}
 
     async execute(command: CreateBusinessCommand) {
-        //TODO
-        this.businesses.save();
+        const id = BusinessId.fromString(command.id);
+        const name = BusinessName.fromString(command.name);
+
+        //TODO - handle same id Error
+        // if(await this.businesses.find(id)) {
+        //     throw BusinessIdAlreadyTakenError.with(id);
+        // }
+
+        const business = Business.add(id,name);
+        this.businesses.save(business);
     }
 }
