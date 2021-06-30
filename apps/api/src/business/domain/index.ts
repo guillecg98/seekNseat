@@ -1,2 +1,3 @@
-export * from './model'
-export * from './respository'
+export * from './event';
+export * from './model';
+export * from './respository';
