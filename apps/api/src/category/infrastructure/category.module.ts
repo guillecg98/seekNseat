@@ -9,7 +9,9 @@ import { GetCategoriesHandler } from "../application/query/get-categories.handle
 import { GetCategoryHanlder } from "../application/query/get-category.handler";
 import { CategoryProviders } from "./category.providers";
 import { CategoryController } from "./controller/category.controller";
+import { CategoryNameWasUpdatedProjection } from "./read-model/projection/category-name-was-updated.projection";
 import { CategoryWasCreatedProjection } from "./read-model/projection/category-was-created.projection";
+import { CategoryWasDeletedProjection } from "./read-model/projection/category-was-deleted.projection";
 import { CategoryMapper } from "./repository/category.mapper";
 
 const CommandHandlers = [
@@ -23,6 +25,8 @@ const QueryHandlers = [
 ];
 const ProjectionHandlers = [
     CategoryWasCreatedProjection,
+    CategoryNameWasUpdatedProjection,
+    CategoryWasDeletedProjection,
 ];
 
 @Module({
