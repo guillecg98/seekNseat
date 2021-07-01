@@ -25,6 +25,7 @@ export class CategoryRepository implements Categories {
     }
 
     async findAll(): Promise<Category[]> {
+        
         return [];
     }
 
