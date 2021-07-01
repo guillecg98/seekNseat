@@ -5,9 +5,9 @@ export class BusinessDTO {
         public readonly id: string,
         public readonly name: string,
         //public readonly contactPhone: Phone,
-        public readonly location: string,
-        public readonly description: string,
+        //public readonly location: string,
+        //public readonly description: string,
         //public readonly images: string[],
-        public readonly categories: CategoryDTO[],
+        //public readonly categories: CategoryDTO[],
     ) {}
 }
