@@ -24,11 +24,6 @@ export class CategoryRepository implements Categories {
         return category;
     }
 
-    async findAll(): Promise<Category[]> {
-        
-        return [];
-    }
-
     save(category: Category): void {
         category = this.publisher.mergeObjectContext(category);
         category.commit();
