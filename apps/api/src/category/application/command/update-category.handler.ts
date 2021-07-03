@@ -19,7 +19,7 @@ export class UpdateCategoryHandler implements ICommandHandler<UpdateCategoryComm
             throw CategoryIdNotFoundError.with(id);
         }
 
-        category.update(name);
+        category.rename(name);
         this.categories.save(category);
     }
 }

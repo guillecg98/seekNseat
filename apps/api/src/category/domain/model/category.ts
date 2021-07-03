@@ -46,14 +46,14 @@ export class Category extends AggregateRoot {
         this._deleted = event.modifiedOn;
     }
 
-    update(categoryName: CategoryName) {
+    rename(categoryName: CategoryName) {
         if(this._name.equals(categoryName)) {
             return;
         }
         this.apply(new CategoryNameWasUpdated(this.id.value, categoryName.value));
     }
 
-    private onCategoryNameWasUpdated(event: CategoryNameWasUpdated) {
+    private onCategoryWasRenamed(event: CategoryNameWasUpdated) {
         this._name = CategoryName.fromString(event.name);
     }
 
