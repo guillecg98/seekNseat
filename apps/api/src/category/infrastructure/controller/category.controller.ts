@@ -46,12 +46,12 @@ export class CategoryController {
 
     @Post()
     @ApiResponse({ status: 200, description: 'Category created' })
-    async create(@Body() createCategoryDto: CreateCategoryDTO): Promise<CategoryDTO> {
+    async create(@Body() createCategoryDTO: CreateCategoryDTO): Promise<CategoryDTO> {
         try {
             return await this.commandBus.execute(
                 new CreateCategoryCommand(
-                    createCategoryDto.id,
-                    createCategoryDto.name
+                    createCategoryDTO.id,
+                    createCategoryDTO.name
                 )
             );
         } catch(e) {
