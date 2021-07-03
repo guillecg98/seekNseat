@@ -13,11 +13,9 @@ export class CategoryNameWasUpdatedProjection implements IViewUpdater<CategoryNa
     ) {}
 
     async handle(event: CategoryNameWasUpdated) {
-        const categoryView =  new this.categoryModel( {
-            _id: event.id,
-            name: event.name,
-        })
-
-        await categoryView.save();
+        await this.categoryModel.updateOne(
+            {_id: event.id},
+            { $set: {name: event.name} },
+        ).exec();
     }
 }

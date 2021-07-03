@@ -13,11 +13,10 @@ export class CategoryWasDeletedProjection implements IViewUpdater<CategoryWasDel
     ) {}
 
     async handle(event: CategoryWasDeleted) {
-        const categoryView = new this.categoryModel({
-            _id: event.id,
-        })
-
-        await categoryView.save();
+        await this.categoryModel.updateOne(
+            { _id: event.id },
+            { $set: { deleted: event.modifiedOn} },
+        ).exec()
     }
 
 }
