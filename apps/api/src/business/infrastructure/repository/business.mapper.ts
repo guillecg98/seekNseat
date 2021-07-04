@@ -10,7 +10,7 @@ export class BusinessMapper {
         return new BusinessDTO(
             business.id.value,
             business.name.value,
-            //business.contactPhone.value,
+            business.contactPhone.value,
             //TODO (location, categories, images...)
         );
     }

@@ -4,7 +4,7 @@ import { Connection } from "mongoose";
 import { DATABASE_CONNECTION } from "../../database/database.provider";
 import { BUSINESSES } from "../domain";
 import { BUSINESS_MODEL,BusinessSchema } from "./read-model/schema/business.schema";
-import { BusinessRepository } from "./repository/business.respository";
+import { BusinessRepository } from "./repository/business.repository";
 
 export const BusinessProviders: Provider [] = [
     {

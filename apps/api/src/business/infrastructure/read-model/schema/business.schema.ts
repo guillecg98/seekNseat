@@ -3,7 +3,7 @@ import { Document, Schema } from "mongoose";
 export const BusinessSchema = new Schema({
     _id: String,
     name: String,
-    //contactPhone: Phone,
+    contactPhone: String,
     //description: String,
     //images: String [],
     //categories: CategoriesDTO[],
@@ -12,7 +12,7 @@ export const BusinessSchema = new Schema({
 export interface BusinessView extends Document {
     readonly _id: string;
     readonly name: string;
-    //readonly contactPhone: Phone,
+    readonly contactPhone: string,
     //readonly description: String,
     //readonly images: String [],
     //readonly categories: CategoriesDTO[],

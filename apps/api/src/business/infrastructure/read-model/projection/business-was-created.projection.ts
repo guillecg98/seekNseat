@@ -16,6 +16,7 @@ export class BusinessWasCreatedProjection implements IViewUpdater<BusinessWasCre
         const businessView = new this.businessModel({
             _id: event.id,
             name: event.name,
+            contactPhone: event.contactPhone,
         });
 
         await businessView.save()

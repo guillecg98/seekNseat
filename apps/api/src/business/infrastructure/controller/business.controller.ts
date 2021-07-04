@@ -24,8 +24,7 @@ export class BusinessController {
                 new CreateBusinessCommand(
                     createBusinessDTO.id,
                     createBusinessDTO.name,
-                    //createBusiness.contactPhone,
-                    //TODO
+                    createBusinessDTO.contactPhone,
                 )
             );
         } catch(e) {

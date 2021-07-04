@@ -8,6 +8,7 @@ import {
     BusinessId,
     BusinessName,
 } from "../../domain";
+import { BusinessContactPhone } from "../../domain/model/business-contact-phone";
 import { CreateBusinessCommand } from "./create-business.command";
 
 @CommandHandler(CreateBusinessCommand)
@@ -19,13 +20,14 @@ export class CreateBusinessHandler implements ICommandHandler<CreateBusinessComm
     async execute(command: CreateBusinessCommand) {
         const id = BusinessId.fromString(command.id);
         const name = BusinessName.fromString(command.name);
+        const contactPhone = BusinessContactPhone.fromString(command.contactPhone);
 
-        //TODO - handle same id Error
-        // if(await this.businesses.find(id)) {
-        //     throw BusinessIdAlreadyTakenError.with(id);
-        // }
+        if(await this.businesses.find(id)) {
+            throw new Error('Business already exists');
+            //TODO - throw BusinessIdAlreadyTakenError.with(id);
+        }
 
-        const business = Business.add(id,name);
+        const business = Business.create(id,name, contactPhone);
         this.businesses.save(business);
     }
 }

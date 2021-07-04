@@ -7,7 +7,7 @@ export class BusinessWasCreated extends StorableEvent {
     constructor(
         public readonly id: string,
         public readonly name: string,
-        //public readonlu contactPhone: Phone,
+        public readonly contactPhone: string,
     ) {
         super();
     }

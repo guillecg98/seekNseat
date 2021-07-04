@@ -1,28 +1,29 @@
 import { AggregateRoot } from "@nestjs/cqrs";
 
 import { BusinessWasCreated } from "../event/business-was-created.event";
+import { BusinessContactPhone } from "./business-contact-phone";
 import { BusinessId } from "./business-id";
 import { BusinessName } from "./business-name";
 
 export class Business extends AggregateRoot {
     private _id: BusinessId;
     private _name: BusinessName;
+    private _contactPhone: BusinessContactPhone;
     private _blocked?: boolean;
     private _deleted?: Date;
-    //private _contactPhone: BusinessContactPhone; TODO
 
     private constructor() {
         super();
     }
 
-    public static add(
+    public static create(
         id: BusinessId,
         name: BusinessName,
-        //contactPhone: BusinessContactPhone,
+        contactPhone: BusinessContactPhone,
     ): Business{
         const business = new Business();
         business.apply(
-            new BusinessWasCreated(id.value, name.value)
+            new BusinessWasCreated(id.value, name.value, contactPhone.value)
         );
         return  business;
     }
@@ -35,9 +36,14 @@ export class Business extends AggregateRoot {
         return this._name;
     }
 
+    get contactPhone(): BusinessContactPhone {
+        return this._contactPhone;
+    }
+
     private onBusinessWasCreated(event: BusinessWasCreated) {
         this._id = BusinessId.fromString(event.id);
         this._name = BusinessName.fromString(event.name);
+        this._contactPhone = BusinessContactPhone.fromString(event.contactPhone);
         this._blocked = false;
         this._deleted = undefined;
     }
