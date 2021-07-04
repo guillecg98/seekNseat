@@ -5,6 +5,7 @@ import { EventSourcingModule } from "event-sourcing-nestjs";
 import { AuthModule } from "../../auth/auth.module";
 import { DatabaseModule } from "../../database/database.module";
 import { CreateBusinessHandler, EditBusinessHandler, GetBusinessHanlder } from "../application";
+import { GetBusinessesHandler } from "../application/query/get-businesses.handler";
 import { BusinessProviders } from "./business.providers";
 import { BusinessController } from "./controller/business.controller";
 import { BusinessProfileWasEditedProjection } from "./read-model/projection/business-profile-was-edited.projection";
@@ -17,6 +18,7 @@ const CommandHandlers = [
 ];
 const QueryHandlers = [
     GetBusinessHanlder,
+    GetBusinessesHandler,
 ];
 const ProjectionHandlers = [
     BusinessWasCreatedProjection,

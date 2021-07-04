@@ -1,9 +1,10 @@
-import { BadRequestException, Body, ClassSerializerInterceptor, Controller, Get, NotFoundException, Param, Post, Put, UseInterceptors } from "@nestjs/common";
+import { BadRequestException, Body, ClassSerializerInterceptor, Controller, Get, NotFoundException, Param, Post, Put, Res, UseInterceptors } from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { ApiBearerAuth, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { BusinessDTO, CreateBusinessDTO, EditBusinessDTO } from "@seekNseat/contracts";
+import { Response } from 'express';
 
-import { CreateBusinessCommand, EditBusinessCommand, GetBusinessQuery } from "../../application";
+import { CreateBusinessCommand, EditBusinessCommand, GetBusinessesQuery, GetBusinessQuery } from "../../application";
 
 @ApiBearerAuth()
 @ApiTags('businesses')
@@ -73,6 +74,26 @@ export class BusinessController {
                 )
             );
 
+        } catch (e) {
+            if(e instanceof Error) {
+                throw new BadRequestException(e.message);
+            } else {
+                throw new BadRequestException('Server Error');
+            }
+        }
+    }
+
+    @Get()
+    @ApiResponse({ status: 200, description: 'List Businesses'})
+    async findAll(@Res({passthrough: true}) res: Response) {
+        try {
+            const businesses = await this.queryBus.execute<GetBusinessesQuery, BusinessDTO[]>(
+                new GetBusinessesQuery()
+            );
+
+            res.setHeader('X-Total-Count', businesses.length);
+
+            return businesses;
         } catch (e) {
             if(e instanceof Error) {
                 throw new BadRequestException(e.message);

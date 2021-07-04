@@ -13,7 +13,7 @@ export class BusinessProfileWasEditedProjection implements IViewUpdater<Business
     ) {}
 
     async handle(event: BusinessProfileWasEdited) {
-        this.businessModel.updateOne(
+        await this.businessModel.updateOne(
             {_id: event.id},
             { $set: {
                 name: event.name,
