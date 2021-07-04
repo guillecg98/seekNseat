@@ -96,7 +96,7 @@ export class CategoryController {
             );
 
             if(!category) throw new NotFoundException();
-                
+
             return category;
         } catch (e) {
             if (e instanceof CategoryIdNotFoundError) {
