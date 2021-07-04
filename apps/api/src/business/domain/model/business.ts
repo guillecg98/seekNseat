@@ -1,6 +1,6 @@
 import { AggregateRoot } from "@nestjs/cqrs";
 
-import { BusinessWasCreated } from "../event/business-was-created.event";
+import { BusinessProfileWasEdited, BusinessWasCreated } from "../event";
 import { BusinessContactPhone } from "./business-contact-phone";
 import { BusinessId } from "./business-id";
 import { BusinessName } from "./business-name";
@@ -9,6 +9,8 @@ export class Business extends AggregateRoot {
     private _id: BusinessId;
     private _name: BusinessName;
     private _contactPhone: BusinessContactPhone;
+    private _address?: string;
+    private _description?: string;
     private _blocked?: boolean;
     private _deleted?: Date;
 
@@ -48,8 +50,31 @@ export class Business extends AggregateRoot {
         this._deleted = undefined;
     }
 
+    editProfile(
+        name: BusinessName,
+        contactPhone: BusinessContactPhone,
+        address: string,
+        description: string,
+        ) {
+        this.apply(
+            new BusinessProfileWasEdited(
+                this.id.value,
+                name.value,
+                contactPhone.value,
+                address,
+                description
+            )
+        );
+    }
+
+    private onBusinessProfileWasEdited(event: BusinessProfileWasEdited) {
+        this._name = BusinessName.fromString(event.name);
+        this._contactPhone = BusinessContactPhone.fromString(event.contactPhone);
+        this._address = event.address;
+        this._description = event.description;
+    }
+
     //TODO
-    //Update & Add other fields (location, description, images[], categories[])
     //Delete Business
     //Block Business
 }

@@ -1,10 +1,9 @@
-import { BadRequestException, Body, ClassSerializerInterceptor, Controller, Get, NotFoundException, Param, Post, UseInterceptors } from "@nestjs/common";
+import { BadRequestException, Body, ClassSerializerInterceptor, Controller, Get, NotFoundException, Param, Post, Put, UseInterceptors } from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { ApiBearerAuth, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { BusinessDTO, CreateBusinessDTO } from "@seekNseat/contracts";
+import { BusinessDTO, CreateBusinessDTO, EditBusinessDTO } from "@seekNseat/contracts";
 
-import { GetBusinessQuery } from "../../application";
-import { CreateBusinessCommand } from "../../application/command/create-business.command";
+import { CreateBusinessCommand, EditBusinessCommand, GetBusinessQuery } from "../../application";
 
 @ApiBearerAuth()
 @ApiTags('businesses')
@@ -55,6 +54,30 @@ export class BusinessController {
                 throw new BadRequestException(e.message);
             } else {
                 throw new BadRequestException('Server error');
+            }
+        }
+    }
+
+    @Put(':id')
+    @ApiResponse({ status: 200, description: 'Business profile modified'})
+    @ApiResponse({ status: 400, description: 'Business profile not found'})
+    async edit(@Param('id') id: string, @Body() editBusinessDTO: EditBusinessDTO): Promise<BusinessDTO> {
+        try {
+            return await this.commandBus.execute(
+                new EditBusinessCommand(
+                    id,
+                    editBusinessDTO.name,
+                    editBusinessDTO.contactPhone,
+                    editBusinessDTO.address,
+                    editBusinessDTO.description
+                )
+            );
+
+        } catch (e) {
+            if(e instanceof Error) {
+                throw new BadRequestException(e.message);
+            } else {
+                throw new BadRequestException('Server Error');
             }
         }
     }
