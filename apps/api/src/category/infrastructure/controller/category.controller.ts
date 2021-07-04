@@ -111,7 +111,7 @@ export class CategoryController {
     @ApiResponse({ status: 404, description: 'Category not found'})
     async update(@Param('id') id: string, @Body() editCategoryDTO: EditCategoryDTO): Promise<CategoryDTO> {
         try {
-            return this.commandBus.execute(
+            return await this.commandBus.execute(
                 new UpdateCategoryCommand(id, editCategoryDTO.name)
             );
         } catch (e) {
@@ -130,7 +130,7 @@ export class CategoryController {
     @ApiResponse({ status: 404, description: 'Category not found'})
     async remove(@Param('id') id: string): Promise<CategoryDTO> {
         try {
-            return this.commandBus.execute(
+            return await this.commandBus.execute(
                 new DeleteCategoryCommand(id)
             );
         } catch (e) {
