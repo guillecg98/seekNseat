@@ -2,17 +2,17 @@ import { Inject } from "@nestjs/common";
 import { IViewUpdater, ViewUpdaterHandler } from "event-sourcing-nestjs";
 import { Model } from "mongoose";
 
-import { CategoryNameWasUpdated } from "../../../domain";
+import { CategoryWasRenamed } from "../../../domain";
 import { CATEGORY_MODEL,CategoryView } from "../schema/category.schema";
 
-@ViewUpdaterHandler(CategoryNameWasUpdated)
-export class CategoryNameWasUpdatedProjection implements IViewUpdater<CategoryNameWasUpdated> {
+@ViewUpdaterHandler(CategoryWasRenamed)
+export class CategoryWasRenamedProjection implements IViewUpdater<CategoryWasRenamed> {
     constructor(
         @Inject(CATEGORY_MODEL)
         private categoryModel: Model<CategoryView>
     ) {}
 
-    async handle(event: CategoryNameWasUpdated) {
+    async handle(event: CategoryWasRenamed) {
         await this.categoryModel.updateOne(
             {_id: event.id},
             { $set: {name: event.name} },

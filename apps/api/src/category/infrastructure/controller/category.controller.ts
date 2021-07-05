@@ -30,7 +30,7 @@ import {
     DeleteCategoryCommand,
     GetCategoriesQuery,
     GetCategoryQuery,
-    UpdateCategoryCommand
+    RenameCategoryCommand
 } from "../../application";
 import { CategoryIdNotFoundError } from "../../domain";
 
@@ -112,7 +112,7 @@ export class CategoryController {
     async update(@Param('id') id: string, @Body() editCategoryDTO: EditCategoryDTO): Promise<CategoryDTO> {
         try {
             return await this.commandBus.execute(
-                new UpdateCategoryCommand(id, editCategoryDTO.name)
+                new RenameCategoryCommand(id, editCategoryDTO.name)
             );
         } catch (e) {
             if (e instanceof CategoryIdNotFoundError) {

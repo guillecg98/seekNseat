@@ -4,20 +4,20 @@ import { EventSourcingModule } from "event-sourcing-nestjs";
 
 import { AuthModule } from "../../auth/auth.module";
 import { DatabaseModule } from "../../database/database.module";
-import { CreateCategoryHandler, DeleteCategoryHandler, UpdateCategoryHandler } from "../application";
+import { CreateCategoryHandler, DeleteCategoryHandler, RenameCategoryHandler } from "../application";
 import { GetCategoriesHandler } from "../application/query/get-categories.handler";
 import { GetCategoryHanlder } from "../application/query/get-category.handler";
 import { CategoryProviders } from "./category.providers";
 import { CategoryController } from "./controller/category.controller";
-import { CategoryNameWasUpdatedProjection } from "./read-model/projection/category-name-was-updated.projection";
 import { CategoryWasCreatedProjection } from "./read-model/projection/category-was-created.projection";
 import { CategoryWasDeletedProjection } from "./read-model/projection/category-was-deleted.projection";
+import { CategoryWasRenamedProjection } from "./read-model/projection/category-was-renamed.projection";
 import { CategoryMapper } from "./repository/category.mapper";
 
 const CommandHandlers = [
     CreateCategoryHandler,
-    UpdateCategoryHandler,
     DeleteCategoryHandler,
+    RenameCategoryHandler,
 ];
 const QueryHandlers = [
     GetCategoryHanlder,
@@ -25,8 +25,8 @@ const QueryHandlers = [
 ];
 const ProjectionHandlers = [
     CategoryWasCreatedProjection,
-    CategoryNameWasUpdatedProjection,
     CategoryWasDeletedProjection,
+    CategoryWasRenamedProjection,
 ];
 
 @Module({

@@ -1,6 +1,6 @@
 import { AggregateRoot } from '@nestjs/cqrs';
 
-import { CategoryNameWasUpdated, CategoryWasCreated, CategoryWasDeleted } from '../event';
+import { CategoryWasCreated, CategoryWasDeleted,CategoryWasRenamed } from '../event';
 import { CategoryId } from './category-id';
 import { CategoryName } from './category-name';
 
@@ -50,10 +50,10 @@ export class Category extends AggregateRoot {
         if(this._name.equals(categoryName)) {
             return;
         }
-        this.apply(new CategoryNameWasUpdated(this.id.value, categoryName.value));
+        this.apply(new CategoryWasRenamed(this.id.value, categoryName.value));
     }
 
-    private onCategoryWasRenamed(event: CategoryNameWasUpdated) {
+    private onCategoryWasRenamed(event: CategoryWasRenamed) {
         this._name = CategoryName.fromString(event.name);
     }
 

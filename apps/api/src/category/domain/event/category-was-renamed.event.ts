@@ -1,6 +1,6 @@
 import { StorableEvent } from 'event-sourcing-nestjs';
 
-export class CategoryNameWasUpdated extends StorableEvent {
+export class CategoryWasRenamed extends StorableEvent {
     eventAggregate = 'category';
     eventVersion = 1;
 
