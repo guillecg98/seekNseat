@@ -1,10 +1,10 @@
-import { BadRequestException, Body, ClassSerializerInterceptor, Controller, Get, NotFoundException, Param, Post, Put, Res, UseInterceptors } from "@nestjs/common";
+import { BadRequestException, Body, ClassSerializerInterceptor, Controller, Delete, Get, NotFoundException, Param, Post, Put, Res, UseInterceptors } from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { ApiBearerAuth, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { BusinessDTO, CreateBusinessDTO, EditBusinessDTO } from "@seekNseat/contracts";
 import { Response } from 'express';
 
-import { CreateBusinessCommand, EditBusinessCommand, GetBusinessesQuery, GetBusinessQuery } from "../../application";
+import { CreateBusinessCommand, DeleteBusinessCommand, EditBusinessCommand, GetBusinessesQuery, GetBusinessQuery } from "../../application";
 
 @ApiBearerAuth()
 @ApiTags('businesses')
@@ -99,6 +99,23 @@ export class BusinessController {
                 throw new BadRequestException(e.message);
             } else {
                 throw new BadRequestException('Server Error');
+            }
+        }
+    }
+
+    @Delete(':id')
+    @ApiResponse({ status: 200, description: 'Business deleted'})
+    @ApiResponse({ status: 404, description: 'Business not found'})
+    async delete(@Param('id') id: string): Promise<BusinessDTO> {
+        try {
+            return await this.commandBus.execute(
+                new DeleteBusinessCommand(id)
+            );
+        } catch (e) {
+            if(e instanceof Error) {
+                throw new BadRequestException(e.message);
+            } else {
+                throw new BadRequestException('Server Error')
             }
         }
     }

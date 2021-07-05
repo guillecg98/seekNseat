@@ -1,6 +1,6 @@
 import { AggregateRoot } from "@nestjs/cqrs";
 
-import { BusinessProfileWasEdited, BusinessWasCreated } from "../event";
+import { BusinessProfileWasEdited, BusinessWasCreated, BusinessWasDeleted } from "../event";
 import { BusinessContactPhone } from "./business-contact-phone";
 import { BusinessId } from "./business-id";
 import { BusinessName } from "./business-name";
@@ -74,7 +74,17 @@ export class Business extends AggregateRoot {
         this._description = event.description;
     }
 
+    delete(): void {
+        if(this._deleted) {
+            return;
+        }
+
+        this.apply(new BusinessWasDeleted(this.id.value))
+    }
+
+    private onBusinessWasDeleted(event: BusinessWasDeleted) {
+        this._deleted = event.modifiedOn;
+    }
     //TODO
-    //Delete Business
     //Block Business
 }

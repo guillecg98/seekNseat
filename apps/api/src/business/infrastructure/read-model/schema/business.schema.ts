@@ -6,6 +6,8 @@ export const BusinessSchema = new Schema({
     contactPhone: String,
     address: String,
     description: String,
+    deleted: Date,
+    blocked: Boolean,
     //images: String [],
     //categories: CategoriesDTO[],
 })
@@ -16,6 +18,8 @@ export interface BusinessView extends Document {
     readonly contactPhone: string,
     readonly address: string,
     readonly description: string,
+    readonly deleted: Date,
+    readonly blocked: boolean,
     //readonly images: String [],
     //readonly categories: CategoriesDTO[],
 }
