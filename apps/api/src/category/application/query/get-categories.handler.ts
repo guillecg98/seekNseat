@@ -1,21 +1,21 @@
 import { Inject } from "@nestjs/common";
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs";
-import { CategoryDTO } from "@seekNseat/contracts";
+import { Model } from "mongoose";
 
-import { CATEGORIES,Categories } from "../../domain";
-import { CategoryMapper } from "../../infrastructure/repository/category.mapper";
+import { CATEGORY_MODEL,CategoryView } from "../../infrastructure/read-model/schema/category.schema";
 import { GetCategoriesQuery } from "./get-categories.query";
 
 
 @QueryHandler(GetCategoriesQuery)
 export class GetCategoriesHandler implements IQueryHandler<GetCategoriesQuery> {
     constructor(
-        @Inject(CATEGORIES) private categories: Categories,
-        private categoryMapper: CategoryMapper
+        @Inject(CATEGORY_MODEL)
+        private categoryModel: Model<CategoryView>
+
     ) {}
 
-    async execute(query: GetCategoriesQuery): Promise<CategoryDTO[]> {
-        const categories = await this.categories.findAll();
-        return categories.map(this.categoryMapper.aggregateToDTO);
+    async execute(query: GetCategoriesQuery): Promise<CategoryView[]> {
+       // return categories.map(this.categoryMapper.aggregateToDTO);
+       return await this.categoryModel.find().exec();
     }
 }

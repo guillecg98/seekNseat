@@ -30,11 +30,9 @@ import {
     DeleteCategoryCommand,
     GetCategoriesQuery,
     GetCategoryQuery,
-    UpdateCategoryCommand
+    RenameCategoryCommand
 } from "../../application";
 import { CategoryIdNotFoundError } from "../../domain";
-import { CategoryMapper } from "../repository/category.mapper";
-
 
 @ApiBearerAuth()
 @ApiTags('categories')
@@ -44,17 +42,16 @@ export class CategoryController {
     constructor(
         private queryBus: QueryBus,
         private commandBus: CommandBus,
-        private categoryMapper: CategoryMapper,
     ) {}
 
     @Post()
     @ApiResponse({ status: 200, description: 'Category created' })
-    async create(@Body() createCategoryDto: CreateCategoryDTO): Promise<CategoryDTO> {
+    async create(@Body() createCategoryDTO: CreateCategoryDTO): Promise<CategoryDTO> {
         try {
             return await this.commandBus.execute(
                 new CreateCategoryCommand(
-                    createCategoryDto.id,
-                    createCategoryDto.name
+                    createCategoryDTO.id,
+                    createCategoryDTO.name
                 )
             );
         } catch(e) {
@@ -96,7 +93,7 @@ export class CategoryController {
             );
 
             if(!category) throw new NotFoundException();
-                
+
             return category;
         } catch (e) {
             if (e instanceof CategoryIdNotFoundError) {
@@ -114,17 +111,8 @@ export class CategoryController {
     @ApiResponse({ status: 404, description: 'Category not found'})
     async update(@Param('id') id: string, @Body() editCategoryDTO: EditCategoryDTO): Promise<CategoryDTO> {
         try {
-            const category = await this.queryBus.execute<GetCategoryQuery, CategoryDTO>(
-                new GetCategoryQuery(id)
-            );
-
-            if (!category) throw new NotFoundException();
-
-            return this.commandBus.execute(
-                new UpdateCategoryCommand(
-                    id,
-                    editCategoryDTO.name
-                )
+            return await this.commandBus.execute(
+                new RenameCategoryCommand(id, editCategoryDTO.name)
             );
         } catch (e) {
             if (e instanceof CategoryIdNotFoundError) {
@@ -142,7 +130,7 @@ export class CategoryController {
     @ApiResponse({ status: 404, description: 'Category not found'})
     async remove(@Param('id') id: string): Promise<CategoryDTO> {
         try {
-            return this.commandBus.execute(
+            return await this.commandBus.execute(
                 new DeleteCategoryCommand(id)
             );
         } catch (e) {

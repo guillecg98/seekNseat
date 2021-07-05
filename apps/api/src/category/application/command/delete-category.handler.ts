@@ -11,14 +11,14 @@ export class DeleteCategoryHandler implements ICommandHandler<DeleteCategoryComm
     ) {}
 
     async execute(command: DeleteCategoryCommand) {
-        const categoryId = CategoryId.fromString(command.categoryId);
+        const id = CategoryId.fromString(command.categoryId);
 
-        const category = await this.categories.find(categoryId);
+        const category = await this.categories.find(id);
         if(!category) {
-            throw CategoryIdNotFoundError.with(categoryId);
+            throw CategoryIdNotFoundError.with(id);
         }
 
         category.delete();
-        this.categories.save(category); 
+        this.categories.save(category);
     }
 }
