@@ -29,7 +29,7 @@ const App = () => {
           <View style={styles.header}>
             <Image style={styles.logo} source={require('./logo.png')} />
             <Text style={styles.heading} testID="heading">
-              Welcome to React Native
+              Welcome to Seek N Seat
             </Text>
           </View>
           <View style={styles.body}>
@@ -85,8 +85,8 @@ const styles = StyleSheet.create({
     paddingVertical: 24,
   },
   logo: {
-    width: 200,
-    height: 180,
+    width: 100,
+    height: 80,
     resizeMode: 'contain',
   },
   heading: {

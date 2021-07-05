@@ -425,7 +425,7 @@
         "start": {
           "executor": "@nrwl/react-native:start",
           "options": {
-            "port": 8081
+            "port": 9988
           }
         },
         "serve": {
