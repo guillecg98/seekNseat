@@ -1,21 +1,22 @@
 import React from 'react';
 import {
-  Image,
   SafeAreaView,
-  ScrollView,
-  StatusBar,
   StyleSheet,
-  Text,
-  TouchableOpacity,
+  ScrollView,
+  Image,
   View,
+  Text,
+  StatusBar,
+  TouchableOpacity,
 } from 'react-native';
-// @ts-ignore
-import openURLInBrowser from 'react-native/Libraries/Core/Devtools/openURLInBrowser';
+
 import {
   Colors,
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+// @ts-ignore
+import openURLInBrowser from 'react-native/Libraries/Core/Devtools/openURLInBrowser';
 
 const App = () => {
   return (
@@ -29,7 +30,7 @@ const App = () => {
           <View style={styles.header}>
             <Image style={styles.logo} source={require('./logo.png')} />
             <Text style={styles.heading} testID="heading">
-              Welcome to React Native
+              Welcome to Mobile
             </Text>
           </View>
           <View style={styles.body}>

@@ -83,7 +83,7 @@
     "@nrwl/next": "^11.0.16",
     "@nrwl/node": "^11.0.16",
     "@nrwl/react": "^11.0.16",
-    "@nrwl/react-native": "^11.4.1",
+    "@nrwl/react-native": "^12.3.6",
     "@nrwl/storybook": "^11.0.16",
     "@nrwl/tao": "^11.0.16",
     "@nrwl/web": "^11.0.16",
