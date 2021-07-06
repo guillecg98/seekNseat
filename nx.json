@@ -29,25 +29,6 @@
     }
   },
   "projects": {
-    "web": {
-      "tags": []
-    },
-    "web-e2e": {
-      "tags": [],
-      "implicitDependencies": ["web"]
-    },
-    "api": {
-      "tags": []
-    },
-    "domain": {
-      "tags": []
-    },
-    "ui": {
-      "tags": []
-    },
-    "contracts": {
-      "tags": []
-    },
     "admin": {
       "tags": []
     },
@@ -55,8 +36,35 @@
       "tags": [],
       "implicitDependencies": ["admin"]
     },
+    "api": {
+      "tags": []
+    },
+    "contracts": {
+      "tags": []
+    },
+    "domain": {
+      "tags": []
+    },
     "mobile": {
       "tags": []
+    },
+    "ui": {
+      "tags": []
+    },
+    "web": {
+      "tags": []
+    },
+    "web-e2e": {
+      "tags": [],
+      "implicitDependencies": ["web"]
     }
+  },
+  "targetDependencies": {
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ]
   }
 }
