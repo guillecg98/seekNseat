@@ -1,12 +1,13 @@
 import { BadRequestException, Body, ClassSerializerInterceptor, Controller, Delete, Get, NotFoundException, Param, Post, Put, Res, UseInterceptors } from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
-import { ApiBearerAuth, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { ApiResponse, ApiTags } from "@nestjs/swagger";
 import { BusinessDTO, CreateBusinessDTO, EditBusinessDTO } from "@seekNseat/contracts";
 import { Response } from 'express';
 
 import { CreateBusinessCommand, DeleteBusinessCommand, EditBusinessCommand, GetBusinessesQuery, GetBusinessQuery } from "../../application";
+import { BusinessView } from "../read-model/schema/business.schema";
+import { BusinessMapper } from "../repository/business.mapper";
 
-@ApiBearerAuth()
 @ApiTags('businesses')
 @Controller('businesses')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -14,6 +15,7 @@ export class BusinessController {
     constructor(
         private queryBus: QueryBus,
         private commandBus: CommandBus,
+        private businessMapper: BusinessMapper,
     ) {}
 
     @Post()
@@ -87,13 +89,13 @@ export class BusinessController {
     @ApiResponse({ status: 200, description: 'List Businesses'})
     async findAll(@Res({passthrough: true}) res: Response) {
         try {
-            const businesses = await this.queryBus.execute<GetBusinessesQuery, BusinessDTO[]>(
+            const businesses = await this.queryBus.execute<GetBusinessesQuery, BusinessView[]>(
                 new GetBusinessesQuery()
             );
 
             res.setHeader('X-Total-Count', businesses.length);
 
-            return businesses;
+            return businesses.map(this.businessMapper.viewToDto);
         } catch (e) {
             if(e instanceof Error) {
                 throw new BadRequestException(e.message);

@@ -13,9 +13,8 @@ export class CategoryWasDeletedProjection implements IViewUpdater<CategoryWasDel
     ) {}
 
     async handle(event: CategoryWasDeleted) {
-        await this.categoryModel.updateOne(
+        await this.categoryModel.deleteOne(
             { _id: event.id },
-            { $set: { deleted: event.modifiedOn} },
         ).exec()
     }
 

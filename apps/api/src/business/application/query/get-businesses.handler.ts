@@ -13,6 +13,6 @@ export class GetBusinessesHandler implements IQueryHandler<GetBusinessesQuery> {
     ) {}
 
     async execute(query: GetBusinessesQuery): Promise<BusinessView[]> {
-        return await this.businessModel.find().exec();
+        return this.businessModel.find().exec();
     }
 }

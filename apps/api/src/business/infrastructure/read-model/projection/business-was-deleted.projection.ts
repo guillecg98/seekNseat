@@ -13,9 +13,8 @@ export class BusinessWasDeletedProjection implements IViewUpdater<BusinessWasDel
     ) {}
 
     async handle(event: BusinessWasDeleted) {
-        await this.businessModel.updateOne(
+        await this.businessModel.deleteOne(
             {_id: event.id},
-            { $set: {deleted: event.modifiedOn} },
         ).exec();
     }
 }

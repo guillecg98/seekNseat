@@ -14,7 +14,6 @@ import {
 } from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import {
-    ApiBearerAuth,
     ApiResponse,
     ApiTags
 } from "@nestjs/swagger";
@@ -33,8 +32,10 @@ import {
     RenameCategoryCommand
 } from "../../application";
 import { CategoryIdNotFoundError } from "../../domain";
+import { CategoryView } from "../read-model/schema/category.schema";
+import { CategoryMapper } from "../repository/category.mapper";
 
-@ApiBearerAuth()
+
 @ApiTags('categories')
 @Controller('categories')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -42,6 +43,7 @@ export class CategoryController {
     constructor(
         private queryBus: QueryBus,
         private commandBus: CommandBus,
+        private categoryMapper: CategoryMapper,
     ) {}
 
     @Post()
@@ -67,13 +69,13 @@ export class CategoryController {
     @ApiResponse({ status: 200, description: 'List Categories' })
     async findAll(@Res({ passthrough: true }) res: Response) {
         try {
-            const categories = await this.queryBus.execute<GetCategoriesQuery, CategoryDTO[]>(
+            const categories = await this.queryBus.execute<GetCategoriesQuery, CategoryView[]>(
                 new GetCategoriesQuery()
             );
 
             res.setHeader('X-Total-Count', categories.length);
 
-            return categories;
+            return categories.map(this.categoryMapper.viewToDto);
         } catch (e) {
             if ( e instanceof Error) {
                 throw new BadRequestException(e.message);

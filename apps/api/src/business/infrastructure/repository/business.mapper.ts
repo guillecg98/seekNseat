@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { BusinessDTO } from "@seekNseat/contracts";
 
 import { Business } from "../../domain";
+import { BusinessView } from "../read-model/schema/business.schema";
 
 @Injectable()
 export class BusinessMapper {
@@ -13,5 +14,13 @@ export class BusinessMapper {
             business.contactPhone.value,
             //TODO (address, categories, images...)
         );
+    }
+    viewToDto(businessView: BusinessView): BusinessDTO {
+
+        const { _id: id, ...data } = businessView.toObject();
+        return {
+            id,
+            ...data
+        }
     }
 }
