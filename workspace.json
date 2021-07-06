@@ -1,5 +1,31 @@
 {
   "version": 2,
+  "cli": {
+    "defaultCollection": "@nrwl/next"
+  },
+  "defaultProject": "web",
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "style": "none",
+        "linter": "eslint",
+        "babel": true
+      },
+      "component": {
+        "style": "none"
+      },
+      "library": {
+        "style": "none",
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/next": {
+      "application": {
+        "style": "css",
+        "linter": "eslint"
+      }
+    }
+  },
   "projects": {
     "web": {
       "root": "apps/web",
@@ -420,7 +446,6 @@
       "root": "apps/mobile",
       "sourceRoot": "apps/mobile/src",
       "projectType": "application",
-      "generators": {},
       "targets": {
         "start": {
           "executor": "@nrwl/react-native:start",
@@ -469,17 +494,17 @@
             "bundleOutput": "dist/apps/mobile/android/main.bundle"
           }
         },
+        "sync-deps": {
+          "executor": "@nrwl/react-native:sync-deps",
+          "options": {}
+        },
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "apps/mobile/**/*.{js,ts,tsx}"
+              "apps/mobile/**/*.{ts,tsx,js,jsx}"
             ]
           }
-        },
-        "sync-deps": {
-          "executor": "@nrwl/react-native:sync-deps",
-          "options": {}
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -493,31 +518,5 @@
         }
       }
     }
-  },
-  "cli": {
-    "defaultCollection": "@nrwl/next"
-  },
-  "generators": {
-    "@nrwl/react": {
-      "application": {
-        "style": "none",
-        "linter": "eslint",
-        "babel": true
-      },
-      "component": {
-        "style": "none"
-      },
-      "library": {
-        "style": "none",
-        "linter": "eslint"
-      }
-    },
-    "@nrwl/next": {
-      "application": {
-        "style": "css",
-        "linter": "eslint"
-      }
-    }
-  },
-  "defaultProject": "web"
+  }
 }
