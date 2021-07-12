@@ -1,23 +1,38 @@
-import 'react-native-gesture-handler';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import React from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import React, { useEffect } from 'react';
+import {Button, SafeAreaView, Text, TouchableOpacity, View} from 'react-native';
+import { Input } from 'react-native-elements/dist/input/Input';
+import SafeAreaProvider from 'react-native-safe-area-context';
 
-import InitialScreen from './screens/initial-screen';
-import Instructions from './screens/nx-rn-instructions.screen';
+import ReservationButton from './components/reservation-button.component';
+import { getBusinesses } from './requests/get-businesses.request';
+import { getCountries } from './requests/get-countries-sample.request';
+import { RegisterBusinessScreen, TypeOfUserScreen } from './screens';
+import BusinessScreen from './screens/business.screen';
 
-const Stack = createStackNavigator();
+//const Stack = createStackNavigator();
 
-const App = () => {
+export default function App() {
+
+  const getBusinessesOnPressButton = () => {
+    getBusinesses()
+    .then( (res) => {
+      console.log(res?.data)
+    })
+  }
+
   return (
-    // <NavigationContainer>
-    //   <Stack.Navigator>
-    //     <Stack.Screen name="Home" component={HomeScreen} />
-    //   </Stack.Navigator>
-    <InitialScreen />
-      // </NavigationContainer>
+  //   <NavigationContainer>
+  //     <Stack.Navigator>
+  //       <Stack.Screen name="register business" component={RegisterBusinessScreen} />
+  //     </Stack.Navigator>
+  // </NavigationContainer>
+  <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center'}}>
+    <Button
+      title="prueba api"
+      onPress={getBusinessesOnPressButton} />
+  </View>
   );
 }
-export default App;

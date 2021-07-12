@@ -50,13 +50,13 @@ const styles = StyleSheet.create({
 })
 
 
-const InitialScreen = () => {
+export const TypeOfUserScreen = () => {
 
-    const receiveBusinesses = () => {
-        getBusinesses()
-        .then( (res) => {
-            console.log(res)
-        })
+    const onGetBusinesses = () => {
+        return fetch('https://restcountries.eu/rest/v2/currency/cop')
+        .then( (response) => response.json())
+        .then( (json) => console.log(json))
+        .catch( (err) => console.log(err))
     }
 
     return(
@@ -73,7 +73,7 @@ const InitialScreen = () => {
             <View style={styles.section}>
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={receiveBusinesses}>
+                    onPress={onGetBusinesses}>
                         <Icon name="do-not-disturb" color='#596275'/>
                         <Text style={styles.textButton}> I'm a Consumer </Text>
                 </TouchableOpacity>
@@ -94,5 +94,3 @@ const InitialScreen = () => {
       </View>
     );
 }
-
-export default InitialScreen;
