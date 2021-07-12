@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const getBusinesses = async () => {
+export const getCategories = async () => {
     try {
-        return await axios.get('http://localhost:3333/api/businesses', {
+        return await axios.get('http://localhost:3333/api/categories', {
             headers: {
                 'Access-Control-Allow-Origin': '*',
             },
