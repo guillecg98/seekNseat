@@ -1,15 +1,11 @@
-import  axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
     StyleSheet,
     Text,
-    TouchableOpacity,
     View,
 } from 'react-native';
-import { Icon } from 'react-native-elements';
 
-import InitialButton from '../components/initial-button.component';
-import { getBusinesses } from '../requests/get-businesses.request';
+import { InitialButton } from '../components';
 
 const styles = StyleSheet.create({
     container: {
@@ -50,35 +46,29 @@ const styles = StyleSheet.create({
 })
 
 
-export const TypeOfUserScreen = () => {
+export const TypeOfUserScreen = ({ navigation }) => {
 
     return(
         <View style={styles.container}>
 
-            <Text> this should be the header </Text>
-
             <View style={styles.section}>
-                <TouchableOpacity style={styles.intro}>
+                <View style={styles.intro}>
                     <Text style={styles.textIntro}> Hi there! What are you feeling like? </Text>
-                </TouchableOpacity>
+                </View>
             </View>
 
             <View style={styles.section}>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => console.log('consumer')}>
-                        <Icon name="do-not-disturb" color='#596275'/>
-                        <Text style={styles.textButton}> I'm a Consumer </Text>
-                </TouchableOpacity>
+                <InitialButton
+                    icon="food-fork-drink"
+                    text="I'm a consumer"
+                    onPress={() => navigation.navigate('Business')}/>
             </View>
 
             <View style={styles.section}>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => console.log('Register')}>
-                        <Icon name="do-not-disturb" color='#596275'/>
-                        <Text style={styles.textButton}> I'm a Business </Text>
-                </TouchableOpacity>
+                <InitialButton
+                    icon="chef-hat"
+                    text="I'm a business"
+                    onPress={() => navigation.navigate('Register')}/>
             </View>
 
         <View style={{ flex:0.5}}>
