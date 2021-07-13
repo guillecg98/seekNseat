@@ -52,13 +52,6 @@ const styles = StyleSheet.create({
 
 export const TypeOfUserScreen = () => {
 
-    const onGetBusinesses = () => {
-        return fetch('https://restcountries.eu/rest/v2/currency/cop')
-        .then( (response) => response.json())
-        .then( (json) => console.log(json))
-        .catch( (err) => console.log(err))
-    }
-
     return(
         <View style={styles.container}>
 
@@ -73,7 +66,7 @@ export const TypeOfUserScreen = () => {
             <View style={styles.section}>
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={onGetBusinesses}>
+                    onPress={() => console.log('consumer')}>
                         <Icon name="do-not-disturb" color='#596275'/>
                         <Text style={styles.textButton}> I'm a Consumer </Text>
                 </TouchableOpacity>
@@ -82,7 +75,7 @@ export const TypeOfUserScreen = () => {
             <View style={styles.section}>
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={() => {console.log('api call wip')}}>
+                    onPress={() => console.log('Register')}>
                         <Icon name="do-not-disturb" color='#596275'/>
                         <Text style={styles.textButton}> I'm a Business </Text>
                 </TouchableOpacity>

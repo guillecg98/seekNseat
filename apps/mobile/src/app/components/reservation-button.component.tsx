@@ -13,7 +13,7 @@ const ReservationButton = () => {
       style={buttonStyle}
       mode="contained"
       uppercase={false}
-      color='4884CA'
+      color='#4884CA'
       onPress={() => console.log('you want a reservation')}>
         Get a reservation now
     </Button>
