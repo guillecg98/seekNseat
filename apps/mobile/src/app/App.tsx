@@ -8,6 +8,7 @@ import SafeAreaProvider from 'react-native-safe-area-context';
 
 import ReservationButton from './components/reservation-button.component';
 import { getBusinesses } from './requests/get-businesses.request';
+import { getCategories } from './requests/get-categories.request';
 import { getCountries } from './requests/get-countries-sample.request';
 import { RegisterBusinessScreen, TypeOfUserScreen } from './screens';
 import BusinessScreen from './screens/business.screen';
@@ -17,7 +18,7 @@ import BusinessScreen from './screens/business.screen';
 export default function App() {
 
   const getBusinessesOnPressButton = () => {
-    getBusinesses()
+    getCategories()
     .then( (res) => {
       console.log(res?.data)
     })
