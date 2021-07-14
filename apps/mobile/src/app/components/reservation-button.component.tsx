@@ -1,12 +1,14 @@
 import React from 'react';
-import { baseProps } from 'react-native-gesture-handler/lib/typescript/handlers/gestureHandlers';
-import { Button, useTheme } from 'react-native-paper';
+import { StyleSheet } from 'react-native';
+import { Button } from 'react-native-paper';
 
-const buttonStyle = {
-  margin: 15,
-  elevation: 8,
-  borderRadius: 30,
-};
+const styles = StyleSheet.create({
+  reservationButton: {
+    margin: 15,
+    elevation: 8,
+    borderRadius: 30,
+  },
+});
 
 type Props = {
   onPress: any;
@@ -16,7 +18,7 @@ export const ReservationButton = (props: Props) => {
 
   return (
     <Button
-      style={buttonStyle}
+      style={styles.reservationButton}
       mode="contained"
       uppercase={false}
       color='#4884CA'
