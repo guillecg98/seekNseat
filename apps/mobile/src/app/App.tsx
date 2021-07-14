@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import { Button, Text, View} from 'react-native';
 
 import { ReservationButton } from './components';
-import { BusinessScreen, RegisterBusinessScreen, TypeOfUserScreen } from './screens';
+import { BusinessesScreen, BusinessScreen, RegisterBusinessScreen, TypeOfUserScreen } from './screens';
 
 const Stack = createStackNavigator();
 
@@ -15,6 +15,7 @@ const App = () => {
       <Stack.Navigator initialRouteName="Initial">
         <Stack.Screen name="Initial" component={TypeOfUserScreen} />
         <Stack.Screen name="Register" component={RegisterBusinessScreen} />
+        <Stack.Screen name="Businesses" component={BusinessesScreen} />
         <Stack.Screen name="Business" component={BusinessScreen} />
       </Stack.Navigator>
     </NavigationContainer>
