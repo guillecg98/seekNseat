@@ -1,3 +1,4 @@
+import { BusinessDTO } from '@seekNseat/contracts';
 import React from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { Avatar, ListItem } from "react-native-elements";
@@ -8,7 +9,7 @@ import { CheckInfoButton } from "./check-info-button.component";
 const styles = StyleSheet.create({
     listContainer: {
         flex: 1,
-        elevation: 8,
+        elevation: 5,
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
         padding: 10,
@@ -16,7 +17,7 @@ const styles = StyleSheet.create({
     list: {
         flex: 1,
         marginTop: 10,
-        padding: 15,
+        padding: 10,
     },
     listItem: {
         padding: 2,
@@ -24,33 +25,34 @@ const styles = StyleSheet.create({
 })
 
 type Props = {
-    businessList: [];
+    businessList: BusinessDTO[];
     navigation: any;
 }
 
 export const BusinessList = (props: Props) => {
     return(
         <View style={styles.listContainer}>
-
             <ScrollView style={styles.list}>
             {
                 props.businessList.map((business) => (
-                <ListItem style={styles.listItem} key={business.id}>
-                    <ListItem.Content >
-                    <ListItem.Title>{business.name}</ListItem.Title>
-                    </ListItem.Content>
-                    <Avatar
-                        avatarStyle={{borderRadius: 15}}
-                        size="large"
-                        source={{uri: 'https://picsum.photos/300'}}/>
-                    <ListItem.Content>
-                        <CheckInfoButton onPress={() => props.navigation.navigate('Business')} />
-                    </ListItem.Content>
-                </ListItem>
+                        <ListItem
+                            key={business.id}
+                            style={styles.listItem}
+                            containerStyle={{borderRadius: 12}}>
+                            <ListItem.Content >
+                                <ListItem.Title>{business.name}</ListItem.Title>
+                            </ListItem.Content>
+                            <Avatar
+                                avatarStyle={{borderRadius: 12}}
+                                size="large"
+                                source={{uri: 'https://www.emprendedores.es/wp-content/uploads/2015/01/ginos-logo-1542112796-1024x512.jpg'}}/>
+                            <ListItem.Content>
+                                <CheckInfoButton onPress={() => props.navigation.navigate('Business', {businessId: business.id})} />
+                            </ListItem.Content>
+                        </ListItem>
                 ))
             }
             </ScrollView>
-
         </View>
     );
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { Card, Modal, Paragraph, Portal, Provider, Text  } from 'react-native-paper';
 
 import { ReservationButton } from './reservation-button.component';
@@ -7,25 +7,28 @@ import { ReservationButton } from './reservation-button.component';
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignContent: 'center',
-    },
-    cardContainer: {
-        elevation: 18,
+        elevation: 4,
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
-        justifyContent: 'center',
+        padding: 12,
+    },
+    cardContainer: {
+        marginTop: 15,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
     },
     cardTitle: {
         fontSize: 24,
         textAlign: 'center',
         color: '#4884CA',
-        padding: 15,
+        padding: 10,
     },
     cardCover: {
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
     },
-    description: {
+    descriptionStyle: {
+        fontSize: 16,
         color: 'black',
         margin: 10,
         marginTop: 30,
@@ -38,7 +41,14 @@ const styles = StyleSheet.create({
     }
 });
 
-export const BusinessCard = () => {
+type Props = {
+    name: string;
+    contactPhone: string;
+    address?: string;
+    description?: string;
+}
+
+export const BusinessCard = (props: Props) => {
 
     const [visible, setVisible] = useState(false);
 
@@ -46,16 +56,30 @@ export const BusinessCard = () => {
     const hideModal = () => setVisible(false);
 
     return(
+        <View  style={styles.container}>
         <Provider>
-        <ScrollView style={styles.container}>
-        <Card style={styles.cardContainer} elevation={8}>
-            <Card.Title titleStyle={styles.cardTitle} title="Example" />
+            <ScrollView>
+        <Card style={styles.cardContainer}>
+            <Card.Title titleStyle={styles.cardTitle} title={props.name} />
                 <Card.Content>
                     <Card.Cover style={styles.cardCover} source={{ uri: 'https://picsum.photos/300' }} />
-                    <Paragraph style={styles.description}>
-                        XYZ is a partnership firm owned and operated by A and B in the city of Davis, California. You can find all types of lab equipment for schools and colleges. ABC Company provides high quality plumbing services. We have been serving St. Washougal, Washington and neighboring areas for more than 12 years.
-                        XYZ is a partnership firm owned and operated by A and B in the city of Davis, California. You can find all types of lab equipment for schools and colleges. ABC Company provides high quality plumbing services. We have been serving St. Washougal, Washington and neighboring areas for more than 12 years.
-                        XYZ is a partnership firm owned and operated by A and B in the city of Davis, California. You can find all types of lab equipment for schools and colleges.
+                    <Paragraph style={styles.descriptionStyle}>
+                        {/* {props.description ? props.description : 'There is no description for this business yet'} */}
+                        sdgfsdthfdgsdjdyjdgshdkyhjgsfghsdhdyjfsgsdfyjhyfjghsf
+                        sdgfsdthfdgsdjdyjdgshdkyhjgsfghsdhdyjfsgsdfyjhyfjghsf
+                        sdgfsdthfdgsdjdyjdgshdkyhjgsfghsdhdyjfsgsdfyjhyfjghsf
+                        sdgfsdthfdgsdjdyjdgshdkyhjgsfghsdhdyjfsgsdfyjhyfjghsf
+                        sdgfsdthfdgsdjdyjdgshdkyhjgsfghsdhdyjfsgsdfyjhyfjghsf
+                        sdgfsdthfdgsdjdyjdgshdkyhjgsfghsdhdyjfsgsdfyjhyfjghsf
+                        sdgfsdthfdgsdjdyjdgshdkyhjgsfghsdhdyjfsgsdfyjhyfjghsf
+                        sdgfsdthfdgsdjdyjdgshdkyhjgsfghsdhdyjfsgsdfyjhyfjghsf
+                        sdgfsdthfdgsdjdyjdgshdkyhjgsfghsdhdyjfsgsdfyjhyfjghsf
+                        sdgfsdthfdgsdjdyjdgshdkyhjgsfghsdhdyjfsgsdfyjhyfjghsf
+                        sdgfsdthfdgsdjdyjdgshdkyhjgsfghsdhdyjfsgsdfyjhyfjghsf
+                        sdgfsdthfdgsdjdyjdgshdkyhjgsfghsdhdyjfsgsdfyjhyfjghsf
+                    </Paragraph>
+                    <Paragraph style={styles.descriptionStyle}>
+                        Contact phone: {props.contactPhone}
                     </Paragraph>
                 </Card.Content>
             <Card.Actions style={{justifyContent: 'center'}}>
@@ -70,5 +94,6 @@ export const BusinessCard = () => {
         </Card>
         </ScrollView>
         </Provider>
+        </View>
     )
 }
