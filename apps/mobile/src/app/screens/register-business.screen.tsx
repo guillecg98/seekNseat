@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import {
     StyleSheet,
     Text,
-    TextInput,
     TouchableOpacity,
     View,
 } from 'react-native';
+import { Input } from 'react-native-elements';
+
+import { PublishBusinessButton } from '../components';
+import { createBusiness } from '../requests';
 
 const styles = StyleSheet.create({
     container: {
@@ -17,11 +20,7 @@ const styles = StyleSheet.create({
     section: {
         flex: 1,
         padding: 15,
-    },
-    intro: {
-        flex: 1,
-        marginLeft: 30,
-        marginRight: 30,
+        margin: 15,
         justifyContent: 'center',
     },
     textIntro: {
@@ -29,34 +28,12 @@ const styles = StyleSheet.create({
         color: '#4884CA',
         textAlign: 'center',
     },
-    textInput: {
-        height: 40,
-        margin: 12,
-        borderWidth: 0.5,
-    },
-    button: {
-        marginLeft: 15,
-        marginRight: 15,
-        marginTop: 60,
-        backgroundColor: '#4884CA',
-        borderRadius: 30,
-        height: 45,
-        justifyContent: 'center',
-    },
-    textButton: {
-        fontSize: 20,
-        color: 'white',
-        textAlign: 'center',
-    },
     dropdown: {
-        marginTop: 25,
-        marginLeft: 15,
-        marginRight: 15,
         borderRadius: 30,
-        height: 40,
         justifyContent: 'center',
         borderWidth: 1,
         borderColor: '#596275',
+        margin: 20,
     },
     textDropdown: {
         fontSize: 18,
@@ -65,58 +42,53 @@ const styles = StyleSheet.create({
     }
 })
 
-export const RegisterBusinessScreen = () => {
+export const RegisterBusinessScreen = ({ navigation }) => {
 
     const [name, setName] = useState('');
     const [contactPhone, setContactPhone] = useState('')
 
+    const onPublishBusiness = () => {
+        createBusiness(name,contactPhone)
+        .then( res => console.log(res?.data))
+
+        navigation.navigate('Initial')
+    }
+
     return(
         <View style={styles.container}>
-
-            <Text> this should be the header </Text>
+            {/* <ScrollView> */}
 
             <View style={styles.section}>
-            <TouchableOpacity style={styles.intro}>
-                    <Text style={styles.textIntro}> Nice! Tell us about your awesome business </Text>
-                </TouchableOpacity>
+                <Text style={styles.textIntro}> Nice! Tell us about your awesome business </Text>
             </View>
 
-            <View style={{flex: 2, padding: 15}}>
-                <TextInput
-                    style={styles.textInput}
+            <View style={styles.section}>
+
+                <Input
                     placeholder="Business name"
                     onChangeText={setName}
-                    clearButtonMode="while-editing"
-                    value={name}
-                    />
+                    value={name} />
 
-                <TextInput
-                    style={styles.textInput}
+                <Input
                     placeholder="Contact phone"
                     onChangeText={setContactPhone}
                     value={contactPhone}
                     keyboardType="numeric"
                     />
 
-                <TouchableOpacity
+                <TouchableOpacity  //Refactor: replace with dropdown component
                     style={styles.dropdown}
                     onPress={() => console.log('category list!')}
                     >
                         <Text style={styles.textDropdown}> Select your categories </Text>
                     </TouchableOpacity>
 
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => console.log('submited!')}
-                    >
-                        <Text style={styles.textButton}> Publish </Text>
-                    </TouchableOpacity>
-
+                <PublishBusinessButton onPress={onPublishBusiness} />
             </View>
 
-            <View style={{ flex:0.5}}>
-                <Text> this should be the footer </Text>
-            </View>
+            <View style={{ flex:0.5}} />
+
+            {/* </ScrollView> */}
         </View>
     );
 }

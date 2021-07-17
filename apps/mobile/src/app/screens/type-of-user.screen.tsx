@@ -29,20 +29,6 @@ const styles = StyleSheet.create({
         color: 'white',
         textAlign: 'center',
     },
-    button: {
-        flex: 1,
-        marginLeft: 30,
-        marginRight: 30,
-        borderRadius: 20,
-        justifyContent: 'center',
-        backgroundColor: 'white',
-    },
-    textButton: {
-        fontSize: 20,
-        marginTop: 15,
-        color: '#596275',
-        textAlign: 'center',
-    },
 })
 
 
@@ -68,12 +54,10 @@ export const TypeOfUserScreen = ({ navigation }) => {
                 <InitialButton
                     icon="chef-hat"
                     text="I'm a business"
-                    onPress={() => navigation.navigate('Register')}/>
+                    onPress={() => navigation.navigate('BusinessHomePage')}/>
             </View>
 
-        <View style={{ flex:0.5}}>
-          <Text> this should be the footer </Text>
-        </View>
+        <View style={{ flex:0.5}}/>
       </View>
     );
 }

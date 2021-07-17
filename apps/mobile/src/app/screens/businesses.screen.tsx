@@ -1,5 +1,7 @@
+import { BusinessDTO } from "@seekNseat/contracts";
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator } from "react-native-paper";
 
 import { BusinessList } from "../components";
 import { getBusinesses } from "../requests";
@@ -17,7 +19,7 @@ const styles = StyleSheet.create({
     },
     text: {
         color: '#4884CA',
-        fontSize: 20,
+        fontSize: 25,
         fontWeight: 'bold',
     },
     listContainer: {
@@ -27,7 +29,7 @@ const styles = StyleSheet.create({
 
 export const BusinessesScreen = ({ navigation }) => {
 
-    const [businessList, setBusinessList] = useState([])
+    const [businessList, setBusinessList] = useState<BusinessDTO[]>([])
 
     useEffect( () => {
         getBusinesses()
@@ -36,15 +38,27 @@ export const BusinessesScreen = ({ navigation }) => {
         })
     }, []);
 
-    return(
-        <View style={styles.container}>
-            <View style={styles.textContainer}>
-                <Text style={styles.text}> Restaurants based on search </Text>
-            </View>
+    if(businessList) {
+        return(
+            <View style={styles.container}>
+                <View style={styles.textContainer}>
+                    <Text style={styles.text}> Restaurants based on search </Text>
+                </View>
 
-            <View style={styles.listContainer}>
-                <BusinessList businessList={businessList} navigation={navigation} />
+                <View style={styles.listContainer}>
+                    <BusinessList businessList={businessList} navigation={navigation} />
+                </View>
             </View>
-        </View>
-    )
+        )
+    } else {
+        return(
+            <View style={styles.container}>
+                <ActivityIndicator
+                    animating={true}
+                    size='large'
+                    color='#4884CA' />
+            </View>
+        )
+    }
+
 }
