@@ -17,7 +17,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-const Instructions = () => {
+export const Instructions = () => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
@@ -127,5 +127,3 @@ const styles = StyleSheet.create({
     color: '#45bc98',
   },
 });
-
-export default Instructions;
