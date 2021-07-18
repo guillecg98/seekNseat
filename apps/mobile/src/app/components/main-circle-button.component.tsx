@@ -1,34 +1,51 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Icon } from "react-native-elements";
 
 const styles = StyleSheet.create({
-    button: {
+    container: {
+        flex: 1,
         justifyContent: 'center',
-        borderWidth: .5,
+        alignItems: 'center',
+    },
+    sectionButton: {
+        padding: 20,
+        marginBottom: 30,
+    },
+    circleButton: {
+        width: 110,
+        height: 110,
+        elevation: 10,
+        borderRadius: 55,
+        justifyContent: 'center',
         backgroundColor: '#596275',
-        borderRadius: 65,
-        width: 130,
-        height: 130,
-        margin: 5,
     },
     textButton: {
-        color: 'white',
+        fontSize: 18,
+        marginTop: 10,
+        color: '#596275',
         textAlign: 'center',
     }
 })
 
 type Props = {
     title: string;
+    icon: string;
     onPress: any;
 }
 
 export const MainCircleButton = (props: Props) => {
     return(
-        <TouchableOpacity
-            activeOpacity={0.8}
-            style={styles.button}
-            onPress={props.onPress}>
-                <Text style={styles.textButton}> {props.title} </Text>
-        </TouchableOpacity>
+        <View style={styles.container}>
+            <View style={styles.sectionButton}>
+            <TouchableOpacity
+                activeOpacity={0.8}
+                style={styles.circleButton}
+                onPress={props.onPress}>
+                    <Icon size={65} type='feather' name={props.icon} color='white' />
+            </TouchableOpacity>
+            <Text style={styles.textButton}> {props.title} </Text>
+            </View>
+        </View>
     )
 }
