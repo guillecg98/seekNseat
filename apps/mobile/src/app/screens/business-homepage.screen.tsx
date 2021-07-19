@@ -41,7 +41,7 @@ export const BusinessHomePage = ({ navigation }) => {
             <View style={styles.section}>
                 <SecondaryCircleButton title='Bookings' icon="book-open" onPress={() => navigation.navigate('BusinessReservations')} />
                 <MainCircleButton title='Schedules' icon="plus" onPress={() => navigation.navigate('BusinessSchedules')} />
-                <SecondaryCircleButton title='Profile' icon="user" onPress={() => navigation.navigate('BusinessProfile')} />
+                <SecondaryCircleButton title='Profile' icon="user" onPress={() => navigation.navigate('BusinessSchedules')} />
             </View>
 
             <View style={styles.sectionFooter}>

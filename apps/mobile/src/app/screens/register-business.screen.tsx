@@ -73,15 +73,13 @@ export const RegisterBusinessScreen = ({ navigation }) => {
                     placeholder="Contact phone"
                     onChangeText={setContactPhone}
                     value={contactPhone}
-                    keyboardType="numeric"
-                    />
+                    keyboardType="numeric" />
 
                 <TouchableOpacity  //Refactor: replace with dropdown component
                     style={styles.dropdown}
-                    onPress={() => console.log('category list!')}
-                    >
+                    onPress={() => console.log('category list!')}>
                         <Text style={styles.textDropdown}> Select your categories </Text>
-                    </TouchableOpacity>
+                </TouchableOpacity>
 
                 <PublishBusinessButton onPress={onPublishBusiness} />
             </View>
