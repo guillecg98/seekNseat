@@ -12,6 +12,8 @@ export class BusinessMapper {
             business.id.value,
             business.name.value,
             business.contactPhone.value,
+            business.address,
+            business.description,
             //TODO (address, categories, images...)
         );
     }
