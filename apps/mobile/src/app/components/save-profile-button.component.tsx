@@ -5,7 +5,7 @@ import { baseProps } from 'react-native-gesture-handler/lib/typescript/handlers/
 
 const styles = StyleSheet.create({
     button: {
-        fontSize: 20,
+        fontSize: 18,
         color: '#596275',
     },
 })
