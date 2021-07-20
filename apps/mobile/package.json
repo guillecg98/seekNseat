@@ -17,6 +17,7 @@
     "react-native-paper": "^4.9.2",
     "react-native-screens": "^3.4.0",
     "uuid": "^8.3.2",
-    "react-native-get-random-values": "^1.7.0"
+    "react-native-get-random-values": "^1.7.0",
+    "react-native-element-dropdown": "^1.2.0"
   }
 }
