@@ -11,7 +11,8 @@ import {
   BusinessScreen,
   Instructions,
   RegisterBusinessScreen,
-  TypeOfUserScreen
+  TypeOfUserScreen,
+  UserHomePage
 } from './screens';
 
 const Stack = createStackNavigator();
@@ -34,6 +35,7 @@ const App = () => {
         <Stack.Screen name="Instructions" component={Instructions} />
         <Stack.Screen name="Register" component={RegisterBusinessScreen} />
         <Stack.Screen name="Initial" component={TypeOfUserScreen} />
+        <Stack.Screen name="UserHomePage" component={UserHomePage} />
       </Stack.Navigator>
     </NavigationContainer>
   );

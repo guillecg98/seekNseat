@@ -47,7 +47,7 @@ export const TypeOfUserScreen = ({ navigation }) => {
                 <InitialButton
                     icon="food-fork-drink"
                     text="I'm a consumer"
-                    onPress={() => navigation.navigate('Businesses')}/>
+                    onPress={() => navigation.navigate('UserHomePage')}/>
             </View>
 
             <View style={styles.section}>

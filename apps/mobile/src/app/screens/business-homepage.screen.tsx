@@ -1,7 +1,14 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {
+    StyleSheet,
+    Text,
+    View
+} from 'react-native';
 
-import { MainCircleButton, SecondaryCircleButton } from '../components';
+import {
+    MainCircleButton,
+    SecondaryCircleButton
+} from '../components';
 
 const styles = StyleSheet.create({
     container: {

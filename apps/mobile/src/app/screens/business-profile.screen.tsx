@@ -1,9 +1,13 @@
-import { BusinessDTO, EditBusinessDTO } from '@seekNseat/contracts';
+import { EditBusinessDTO } from '@seekNseat/contracts';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from 'react-native';
+import {
+    ActivityIndicator,
+    ScrollView,
+    StyleSheet,
+    Text, View } from 'react-native';
 import { Input } from 'react-native-elements';
 
-import { BusinessProfileForm, SaveProfileButton } from '../components';
+import { SaveProfileButton } from '../components';
 import { editBusinessProfile, getBusiness } from '../requests';
 
 const styles = StyleSheet.create({
@@ -39,39 +43,26 @@ const styles = StyleSheet.create({
 export const BusinessProfileScreen = ({ navigation, route }) => {
 
     const { businessId } = route.params;
-    const [business, setBusiness] = useState<BusinessDTO>();
+    const [businessToEdit, setBusinessToEdit] = useState<EditBusinessDTO>();
 
     useEffect( () => {
         getBusiness(businessId)
         .then( (res) => {
-            setBusiness(res?.data)
+            setBusinessToEdit(res?.data)
         })
     }, [])
 
-    const [name, setName] = useState(business?.name ? business.name : '');
-    const [contactPhone, setContactPhone] = useState(business?.contactPhone ? business.contactPhone : '');
-    const [address, setAddress] = useState(business?.address ? business.address : '');
-    const [description, setDescription] = useState(business?.description ? business.description : '');
-
     const onSaveProfile = () => {
-        if (business) {
-            const editBusiness: EditBusinessDTO  = {
-                name: name,
-                contactPhone: contactPhone,
-                address: address,
-                description: description,
-            }
-            console.log(editBusiness);
-            editBusinessProfile(businessId, editBusiness)
+        if (businessToEdit) {
+            editBusinessProfile(businessId, businessToEdit)
             .then( res => console.log(res?.data))
-
             navigation.navigate('Initial')
         } else {
             console.log('Business undefined')
         }
     }
 
-    if(business) {
+    if(businessToEdit) {
         return(
             <View style={styles.container}>
 
@@ -82,30 +73,45 @@ export const BusinessProfileScreen = ({ navigation, route }) => {
 
                 <View style={styles.sectionForm}>
                     <ScrollView>
-                    {/* <BusinessProfileForm
-                        id={businessId}
-                        name={business.name}
-                        contactPhone={business.contactPhone}
-                        description={business.description ? business.description : 'Not description yet'}/> */}
-
                     <Input
                         label="Name"
-                        placeholder="Business Name"
-                        value={name}
-                        onChangeText={setName} />
-
-                    <Input
-                        label="Description"
-                        placeholder="Description"
-                        value={description}
-                        onChangeText={setDescription} />
+                        placeholder="Business name"
+                        value={businessToEdit.name}
+                        onChangeText={
+                            (newName: string) => setBusinessToEdit({
+                                ...businessToEdit,
+                                name: newName
+                        })} />
 
                     <Input
                         label="Contact Phone"
-                        placeholder="Contact Phone"
-                        value={contactPhone}
-                        onChangeText={setContactPhone}
-                        keyboardType="numeric" />
+                        placeholder="Business contact phone"
+                        value={businessToEdit.contactPhone}
+                        onChangeText={
+                            (newContactPhone: string) => setBusinessToEdit({
+                                ...businessToEdit,
+                                contactPhone: newContactPhone
+                        })}/>
+
+                    <Input
+                        label="Address"
+                        placeholder="Business address"
+                        value={businessToEdit.address}
+                        onChangeText={
+                            (newAddress: string) => setBusinessToEdit({
+                                ...businessToEdit,
+                                address: newAddress
+                        })} />
+
+                    <Input
+                        label="Description"
+                        placeholder="Business description"
+                        value={businessToEdit.description}
+                        onChangeText={
+                            (newDescription: string) => setBusinessToEdit({
+                                ...businessToEdit,
+                                description: newDescription
+                        })} />
                     </ScrollView>
                 </View>
 

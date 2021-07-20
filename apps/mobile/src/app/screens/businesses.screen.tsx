@@ -13,13 +13,13 @@ const styles = StyleSheet.create({
         alignContent: 'center',
     },
     textContainer: {
-        flex: 0.5,
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
     },
     text: {
         color: '#4884CA',
-        fontSize: 25,
+        fontSize: 23,
         fontWeight: 'bold',
     },
     listContainer: {
