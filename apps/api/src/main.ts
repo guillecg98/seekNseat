@@ -15,6 +15,12 @@ async function bootstrap() {
   });
   app.setGlobalPrefix(GLOBAL_PREFIX);
 
+  app.enableCors({
+    origin: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: true,
+  });
+
   const options = new DocumentBuilder()
     .addBearerAuth()
     .setTitle('seekNseat API')

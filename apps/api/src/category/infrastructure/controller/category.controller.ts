@@ -67,7 +67,7 @@ export class CategoryController {
 
     @Get()
     @ApiResponse({ status: 200, description: 'List Categories' })
-    async findAll(@Res({ passthrough: true }) res: Response) {
+    async findAll(@Res({ passthrough: true }) res: Response): Promise<CategoryDTO[]> {
         try {
             const categories = await this.queryBus.execute<GetCategoriesQuery, CategoryView[]>(
                 new GetCategoriesQuery()

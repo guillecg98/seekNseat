@@ -3,9 +3,21 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "react-native": "*",
-    "react": "*",
-    "@testing-library/react-native": "*",
-    "@testing-library/jest-native": "*"
+    "react-native": "0.64.2",
+    "react": "17.0.2",
+    "@testing-library/react-native": "7.1.0",
+    "@testing-library/jest-native": "3.4.3",
+    "react-native-gesture-handler": "^1.10.3",
+    "@react-navigation/native": "^5.9.4",
+    "@react-navigation/stack": "^5.14.5",
+    "react-native-elements": "^3.4.2",
+    "axios": "^0.21.1",
+    "react-native-vector-icons": "^8.1.0",
+    "react-native-safe-area-context": "^3.2.0",
+    "react-native-paper": "^4.9.2",
+    "react-native-screens": "^3.4.0",
+    "uuid": "^8.3.2",
+    "react-native-get-random-values": "^1.7.0",
+    "react-native-element-dropdown": "^1.2.0"
   }
 }

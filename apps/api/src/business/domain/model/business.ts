@@ -42,6 +42,14 @@ export class Business extends AggregateRoot {
         return this._contactPhone;
     }
 
+    get address(): string | undefined {
+        return this._address;
+    }
+
+    get description(): string | undefined {
+        return this._description;
+    }
+
     private onBusinessWasCreated(event: BusinessWasCreated) {
         this._id = BusinessId.fromString(event.id);
         this._name = BusinessName.fromString(event.name);

@@ -87,7 +87,7 @@ export class BusinessController {
 
     @Get()
     @ApiResponse({ status: 200, description: 'List Businesses'})
-    async findAll(@Res({passthrough: true}) res: Response) {
+    async findAll(@Res({passthrough: true}) res: Response): Promise<BusinessDTO[]> {
         try {
             const businesses = await this.queryBus.execute<GetBusinessesQuery, BusinessView[]>(
                 new GetBusinessesQuery()
