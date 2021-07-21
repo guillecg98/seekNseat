@@ -1,11 +1,10 @@
-import React from 'react';
-import {
-    StyleSheet,
-    Text,
-    View,
-} from 'react-native';
+import { CategoryDTO } from '@seekNseat/contracts';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator } from 'react-native-paper';
 
 import { InitialButton } from '../components';
+import { getCategories } from '../requests';
 
 const styles = StyleSheet.create({
     container: {
@@ -31,33 +30,72 @@ const styles = StyleSheet.create({
     },
 })
 
-
 export const TypeOfUserScreen = ({ navigation }) => {
 
-    return(
-        <View style={styles.container}>
+    let parsedCategories = [{
+        label: '',
+        value: ''
+    }];
 
-            <View style={styles.section}>
-                <View style={styles.intro}>
-                    <Text style={styles.textIntro}> Hi there! What are you feeling like? </Text>
+    const [categories, setCategories] = useState<CategoryDTO[]>([]);
+
+    useEffect( () => {
+        getCategories()
+        .then( res => setCategories(res?.data))
+    }, [])
+
+    if(categories) {
+        parsedCategories = categories.map( (category: CategoryDTO) => (
+            {
+                label: category.name,
+                value: category.id,
+            }
+        ))
+    }
+
+    if(categories) {
+        return(
+            <View style={styles.container}>
+                <View style={styles.section}>
+                    <View style={styles.intro}>
+                        <Text style={styles.textIntro}> Hi there! What are you feeling like? </Text>
+                    </View>
                 </View>
-            </View>
 
-            <View style={styles.section}>
-                <InitialButton
-                    icon="food-fork-drink"
-                    text="I'm a consumer"
-                    onPress={() => navigation.navigate('UserHomePage')}/>
-            </View>
+                <View style={styles.section}>
+                    <InitialButton
+                        icon="food-fork-drink"
+                        text="I'm a consumer"
+                        onPress={ () => {
+                            navigation.navigate(
+                                'UserHomePage', {
+                                parsedCategories: parsedCategories
+                            })
+                        }} />
+                </View>
 
-            <View style={styles.section}>
-                <InitialButton
-                    icon="chef-hat"
-                    text="I'm a business"
-                    onPress={() => navigation.navigate('BusinessHomePage')}/>
+                <View style={styles.section}>
+                    <InitialButton
+                        icon="chef-hat"
+                        text="I'm a business"
+                        onPress={() => {
+                            navigation.navigate(
+                                'Register', {
+                                    parsedCategories: parsedCategories
+                            })
+                        }} />
+                </View>
+            <View style={{ flex:0.5}}/>
+          </View>
+        );
+    } else {
+        return(
+            <View style={styles.container}>
+                <ActivityIndicator
+                    animating={true}
+                    size='large'
+                    color='white' />
             </View>
-
-        <View style={{ flex:0.5}}/>
-      </View>
-    );
+        )
+    }
 }

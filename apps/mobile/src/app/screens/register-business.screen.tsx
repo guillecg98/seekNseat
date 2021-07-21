@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
-import {
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
-} from 'react-native';
-import { Input } from 'react-native-elements';
+import { StyleSheet, Text, View } from 'react-native';
+import { Dropdown } from 'react-native-element-dropdown';
+import { Button, Input } from 'react-native-elements';
 
 import { PublishBusinessButton } from '../components';
 import { createBusiness } from '../requests';
@@ -29,23 +25,24 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     dropdown: {
-        borderRadius: 30,
-        justifyContent: 'center',
-        borderWidth: 1,
-        borderColor: '#596275',
-        margin: 20,
+        margin: 10,
+        backgroundColor: 'white',
+        borderBottomColor: '#596275',
+        borderBottomWidth: 1,
     },
-    textDropdown: {
-        fontSize: 18,
-        color: '#596275',
-        textAlign: 'center',
-    }
+    skipButton: {
+        marginTop: 15,
+        backgroundColor: '#4884CA',
+        width: 100,
+    },
 })
 
-export const RegisterBusinessScreen = ({ navigation }) => {
+export const RegisterBusinessScreen = ({ navigation, route }) => {
 
+    const { parsedCategories } = route.params;
     const [name, setName] = useState('');
     const [contactPhone, setContactPhone] = useState('')
+    const [category, setCategory] = useState('');
 
     const onPublishBusiness = () => {
         createBusiness(name,contactPhone)
@@ -64,6 +61,18 @@ export const RegisterBusinessScreen = ({ navigation }) => {
 
             <View style={styles.section}>
 
+            <Dropdown
+                    style={styles.dropdown}
+                    placeholderStyle={{fontSize: 18}}
+                    placeholder="Select Category"
+                    data={parsedCategories}
+                    labelField="label"
+                    valueField="value"
+                    value={category}
+                    onChange={ category => {
+                        setCategory(category)
+                    }} />
+
                 <Input
                     placeholder="Business name"
                     onChangeText={setName}
@@ -75,13 +84,12 @@ export const RegisterBusinessScreen = ({ navigation }) => {
                     value={contactPhone}
                     keyboardType="numeric" />
 
-                <TouchableOpacity  //Refactor: replace with dropdown component
-                    style={styles.dropdown}
-                    onPress={() => console.log('category list!')}>
-                        <Text style={styles.textDropdown}> Select your categories </Text>
-                </TouchableOpacity>
-
                 <PublishBusinessButton onPress={onPublishBusiness} />
+
+                <Button
+                    buttonStyle={styles.skipButton}
+                    title="Skip"
+                    onPress={() => navigation.navigate('BusinessHomePage')}/>
             </View>
 
             <View style={{ flex:0.5}} />
