@@ -64,19 +64,7 @@ export const BusinessCard = (props: Props) => {
                 <Card.Content>
                     <Card.Cover style={styles.cardCover} source={{ uri: 'https://picsum.photos/300' }} />
                     <Paragraph style={styles.descriptionStyle}>
-                        {/* {props.description ? props.description : 'There is no description for this business yet'} */}
-                        sdgfsdthfdgsdjdyjdgshdkyhjgsfghsdhdyjfsgsdfyjhyfjghsf
-                        sdgfsdthfdgsdjdyjdgshdkyhjgsfghsdhdyjfsgsdfyjhyfjghsf
-                        sdgfsdthfdgsdjdyjdgshdkyhjgsfghsdhdyjfsgsdfyjhyfjghsf
-                        sdgfsdthfdgsdjdyjdgshdkyhjgsfghsdhdyjfsgsdfyjhyfjghsf
-                        sdgfsdthfdgsdjdyjdgshdkyhjgsfghsdhdyjfsgsdfyjhyfjghsf
-                        sdgfsdthfdgsdjdyjdgshdkyhjgsfghsdhdyjfsgsdfyjhyfjghsf
-                        sdgfsdthfdgsdjdyjdgshdkyhjgsfghsdhdyjfsgsdfyjhyfjghsf
-                        sdgfsdthfdgsdjdyjdgshdkyhjgsfghsdhdyjfsgsdfyjhyfjghsf
-                        sdgfsdthfdgsdjdyjdgshdkyhjgsfghsdhdyjfsgsdfyjhyfjghsf
-                        sdgfsdthfdgsdjdyjdgshdkyhjgsfghsdhdyjfsgsdfyjhyfjghsf
-                        sdgfsdthfdgsdjdyjdgshdkyhjgsfghsdhdyjfsgsdfyjhyfjghsf
-                        sdgfsdthfdgsdjdyjdgshdkyhjgsfghsdhdyjfsgsdfyjhyfjghsf
+                        {props.description ? props.description : 'There is no description for this business yet'}
                     </Paragraph>
                     <Paragraph style={styles.descriptionStyle}>
                         Contact phone: {props.contactPhone}

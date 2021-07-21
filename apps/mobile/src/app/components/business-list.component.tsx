@@ -47,7 +47,7 @@ export const BusinessList = (props: Props) => {
                                 size="large"
                                 source={{uri: 'https://www.emprendedores.es/wp-content/uploads/2015/01/ginos-logo-1542112796-1024x512.jpg'}}/>
                             <ListItem.Content>
-                                <CheckInfoButton onPress={() => props.navigation.navigate('BusinessProfile', {businessId: business.id})} />
+                                <CheckInfoButton onPress={() => props.navigation.navigate('Business', {businessId: business.id})} />
                             </ListItem.Content>
                         </ListItem>
                 ))
