@@ -13,13 +13,12 @@ enum BookingState {
 }
 
 export class Booking extends AggregateRoot {
-
     private _id: BookingId;
     private _userId: UserId;
     private _businessId: BusinessId;
     //private _bookingTime: DateTime;
     private _numberOfFoodies: BookingNumberOfFoodies;
-    private _bookingState: BookingState;
+    private _bookingState: string;
     //private _noShow: boolean;
     private _deleted?: Date;
 
@@ -44,6 +43,7 @@ export class Booking extends AggregateRoot {
                 numberOfFoodies.value,
             )
         );
+
         return booking;
     }
 
@@ -63,7 +63,7 @@ export class Booking extends AggregateRoot {
         return this._numberOfFoodies;
     }
 
-    get bookingState(): BookingState {
+    get bookingState(): string {
         return this._bookingState;
     }
 
