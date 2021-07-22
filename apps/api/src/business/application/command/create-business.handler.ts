@@ -3,12 +3,12 @@ import { CommandHandler, ICommandHandler } from "@nestjs/cqrs";
 
 import {
     Business,
+    BusinessContactPhone,
     BUSINESSES,
     Businesses,
     BusinessId,
     BusinessName,
 } from "../../domain";
-import { BusinessContactPhone } from "../../domain/model/business-contact-phone";
 import { CreateBusinessCommand } from "./create-business.command";
 
 @CommandHandler(CreateBusinessCommand)
