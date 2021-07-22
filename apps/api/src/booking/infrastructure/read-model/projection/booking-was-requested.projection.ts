@@ -18,6 +18,7 @@ export class BookingWasRequestedProjection implements IViewUpdater<BookingWasReq
             userId: event.userId,
             businessId: event.businessId,
             numberOfFoodies: event.numberOfFoodies,
+            bookingState: 'pending',
         });
 
         await bookingView.save();
