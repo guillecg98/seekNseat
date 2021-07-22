@@ -2,6 +2,7 @@ import { DynamicModule, MiddlewareConsumer, NestModule } from '@nestjs/common';
 
 import { AppLoggerMiddleware } from './app.middleware';
 import { AuthModule } from './auth/auth.module';
+import { BookingModule } from './booking/infrastructure';
 import { BootstrapModule } from './bootstrap.module';
 import { BusinessModule } from './business/infrastructure';
 import { CategoryModule } from './category/infrastructure';
@@ -12,11 +13,12 @@ export class AppModule implements NestModule {
     return {
       module: this,
       imports: [
-        BootstrapModule,
         AuthModule,
-        UserModule,
-        CategoryModule,
+        BookingModule,
+        BootstrapModule,
         BusinessModule,
+        CategoryModule,
+        UserModule,
       ],
     };
   }
