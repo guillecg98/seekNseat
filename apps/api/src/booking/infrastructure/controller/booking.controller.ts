@@ -1,12 +1,12 @@
-import { BadRequestException, Body, ClassSerializerInterceptor, Controller, Param, Post, UseInterceptors } from "@nestjs/common";
+import { BadRequestException, Body, ClassSerializerInterceptor, Controller, Post, UseInterceptors } from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { ApiResponse, ApiTags } from "@nestjs/swagger";
 import { BookingDTO, CreateBookingDTO } from "@seekNseat/contracts";
 
 import { RequestBookingCommand } from "../../application";
 
-@ApiTags('Bookings')
-@Controller('Bookings')
+@ApiTags('bookings')
+@Controller('bookings')
 @UseInterceptors(ClassSerializerInterceptor)
 export class BookingController {
     constructor(
@@ -23,7 +23,7 @@ export class BookingController {
                     createBookingDTO.id,
                     createBookingDTO.userId,
                     createBookingDTO.businessId,
-                    createBookingDTO.numberOfFoodies
+                    createBookingDTO.numberOfFoodies,
                 )
             );
         } catch(e) {

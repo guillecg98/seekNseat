@@ -3,7 +3,7 @@ import { CommandHandler, ICommandHandler } from "@nestjs/cqrs";
 
 import { BusinessId } from "../../../business/domain";
 import { UserId } from "../../../user/domain";
-import { Booking, BookingId, BookingNumberOfFoodies, BOOKINGS,Bookings } from "../../domain";
+import { Booking, BookingId, BookingNumberOfFoodies, BOOKINGS, Bookings } from "../../domain";
 import { RequestBookingCommand } from "./request-booking.command";
 
 @CommandHandler(RequestBookingCommand)
