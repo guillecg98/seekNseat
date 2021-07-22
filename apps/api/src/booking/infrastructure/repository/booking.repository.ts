@@ -1,7 +1,9 @@
+import { Injectable } from "@nestjs/common";
 import { EventStore, StoreEventPublisher } from "event-sourcing-nestjs";
 
 import { Booking, BookingId, Bookings } from "../../domain";
 
+@Injectable()
 export class BookingRepository implements Bookings {
     constructor(
         private publisher: StoreEventPublisher,
@@ -19,7 +21,7 @@ export class BookingRepository implements Bookings {
             return null;
         }
 
-        const booking: Booking = Reflect.construct(Booking, []);
+        const booking = Reflect.construct(Booking, []);
         booking.loadFromHistory(events);
 
         return booking;
