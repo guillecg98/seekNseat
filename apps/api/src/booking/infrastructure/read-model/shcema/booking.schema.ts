@@ -13,7 +13,7 @@ export interface BookingView extends Document {
     readonly _id: string;
     readonly userId: string;
     readonly businessId: string;
-    readonly numberOfFoodies: string;
+    readonly numberOfFoodies: number;
     readonly bookingState: string;
     readonly deleted: Date;
 }
