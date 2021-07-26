@@ -14,7 +14,7 @@ export class BusinessMapper {
             business.contactPhone.value,
             business.address,
             business.description,
-            //TODO (address, categories, images...)
+            //TODO (categories, images...)
         );
     }
     viewToDto(businessView: BusinessView): BusinessDTO {
