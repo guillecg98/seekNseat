@@ -6,6 +6,7 @@ export const BookingSchema = new Schema({
     businessId: String,
     numberOfFoodies: Number,
     bookingState: String,
+    noShow: Boolean,
     deleted: Date,
 })
 
@@ -15,6 +16,7 @@ export interface BookingView extends Document {
     readonly businessId: string;
     readonly numberOfFoodies: number;
     readonly bookingState: string;
+    readonly noShow: boolean;
     readonly deleted: Date;
 }
 
