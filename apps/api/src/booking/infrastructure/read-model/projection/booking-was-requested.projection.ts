@@ -3,7 +3,7 @@ import { IViewUpdater, ViewUpdaterHandler } from "event-sourcing-nestjs";
 import { Model } from "mongoose";
 
 import { BookingWasRequested } from "../../../domain";
-import { BOOKING_MODEL,BookingView } from "../shcema/booking.schema";
+import { BOOKING_MODEL,BookingView } from "../schema/booking.schema";
 
 @ViewUpdaterHandler(BookingWasRequested)
 export class BookingWasRequestedProjection implements IViewUpdater<BookingWasRequested> {
@@ -18,7 +18,8 @@ export class BookingWasRequestedProjection implements IViewUpdater<BookingWasReq
             userId: event.userId,
             businessId: event.businessId,
             numberOfFoodies: event.numberOfFoodies,
-            bookingState: 'pending',
+            bookingState: 'PENDING',
+            noShow: false,
         });
 
         await bookingView.save();
