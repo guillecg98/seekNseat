@@ -3,7 +3,7 @@ import { Connection } from "mongoose";
 
 import { DATABASE_CONNECTION } from "../../database/database.provider";
 import { BOOKINGS } from "../domain";
-import { BOOKING_MODEL,BookingSchema } from "./read-model/shcema/booking.schema";
+import { BOOKING_MODEL,BookingSchema } from "./read-model/schema/booking.schema";
 import { BookingRepository } from "./repository";
 
 export const BookingProviders: Provider [] = [

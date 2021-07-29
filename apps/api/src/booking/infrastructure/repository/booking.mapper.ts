@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { BookingDTO } from "@seekNseat/contracts";
 
 import { Booking } from "../../domain";
-import { BookingView } from "../read-model/shcema/booking.schema";
+import { BookingView } from "../read-model/schema/booking.schema";
 
 @Injectable()
 export class BookingMapper {
@@ -12,7 +12,8 @@ export class BookingMapper {
             booking.userId.value,
             booking.businessId.value,
             booking.numberOfFoodies.value,
-            booking.bookingState,
+            booking.bookingState.value,
+            booking.noShow,
         );
     }
 

@@ -1,11 +1,12 @@
-import { BadRequestException, Body, ClassSerializerInterceptor, Controller, Get, Param, Post, Res, UseInterceptors } from "@nestjs/common";
+import { BadRequestException, Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, Put, Query, Res, UseInterceptors } from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
-import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { BookingDTO, CreateBookingDTO } from "@seekNseat/contracts";
+import { ApiQuery, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { BookingDTO, CreateBookingDTO, EditBookingDTO } from "@seekNseat/contracts";
 import { Response } from 'express';
+import { runInThisContext } from "node:vm";
 
-import { GetBookingsByBusinessQuery, GetBookingsByUserQuery, GetBookingsQuery, RequestBookingCommand } from "../../application";
-import { BookingView } from "../read-model/shcema/booking.schema";
+import { CancelBookingCommand, GetBookingsQuery, RequestBookingCommand, UpdateBookingStateCommand } from "../../application";
+import { BookingView } from "../read-model/schema/booking.schema";
 import { BookingMapper } from "../repository";
 
 @ApiTags('bookings')
@@ -42,10 +43,16 @@ export class BookingController {
     @Get()
     @ApiResponse({ status: 200, description: 'List Bookings'})
     @ApiResponse({ status: 404, description: 'Bookings not found'})
-    async findAll(@Res({passthrough: true}) res: Response): Promise<BookingDTO[]> {
+    @ApiQuery({name: 'userId', required: false})
+    @ApiQuery({name: 'businessId', required: false})
+    async findAll(
+        @Res({passthrough: true}) res: Response,
+        @Query('userId') userId: string,
+        @Query('businessId') businessId: string
+    ): Promise<BookingDTO[]> {
         try {
             const bookings = await this.queryBus.execute<GetBookingsQuery, BookingView[]>(
-                new GetBookingsQuery()
+                new GetBookingsQuery(userId, businessId)
             )
 
             res.setHeader('X-Total-Count', bookings.length)
@@ -60,47 +67,35 @@ export class BookingController {
         }
     }
 
-    @Get(':userId/bookings')
-    @ApiOperation({summary: 'Get bookings of user'})
-    @ApiResponse({ status: 200, description: 'List bookings of one user'})
-    @ApiResponse({ status: 404, description: 'Bookings not found'})
-    async findAllByUser(
-        @Res({passthrough: true}) res: Response,
-        @Param('userId') userId: string
-        ): Promise<BookingDTO[]> {
+    @Put(':id')
+    @ApiResponse({ status: 200, description: 'Booking request responsed'})
+    @ApiResponse({ status: 404, description: 'Booking not found'})
+    async update(@Param('id') id: string, @Body() editBookingDTO: EditBookingDTO): Promise<BookingDTO> {
         try {
-            const bookings = await this.queryBus.execute<GetBookingsByUserQuery, BookingView[]>(
-                new GetBookingsByUserQuery(userId)
-            )
-
-            res.setHeader('X-Total-Count', bookings.length)
-
-            return bookings.map(this.bookingMapper.viewToDto);
+            return await this.commandBus.execute(
+                new UpdateBookingStateCommand(
+                    id,
+                    editBookingDTO.bookingState,
+                    editBookingDTO.noShow
+                )
+            );
         } catch(e) {
             if(e instanceof Error) {
                 throw new BadRequestException(e.message);
             } else {
-                throw new BadRequestException('Server Error')
+                throw new BadRequestException('Server Error');
             }
         }
     }
 
-    @Get(':businessId/bookings')
-    @ApiOperation({summary: 'Get bookings of business'})
-    @ApiResponse({ status: 200, description: 'List bookings of one business'})
-    @ApiResponse({ status: 404, description: 'Bookings not found'})
-    async findAllByBusiness(
-        @Res({passthrough: true}) res: Response,
-        @Param('businessId') businessId: string
-        ): Promise<BookingDTO[]> {
+    @Delete(':id')
+    @ApiResponse({ status: 200, description: 'Booking deleted'})
+    @ApiResponse({ status: 404, description: 'Booking not found'})
+    async delete(@Param('id') id: string): Promise<BookingDTO> {
         try {
-            const bookings = await this.queryBus.execute<GetBookingsByBusinessQuery, BookingView[]>(
-                new GetBookingsByBusinessQuery(businessId)
-            )
-
-            res.setHeader('X-Total-Count', bookings.length)
-
-            return bookings.map(this.bookingMapper.viewToDto);
+            return await this.commandBus.execute(
+                new CancelBookingCommand(id)
+            );
         } catch(e) {
             if(e instanceof Error) {
                 throw new BadRequestException(e.message);
