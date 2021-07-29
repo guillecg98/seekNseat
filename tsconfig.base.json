@@ -13,14 +13,15 @@
     "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    //  "strictNullChecks": true,
     "baseUrl": ".",
     "paths": {
       "@seekNseat/contracts": ["libs/contracts/src/index.ts"],
       "@seekNseat/contracts/auth": ["libs/contracts/auth/src/index.ts"],
+      "@seekNseat/contracts/business": ["libs/contracts/business/src/index.ts"],
       "@seekNseat/contracts/user": ["libs/contracts/user/src/index.ts"],
       "@seekNseat/domain": ["libs/domain/src/index.ts"],
       "@seekNseat/nestjs/auth": ["libs/nestjs/auth/src/index.ts"],
+      "@seekNseat/nestjs/business": ["libs/nestjs/business/src/index.ts"],
       "@seekNseat/nestjs/common": ["libs/nestjs/common/src/index.ts"],
       "@seekNseat/nestjs/user": ["libs/nestjs/user/src/index.ts"],
       "@seekNseat/ui": ["libs/ui/src/index.ts"]

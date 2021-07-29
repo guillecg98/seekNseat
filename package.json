@@ -172,7 +172,7 @@
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "yarn run affected:lint --uncommitted && yarn run affected:test --uncommitted"
+      "pre-commit": "yarn run affected:lint --uncommitted --parallel --maxParallel $(nproc) && yarn run affected:test --uncommitted --parallel --maxParallel $(nproc) "
     }
   }
 }

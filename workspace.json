@@ -228,6 +228,27 @@
         }
       }
     },
+    "contracts-business": {
+      "root": "libs/contracts/business",
+      "sourceRoot": "libs/contracts/business/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/contracts/business/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/contracts/business"],
+          "options": {
+            "jestConfig": "libs/contracts/business/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "contracts-user": {
       "root": "libs/contracts/user",
       "sourceRoot": "libs/contracts/user/src",
@@ -358,6 +379,27 @@
           "outputs": ["coverage/libs/nestjs/auth"],
           "options": {
             "jestConfig": "libs/nestjs/auth/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "nestjs-business": {
+      "root": "libs/nestjs/business",
+      "sourceRoot": "libs/nestjs/business/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/nestjs/business/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/nestjs/business"],
+          "options": {
+            "jestConfig": "libs/nestjs/business/jest.config.js",
             "passWithNoTests": true
           }
         }

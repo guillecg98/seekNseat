@@ -45,6 +45,9 @@
     "contracts-auth": {
       "tags": []
     },
+    "contracts-business": {
+      "tags": []
+    },
     "contracts-user": {
       "tags": []
     },
@@ -55,6 +58,9 @@
       "tags": []
     },
     "nestjs-auth": {
+      "tags": []
+    },
+    "nestjs-business": {
       "tags": []
     },
     "nestjs-common": {
