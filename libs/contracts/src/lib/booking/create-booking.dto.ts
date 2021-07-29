@@ -4,5 +4,4 @@ export class CreateBookingDTO {
     businessId: string;
     //bookingTime: DateTime;
     numberOfFoodies: number;
-    //noShow: boolean;
 }

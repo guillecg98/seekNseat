@@ -6,6 +6,6 @@ export class BookingDTO {
         //public readonly bookingTime: DateTime,
         public readonly numberOfFoodies: number,
         public readonly bookingState: string,
-        //public readonly noShow: boolean,
+        public readonly noShow: boolean,
     ) {}
 }
