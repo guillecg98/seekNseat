@@ -15,7 +15,6 @@ export class GetCategoriesHandler implements IQueryHandler<GetCategoriesQuery> {
     ) {}
 
     async execute(query: GetCategoriesQuery): Promise<CategoryView[]> {
-       // return categories.map(this.categoryMapper.aggregateToDTO);
        return this.categoryModel.find().exec();
     }
 }
