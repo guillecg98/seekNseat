@@ -42,10 +42,25 @@
     "contracts": {
       "tags": []
     },
+    "contracts-auth": {
+      "tags": []
+    },
+    "contracts-user": {
+      "tags": []
+    },
     "domain": {
       "tags": []
     },
     "mobile": {
+      "tags": []
+    },
+    "nestjs-auth": {
+      "tags": []
+    },
+    "nestjs-common": {
+      "tags": []
+    },
+    "nestjs-user": {
       "tags": []
     },
     "ui": {
