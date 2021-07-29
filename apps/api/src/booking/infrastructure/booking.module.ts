@@ -2,7 +2,6 @@ import { Module } from "@nestjs/common";
 import { CqrsModule } from "@nestjs/cqrs";
 import { EventSourcingModule } from "event-sourcing-nestjs";
 
-import { AuthModule } from "../../auth/auth.module";
 import { DatabaseModule } from "../../database/database.module";
 import { CancelBookingHandler, GetBookingsHanlder, RequestBookingHandler, UpdateBookingStateHandler } from "../application";
 import { BookingProviders } from "./booking.provider";
@@ -30,7 +29,7 @@ const ProjectionHandlers = [
 
 @Module({
     controllers: [BookingController],
-    imports: [AuthModule, CqrsModule, EventSourcingModule.forFeature(), DatabaseModule],
+    imports: [CqrsModule, EventSourcingModule.forFeature(), DatabaseModule],
     providers: [
         ...CommandHandlers,
         ...QueryHandlers,

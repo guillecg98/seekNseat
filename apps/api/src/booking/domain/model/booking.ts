@@ -1,7 +1,7 @@
 import { AggregateRoot } from "@nestjs/cqrs";
+import { UserId } from "@seekNseat/nestjs/user";
 
 import { BusinessId } from "../../../business/domain";
-import { UserId } from "../../../user/domain";
 import { BookingStateWasUpdated, BookingWasCanceled, BookingWasRequested } from "../event";
 import { BookingId } from "./booking-id";
 import { BookingNumberOfFoodies } from "./booking-number-of-foodies";

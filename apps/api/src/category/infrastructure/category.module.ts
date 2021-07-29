@@ -2,7 +2,6 @@ import { Module } from "@nestjs/common";
 import { CqrsModule } from "@nestjs/cqrs";
 import { EventSourcingModule } from "event-sourcing-nestjs";
 
-import { AuthModule } from "../../auth/auth.module";
 import { DatabaseModule } from "../../database/database.module";
 import { CreateCategoryHandler, DeleteCategoryHandler, RenameCategoryHandler } from "../application";
 import { GetCategoriesHandler } from "../application/query/get-categories.handler";
@@ -31,7 +30,7 @@ const ProjectionHandlers = [
 
 @Module({
     controllers: [CategoryController],
-    imports: [AuthModule, CqrsModule, EventSourcingModule.forFeature(), DatabaseModule],
+    imports: [CqrsModule, EventSourcingModule.forFeature(), DatabaseModule],
     providers: [
         ...CommandHandlers,
         ...QueryHandlers,
