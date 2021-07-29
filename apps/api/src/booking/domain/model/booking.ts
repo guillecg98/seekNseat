@@ -2,15 +2,10 @@ import { AggregateRoot } from "@nestjs/cqrs";
 
 import { BusinessId } from "../../../business/domain";
 import { UserId } from "../../../user/domain";
-import { BookingWasRequested } from "../event";
+import { BookingStateWasUpdated, BookingWasCanceled, BookingWasRequested } from "../event";
 import { BookingId } from "./booking-id";
 import { BookingNumberOfFoodies } from "./booking-number-of-foodies";
-
-enum BookingState {
-    "pending" = "pending",
-    "accepted" = "accepted",
-    "declined" = "declined",
-}
+import { BookingState } from "./booking-state";
 
 export class Booking extends AggregateRoot {
     private _id: BookingId;
@@ -18,8 +13,8 @@ export class Booking extends AggregateRoot {
     private _businessId: BusinessId;
     //private _bookingTime: DateTime;
     private _numberOfFoodies: BookingNumberOfFoodies;
-    private _bookingState: string;
-    //private _noShow: boolean;
+    private _bookingState: BookingState;
+    private _noShow: boolean;
     private _deleted?: Date;
 
     private constructor() {
@@ -32,7 +27,6 @@ export class Booking extends AggregateRoot {
         businessId: BusinessId,
         //bookingTime: dateTime,
         numberOfFoodies: BookingNumberOfFoodies,
-        //noShow: boolean,
     ): Booking {
         const booking = new Booking();
         booking.apply(
@@ -63,16 +57,51 @@ export class Booking extends AggregateRoot {
         return this._numberOfFoodies;
     }
 
-    get bookingState(): string {
+    get bookingState(): BookingState {
         return this._bookingState;
+    }
+
+    get noShow(): boolean {
+        return this._noShow;
     }
 
     private onBookingWasRequested(event: BookingWasRequested) {
         this._id = BookingId.fromString(event.id);
         this._userId = UserId.fromString(event.userId);
         this._businessId = BusinessId.fromString(event.businessId);
-        this._numberOfFoodies = BookingNumberOfFoodies.fromString(event.numberOfFoodies);
-        this._bookingState = BookingState.pending;
+        this._numberOfFoodies = BookingNumberOfFoodies.fromNumber(event.numberOfFoodies);
+        this._bookingState = BookingState.fromString('PENDING');
+        this._noShow = false;
         this._deleted = undefined;
+    }
+
+    updateBookingState(
+        bookingState: BookingState,
+        noShow: boolean
+    ) {
+       this.apply(
+           new BookingStateWasUpdated(
+               this.id.value,
+               bookingState.value,
+               noShow
+           )
+       );
+    }
+
+    private onBookingStateWasUpdated(event: BookingStateWasUpdated) {
+        this._bookingState = BookingState.fromString(event.bookingState);
+        this._noShow = event.noShow;
+    }
+
+    delete(): void {
+        if(this._deleted) {
+            return;
+        }
+
+        this.apply(new BookingWasCanceled(this.id.value))
+    }
+
+    private onBookingWasCanceled(event: BookingWasCanceled) {
+        this._deleted = event.modifiedOn;
     }
 }

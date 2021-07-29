@@ -5,7 +5,7 @@ interface Props {
 }
 
 export class BookingNumberOfFoodies extends ValueObject<Props> {
-    public static fromString(numberOfFoodies: number): BookingNumberOfFoodies {
+    public static fromNumber(numberOfFoodies: number): BookingNumberOfFoodies {
 
         if(numberOfFoodies < 0) {
             throw new Error('Number of foodies cannot be negative');
