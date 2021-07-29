@@ -15,13 +15,13 @@ export const BusinessSchema = new Schema({
 export interface BusinessView extends Document {
     readonly _id: string;
     readonly name: string;
-    readonly contactPhone: string,
-    readonly address: string,
-    readonly description: string,
-    readonly deleted: Date,
-    readonly blocked: boolean,
-    //readonly images: String [],
-    //readonly categories: CategoriesDTO[],
+    readonly contactPhone: string;
+    readonly address: string;
+    readonly description: string;
+    readonly deleted: Date;
+    readonly blocked: boolean;
+    //readonly images: String [];
+    //readonly categories: CategoriesDTO[];
 }
 
 export const BUSINESS_MODEL = 'BUSINESS_MODEL';
