@@ -3,8 +3,7 @@ import { CommandHandler, ICommandHandler, QueryBus } from "@nestjs/cqrs";
 
 import { GetBusinessQuery } from "../../../business/application";
 import { BusinessId } from "../../../business/domain";
-import { GetUserQuery } from "../../../user/application";
-import { UserId } from "../../../user/domain";
+import { GetUserQuery, UserId } from "@seekNseat/nestjs/user";
 import { Booking, BookingId, BookingNumberOfFoodies, BOOKINGS, Bookings } from "../../domain";
 import { RequestBookingCommand } from "./request-booking.command";
 

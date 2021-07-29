@@ -3,7 +3,7 @@ import { IQueryHandler, QueryBus, QueryHandler } from "@nestjs/cqrs";
 import { Model } from "mongoose";
 
 import { GetBusinessQuery } from "../../../business/application";
-import { GetUserQuery } from "../../../user/application";
+import { GetUserQuery } from "@seekNseat/nestjs/user";
 import { BOOKING_MODEL,BookingView } from "../../infrastructure/read-model/schema/booking.schema";
 import { GetBookingsQuery } from "./get-bookings.query";
 
