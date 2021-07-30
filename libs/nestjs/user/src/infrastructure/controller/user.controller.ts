@@ -15,7 +15,7 @@ import {
   Put,
   Res,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateUserDto, EditUserDto, UserDto } from '@seekNseat/contracts/user';
 import { catchError, Role, Roles } from '@seekNseat/nestjs/common';
 import { Response } from 'express';
@@ -23,6 +23,7 @@ import { Response } from 'express';
 import { UserService } from '../services';
 
 @ApiBearerAuth()
+@ApiTags('users')
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
