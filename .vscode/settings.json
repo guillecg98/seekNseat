@@ -14,5 +14,6 @@
     "Entonces": 2,
     "Y": 2,
     "Pero": 2,
-  }
+  },
+  "editor.tabSize": 2
 }

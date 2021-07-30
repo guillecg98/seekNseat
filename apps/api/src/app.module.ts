@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { CqrsModule } from '@nestjs/cqrs';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from '@seekNseat/nestjs/auth';
+import { BookingModule } from "@seekNseat/nestjs/booking";
 import { BusinessModule } from '@seekNseat/nestjs/business';
 import { UserModule } from '@seekNseat/nestjs/user';
 import { ConsoleModule } from 'nestjs-console';
@@ -48,7 +49,8 @@ import { appProviders } from './app.providers';
     // Project modules
     AuthModule,
     UserModule,
-    BusinessModule
+    BusinessModule,
+    BookingModule
   ],
   providers: [...appProviders],
 })
@@ -58,12 +60,6 @@ export class AppModule implements NestModule {
   }
 }
 
-
-
-// AuthModule,
-// BookingModule,
 // BootstrapModule,
-// BusinessModule,
 // CategoryModule,
-// UserModule,
 // DatebaseModule

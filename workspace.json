@@ -228,6 +228,27 @@
         }
       }
     },
+    "contracts-booking": {
+      "root": "libs/contracts/booking",
+      "sourceRoot": "libs/contracts/booking/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/contracts/booking/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/contracts/booking"],
+          "options": {
+            "jestConfig": "libs/contracts/booking/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "contracts-business": {
       "root": "libs/contracts/business",
       "sourceRoot": "libs/contracts/business/src",
@@ -379,6 +400,27 @@
           "outputs": ["coverage/libs/nestjs/auth"],
           "options": {
             "jestConfig": "libs/nestjs/auth/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "nestjs-booking": {
+      "root": "libs/nestjs/booking",
+      "sourceRoot": "libs/nestjs/booking/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/nestjs/booking/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/nestjs/booking"],
+          "options": {
+            "jestConfig": "libs/nestjs/booking/jest.config.js",
             "passWithNoTests": true
           }
         }
