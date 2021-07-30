@@ -21,18 +21,6 @@ export class BusinessService {
     private readonly queryBus: QueryBus
   ) {}
 
-  async findOne(id: string): Promise<BusinessDTO> {
-    return this.queryBus.execute<GetBusinessQuery, BusinessDTO>(
-      new GetBusinessQuery(id)
-    );
-  }
-
-  async findAll(): Promise<BusinessDTO[]> {
-    return this.queryBus.execute<GetBusinessesQuery, BusinessDTO[]>(
-      new GetBusinessesQuery()
-    );
-  }
-
   async create(createBusinessDTO: CreateBusinessDTO): Promise<BusinessDTO> {
     await this.commandBus.execute(
       new CreateBusinessCommand(
@@ -43,6 +31,18 @@ export class BusinessService {
     );
 
     return new BusinessDTO(createBusinessDTO);
+  }
+
+  async findAll(): Promise<BusinessDTO[]> {
+    return this.queryBus.execute<GetBusinessesQuery, BusinessDTO[]>(
+      new GetBusinessesQuery()
+    );
+  }
+
+  async findOne(id: string): Promise<BusinessDTO> {
+    return this.queryBus.execute<GetBusinessQuery, BusinessDTO>(
+      new GetBusinessQuery(id)
+    );
   }
 
   async edit(

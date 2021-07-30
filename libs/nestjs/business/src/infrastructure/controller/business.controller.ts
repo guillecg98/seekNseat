@@ -28,9 +28,31 @@ export class BusinessController {
   constructor(private readonly businessService: BusinessService) {}
 
   @Post()
-  async create(createBusinessDTO: CreateBusinessDTO): Promise<BusinessDTO> {
+  async create(
+    @Body() createBusinessDTO: CreateBusinessDTO
+  ): Promise<BusinessDTO> {
     try {
       return this.businessService.create(createBusinessDTO);
+    } catch (e) {
+      if (e instanceof Error) {
+        throw new BadRequestException(e.message);
+      } else {
+        throw new BadRequestException('Server Error');
+      }
+    }
+  }
+
+  @Get()
+  @ApiResponse({ status: 200, description: 'List Businesses' })
+  async findAll(
+    @Res({ passthrough: true }) res: Response
+  ): Promise<BusinessDTO[]> {
+    try {
+      const businesses = await this.businessService.findAll();
+      const length = businesses.length;
+
+      res.setHeader('X-Total-Count', length);
+      return businesses;
     } catch (e) {
       if (e instanceof Error) {
         throw new BadRequestException(e.message);
@@ -64,26 +86,6 @@ export class BusinessController {
   ): Promise<BusinessDTO> {
     try {
       return await this.businessService.edit(id, editBusinessDTO);
-    } catch (e) {
-      if (e instanceof Error) {
-        throw new BadRequestException(e.message);
-      } else {
-        throw new BadRequestException('Server Error');
-      }
-    }
-  }
-
-  @Get()
-  @ApiResponse({ status: 200, description: 'List Businesses' })
-  async findAll(
-    @Res({ passthrough: true }) res: Response
-  ): Promise<BusinessDTO[]> {
-    try {
-        const businesses = await this.businessService.findAll();
-        const length = businesses.length;
-
-        res.setHeader('X-Total-Count', length);
-        return businesses;
     } catch (e) {
       if (e instanceof Error) {
         throw new BadRequestException(e.message);

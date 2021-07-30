@@ -13,8 +13,8 @@ export class BusinessWasCreatedProjection implements IEventHandler<BusinessWasCr
     ) {}
 
     async handle(event: BusinessWasCreated) {
-        const businessView = new this.businesses({...event.payload});
+        const business = new this.businesses({...event.payload});
 
-        businessView.save()
+        business.save()
     }
 }
