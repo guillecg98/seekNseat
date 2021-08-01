@@ -15,5 +15,6 @@
     "Y": 2,
     "Pero": 2,
   },
-  "editor.tabSize": 2
+  "editor.tabSize": 2,
+  "editor.fontSize": 15
 }

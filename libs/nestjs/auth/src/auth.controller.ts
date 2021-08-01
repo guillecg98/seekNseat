@@ -5,10 +5,12 @@ import {
   Post,
   UnauthorizedException,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { AccessTokenInterface, LoginDTO } from '@seekNseat/contracts/auth';
 
 import { AuthService } from './auth.service';
 
+@ApiTags('authorization')
 @Controller('login')
 export class AuthController {
   private readonly logger = new Logger(AuthController.name);
