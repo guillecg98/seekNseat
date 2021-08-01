@@ -42,10 +42,37 @@
     "contracts": {
       "tags": []
     },
+    "contracts-auth": {
+      "tags": []
+    },
+    "contracts-booking": {
+      "tags": []
+    },
+    "contracts-business": {
+      "tags": []
+    },
+    "contracts-user": {
+      "tags": []
+    },
     "domain": {
       "tags": []
     },
     "mobile": {
+      "tags": []
+    },
+    "nestjs-auth": {
+      "tags": []
+    },
+    "nestjs-booking": {
+      "tags": []
+    },
+    "nestjs-business": {
+      "tags": []
+    },
+    "nestjs-common": {
+      "tags": []
+    },
+    "nestjs-user": {
       "tags": []
     },
     "ui": {
