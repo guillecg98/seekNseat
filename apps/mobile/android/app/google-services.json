@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "162567883506",
+    "project_id": "seeknseat-t",
+    "storage_bucket": "seeknseat-t.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:162567883506:android:10ec673ed7747d29df5e6b",
+        "android_client_info": {
+          "package_name": "com.mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "162567883506-cgelpikhiudpciimmea4fm24v1rmk951.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mobile",
+            "certificate_hash": "e33003134f72836fa4f6d833f2c64febfef49f9e"
+          }
+        },
+        {
+          "client_id": "162567883506-lj0jl93ak719a81vv1qctu3ksamckvij.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDButooNOMvmxNPm5CnCmtBmWe-MgqDqRE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "162567883506-lj0jl93ak719a81vv1qctu3ksamckvij.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
