@@ -1,4 +1,4 @@
-package com.mobile;
+package es.uco.aulasoftwarelibre.seeknseat;
 
 import com.facebook.react.ReactActivity;
 
