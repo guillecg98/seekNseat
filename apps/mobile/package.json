@@ -18,6 +18,9 @@
     "react-native-screens": "^3.4.0",
     "uuid": "^8.3.2",
     "react-native-get-random-values": "^1.7.0",
-    "react-native-element-dropdown": "^1.2.0"
+    "react-native-element-dropdown": "^1.2.0",
+    "@react-native-firebase/app": "^12.4.0",
+    "@react-native-firebase/auth": "^12.4.0",
+    "@react-native-google-signin/google-signin": "^6.0.1"
   }
 }

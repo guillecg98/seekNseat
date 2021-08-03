@@ -8,3 +8,4 @@ export * from './reservation-button.component';
 export * from './save-profile-button.component';
 export * from './searchbar.component';
 export * from './secondary-circle-button.component';
+export * from './social-button.component';
