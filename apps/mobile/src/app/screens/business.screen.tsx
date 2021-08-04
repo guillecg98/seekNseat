@@ -1,4 +1,4 @@
-import { BusinessDTO } from '@seekNseat/contracts';
+import { BusinessDTO } from '@seekNseat/contracts/business';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';

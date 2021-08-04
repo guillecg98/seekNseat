@@ -1,4 +1,4 @@
-import { BusinessDTO } from '@seekNseat/contracts';
+import { BusinessDTO } from '@seekNseat/contracts/business';
 import React from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { Avatar, ListItem } from "react-native-elements";
@@ -36,7 +36,7 @@ export const BusinessList = (props: Props) => {
             {
                 props.businessList.map((business) => (
                         <ListItem
-                            key={business.id}
+                            key={business._id}
                             style={styles.listItem}
                             containerStyle={{borderRadius: 12}}>
                             <ListItem.Content >
@@ -47,7 +47,7 @@ export const BusinessList = (props: Props) => {
                                 size="large"
                                 source={{uri: 'https://www.emprendedores.es/wp-content/uploads/2015/01/ginos-logo-1542112796-1024x512.jpg'}}/>
                             <ListItem.Content>
-                                <CheckInfoButton onPress={() => props.navigation.navigate('Business', {businessId: business.id})} />
+                                <CheckInfoButton onPress={() => props.navigation.navigate('BusinessProfile', {businessId: business._id})} />
                             </ListItem.Content>
                         </ListItem>
                 ))
