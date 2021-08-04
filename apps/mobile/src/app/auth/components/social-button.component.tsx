@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-import { windowHeight } from '../utils';
+import { windowHeight } from '../../utils';
 
 
 const styles = StyleSheet.create({
