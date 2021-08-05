@@ -1,49 +1,41 @@
-import { CategoryDTO } from '@seekNseat/contracts';
 import React, { useState } from 'react';
-import { KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import { Button, Input } from 'react-native-elements';
 
-import { SearchBar } from '../components';
+import { PublishBusinessButton } from '../components';
+import { createBusiness } from '../requests';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
+    alignContent: 'center',
     backgroundColor: 'white',
   },
-  sectionHeader: {
-    flex: 2,
-    padding: 15,
-    justifyContent: 'center',
-  },
-  textHeader: {
-    fontSize: 35,
-    color: '#4884CA',
-    textAlign: 'center',
-  },
   section: {
-    flex: 4,
+    flex: 1,
+    padding: 15,
     margin: 15,
     justifyContent: 'center',
+  },
+  textIntro: {
+    fontSize: 25,
+    color: '#4884CA',
+    textAlign: 'center',
   },
   dropdown: {
     margin: 10,
     backgroundColor: 'white',
     borderBottomColor: '#596275',
     borderBottomWidth: 1,
-    marginTop: 30,
   },
   skipButton: {
+    marginTop: 15,
     backgroundColor: '#4884CA',
     width: 100,
   },
-  sectionFooter: {
-    flex: 2,
-    padding: 15,
-    justifyContent: 'center',
-  },
 });
-
 const data = [
   { label: 'Indio', value: '1' },
   { label: 'Chino', value: '2' },
@@ -55,18 +47,30 @@ const data = [
   { label: 'Japones', value: '8' },
 ];
 
-export const UserHomePage = ({ navigation }) => {
-  const [foodies, setFoodies] = useState('');
+
+export const BusinessRegisterScreen = ({ navigation }) => {
+  const [name, setName] = useState('');
+  const [contactPhone, setContactPhone] = useState('');
   const [category, setCategory] = useState(null);
+
+  const onPublishBusiness = () => {
+    createBusiness(name, contactPhone).then((res) => console.log(res?.data));
+
+    navigation.navigate('Initial');
+  };
 
   return (
     <View style={styles.container}>
-      <View style={styles.sectionHeader}>
-        <Text style={styles.textHeader}> Welcome back, username! </Text>
+      {/* <ScrollView> */}
+
+      <View style={styles.section}>
+        <Text style={styles.textIntro}>
+          {' '}
+          Nice! Tell us about your awesome business{' '}
+        </Text>
       </View>
 
       <View style={styles.section}>
-        <SearchBar />
         <Dropdown
           style={styles.dropdown}
           placeholderStyle={{ fontSize: 18 }}
@@ -79,26 +83,32 @@ export const UserHomePage = ({ navigation }) => {
             setCategory(item.value);
           }}
         />
+
         <Input
-          value={foodies}
-          onChangeText={setFoodies}
-          placeholder="Number of foodies"
+          placeholder="Business name"
+          onChangeText={setName}
+          value={name}
+        />
+
+        <Input
+          placeholder="Contact phone"
+          onChangeText={setContactPhone}
+          value={contactPhone}
           keyboardType="numeric"
         />
 
+        <PublishBusinessButton onPress={onPublishBusiness} />
+
         <Button
           buttonStyle={styles.skipButton}
-          title="Next"
-          onPress={() => navigation.navigate('Businesses')}
+          title="Skip"
+          onPress={() => navigation.navigate('BusinessHomePage')}
         />
       </View>
 
-      <View style={styles.sectionFooter}>
-        <Text style={{ textAlign: 'center' }}>
-          {' '}
-          The main navbar for users should be here
-        </Text>
-      </View>
+      <View style={{ flex: 0.5 }} />
+
+      {/* </ScrollView> */}
     </View>
   );
 };

@@ -17,6 +17,11 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
   },
+  activityIndicatorContainer: {
+    flex: 1,
+    padding: 20,
+    justifyContent:  'center',
+  },
   sectionHeader: {
     flex: 1,
     padding: 20,
@@ -43,7 +48,8 @@ const styles = StyleSheet.create({
 });
 
 export const BusinessProfileScreen = ({ navigation, route }) => {
-  const { businessId } = route.params;
+  //const { businessId } = route.params;
+  const businessId = 'b6bf988a-f34e-4c4a-bdb6-aa3be8f580f3'
   const [businessToEdit, setBusinessToEdit] = useState<EditBusinessDTO>();
 
   useEffect(() => {
@@ -137,7 +143,7 @@ export const BusinessProfileScreen = ({ navigation, route }) => {
     );
   } else {
     return (
-      <View style={styles.container}>
+      <View style={styles.activityIndicatorContainer}>
         <ActivityIndicator animating={true} size="large" color="#4884CA" />
       </View>
     );
