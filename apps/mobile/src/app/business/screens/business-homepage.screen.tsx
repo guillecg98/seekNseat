@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export const BusinessHomePageScreen = ({ navigation }) => {
+export const BusinessHomePageScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.sectionHeader}>
@@ -41,18 +41,13 @@ export const BusinessHomePageScreen = ({ navigation }) => {
         <SecondaryCircleButton
           title="Bookings"
           icon="book-open"
-          onPress={() => navigation.navigate('Bookings')}
-          // onPress={() => navigation.navigate('TempBookings')}
+          onPress={() => console.log('open bookings')}
         />
         <SecondaryCircleButton
           title="Profile"
           icon="user"
-          onPress={() => navigation.navigate('Profile')}
+          onPress={() => console.log('open profile')}
         />
-      </View>
-
-      <View style={styles.sectionFooter}>
-        <Text style={{ textAlign: 'center' }}> The footer should be here</Text>
       </View>
     </View>
   );

@@ -16,11 +16,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    justifyContent: 'center',
+    alignContent: 'center',
   },
   activityIndicatorContainer: {
     flex: 1,
     padding: 20,
-    justifyContent:  'center',
+    justifyContent: 'center',
   },
   sectionHeader: {
     flex: 1,
@@ -47,9 +49,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export const BusinessProfileScreen = ({ navigation, route }) => {
-  //const { businessId } = route.params;
-  const businessId = 'b6bf988a-f34e-4c4a-bdb6-aa3be8f580f3'
+export const BusinessProfileScreen = () => {
+  const businessId = 'b6bf988a-f34e-4c4a-bdb6-aa3be8f580f3';
   const [businessToEdit, setBusinessToEdit] = useState<EditBusinessDTO>();
 
   useEffect(() => {
@@ -63,7 +64,6 @@ export const BusinessProfileScreen = ({ navigation, route }) => {
       editBusinessProfile(businessId, businessToEdit).then((res) =>
         console.log(res?.data)
       );
-      navigation.navigate('Initial');
     } else {
       console.log('Business undefined');
     }
@@ -71,13 +71,7 @@ export const BusinessProfileScreen = ({ navigation, route }) => {
 
   if (businessToEdit) {
     return (
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={{
-          justifyContent: 'center',
-          alignContent: 'center',
-        }}
-      >
+      <View style={styles.container}>
         <View style={styles.sectionHeader}>
           <Text style={styles.title}>
             {' '}
@@ -103,6 +97,7 @@ export const BusinessProfileScreen = ({ navigation, route }) => {
             <Input
               label="Contact Phone"
               placeholder="Business contact phone"
+              keyboardType="numeric"
               value={businessToEdit.contactPhone}
               onChangeText={(newContactPhone: string) =>
                 setBusinessToEdit({
@@ -139,7 +134,7 @@ export const BusinessProfileScreen = ({ navigation, route }) => {
         </View>
 
         <View style={styles.sectionFooter}></View>
-      </ScrollView>
+      </View>
     );
   } else {
     return (

@@ -1,15 +1,10 @@
 import { BookingDTO } from '@seekNseat/contracts/booking';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { TabBar, TabView } from 'react-native-tab-view';
 
-// import { TabView } from 'react-native-elements';
-// import { Tab } from 'react-native-elements/dist/tab/Tab';
-import {
-  BlockReservationsButton,
-  Bookings,
-} from '../components';
+import { BlockReservationsButton, Bookings } from '../components';
 import { getBookings } from '../requests';
 
 const styles = StyleSheet.create({
@@ -20,15 +15,13 @@ const styles = StyleSheet.create({
   header: {
     flex: 1,
   },
-  body: {
-    flex: 8,
-  },
-  text: {
-    textAlign: 'center',
-  },
   tabView: {
     flex: 1,
     justifyContent: 'center',
+  },
+  text: {
+    fontSize: 18,
+    textAlign: 'center',
   },
 });
 
@@ -36,15 +29,21 @@ const renderTabBar = (props) => (
   <TabBar
     {...props}
     renderIcon={({ route }) => {
-      switch(route.key) {
+      switch (route.key) {
         case 'ACCEPTED':
-          return <Icon name='checkmark-circle-outline' type='ionicon' color='#4db356' />
+          return (
+            <Icon
+              name="checkmark-circle-outline"
+              type="ionicon"
+              color="#4db356"
+            />
+          );
         case 'PENDING':
-          return <Icon name='timer' type='ionicon'/>
+          return <Icon name="timer" type="ionicon" />;
         case 'DECLINED':
-          return <Icon name='flame' type='ionicon' color='#d17979' />
+          return <Icon name="flame" type="ionicon" color="#d17979" />;
         default:
-          return null
+          return null;
       }
     }}
     indicatorStyle={{ height: 3, backgroundColor: '#4b5173' }}
@@ -53,7 +52,7 @@ const renderTabBar = (props) => (
   />
 );
 
-export const BusinessBookingsScreen = ({ navigation }) => {
+export const BusinessBookingsScreen = () => {
   const [bookings, setBookings] = useState<BookingDTO[]>();
   const [index, setIndex] = useState(1);
   const [routes] = useState([
@@ -93,22 +92,35 @@ export const BusinessBookingsScreen = ({ navigation }) => {
     const renderScene = ({ route }) => {
       switch (route.key) {
         case 'ACCEPTED':
-          return (
+          return accepted.length ? (
             <View style={styles.tabView}>
               <Bookings bookings={accepted} state="ACCEPTED" />
             </View>
+          ) : (
+            <View style={styles.tabView}>
+              <Text style={styles.text}> No hay solicitudes aceptadas </Text>
+            </View>
           );
         case 'PENDING':
-          return (
-            <View style={styles.body}>
-              <View style={styles.tabView}>
-                <Bookings bookings={pending} state="PENDING" />
-              </View>
-              <BlockReservationsButton onPress={() => console.log('blocked')} />
+          return pending.length ? (
+            <View style={styles.tabView}>
+              <Bookings bookings={pending} state="PENDING" />
+            </View>
+          ) : (
+            <View style={styles.tabView}>
+              <Text style={styles.text}> No hay solicitudes pendientes </Text>
             </View>
           );
         case 'DECLINED':
-          return <Bookings bookings={declined} state="DECLINED" />;
+          return declined.length ? (
+            <View style={styles.tabView}>
+              <Bookings bookings={declined} state="DECLINED" />
+            </View>
+          ) : (
+            <View style={styles.tabView}>
+              <Text style={styles.text}> No hay solicitudes en cola </Text>
+            </View>
+          );
         default:
           return null;
       }
@@ -124,6 +136,7 @@ export const BusinessBookingsScreen = ({ navigation }) => {
             onIndexChange={setIndex}
           />
         </View>
+        <BlockReservationsButton onPress={() => console.log('blocked')} />
       </View>
     );
   } else {

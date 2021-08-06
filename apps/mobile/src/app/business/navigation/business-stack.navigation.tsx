@@ -1,8 +1,5 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
-import React from 'react';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import React, { useState } from 'react';
+import { BottomNavigation } from 'react-native-paper';
 
 import {
   BusinessBookingsScreen,
@@ -10,47 +7,26 @@ import {
   BusinessProfileScreen,
 } from '../screens';
 
-const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
-
 export const BusinessStack = () => {
+
+  const [index,setIndex] = useState(1);
+  const [routes] = useState([
+    {key: 'BOOKINGS', title: 'Bookings', icon: 'book', color: '#4b5173'},
+    {key: 'HOME', title: 'Home', icon: 'home', color: '#4b5173'},
+    {key: 'PROFILE', title: 'Profile', icon: 'account-box', color: '#4b5173'},
+  ])
+
+  const renderScene = BottomNavigation.SceneMap({
+    BOOKINGS: BusinessBookingsScreen,
+    HOME: BusinessHomePageScreen,
+    PROFILE: BusinessProfileScreen,
+  });
+
   return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Home"
-        component={BusinessHomePageScreen}
-        options={{
-          headerShown: false,
-        }}
-        // options={() => ({
-        //   tabBarLabel: 'Home',
-        //   tabBarIcon: ({ color, size }) => (
-        //     <MaterialCommunityIcons
-        //       name="home-outline"
-        //       color={color}
-        //       size={size}
-        //     />
-        //   ),
-        // })}
-      />
-      <Stack.Screen
-        name="Bookings"
-        component={BusinessBookingsScreen}
-        // options={() => ({
-        //   tabBarIcon: ({ color, size }) => (
-        //     <Ionicons name="chatbox-ellipses-outline" color={color} size={size} />
-        //   ),
-        // })}
-      />
-      <Stack.Screen
-        name="Profile"
-        component={BusinessProfileScreen}
-        // options={{
-        //   tabBarIcon: ({ color, size }) => (
-        //     <Ionicons name="person-outline" color={color} size={size} />
-        //   ),
-        // }}
-      />
-    </Stack.Navigator>
+    <BottomNavigation
+      navigationState={{ index, routes }}
+      onIndexChange={setIndex}
+      renderScene={renderScene}
+    />
   );
 };
