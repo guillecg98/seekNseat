@@ -1,10 +1,15 @@
 import { BookingDTO } from '@seekNseat/contracts/booking';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
-import { TabView } from 'react-native-elements';
-import { Tab } from 'react-native-elements/dist/tab/Tab';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { Icon } from 'react-native-elements';
+import { TabBar, TabView } from 'react-native-tab-view';
 
-import { Bookings } from '../components';
+// import { TabView } from 'react-native-elements';
+// import { Tab } from 'react-native-elements/dist/tab/Tab';
+import {
+  BlockReservationsButton,
+  Bookings,
+} from '../components';
 import { getBookings } from '../requests';
 
 const styles = StyleSheet.create({
@@ -27,9 +32,35 @@ const styles = StyleSheet.create({
   },
 });
 
+const renderTabBar = (props) => (
+  <TabBar
+    {...props}
+    renderIcon={({ route }) => {
+      switch(route.key) {
+        case 'ACCEPTED':
+          return <Icon name='checkmark-circle-outline' type='ionicon' color='#4db356' />
+        case 'PENDING':
+          return <Icon name='timer' type='ionicon'/>
+        case 'DECLINED':
+          return <Icon name='flame' type='ionicon' color='#d17979' />
+        default:
+          return null
+      }
+    }}
+    indicatorStyle={{ height: 3, backgroundColor: '#4b5173' }}
+    style={{ backgroundColor: '#babbc2' }}
+    labelStyle={{ color: '#46474f', fontSize: 18, textTransform: 'capitalize' }}
+  />
+);
+
 export const BusinessBookingsScreen = ({ navigation }) => {
   const [bookings, setBookings] = useState<BookingDTO[]>();
   const [index, setIndex] = useState(1);
+  const [routes] = useState([
+    { key: 'ACCEPTED', title: 'Aceptadas' },
+    { key: 'PENDING', title: 'Pendientes' },
+    { key: 'DECLINED', title: 'En Cola' },
+  ]);
 
   useEffect(() => {
     getBookings('b6bf988a-f34e-4c4a-bdb6-aa3be8f580f3').then((res) => {
@@ -59,56 +90,40 @@ export const BusinessBookingsScreen = ({ navigation }) => {
       return result;
     }, []);
 
+    const renderScene = ({ route }) => {
+      switch (route.key) {
+        case 'ACCEPTED':
+          return (
+            <View style={styles.tabView}>
+              <Bookings bookings={accepted} state="ACCEPTED" />
+            </View>
+          );
+        case 'PENDING':
+          return (
+            <View style={styles.body}>
+              <View style={styles.tabView}>
+                <Bookings bookings={pending} state="PENDING" />
+              </View>
+              <BlockReservationsButton onPress={() => console.log('blocked')} />
+            </View>
+          );
+        case 'DECLINED':
+          return <Bookings bookings={declined} state="DECLINED" />;
+        default:
+          return null;
+      }
+    };
+
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <Tab
-            value={index}
-            onChange={setIndex}
-            indicatorStyle={{ height: 3, backgroundColor: '#4b5173' }}
-          >
-            <Tab.Item
-              title="Aceptadas"
-              titleStyle={{ fontSize: 12, color: '#4db356' }}
-              icon={{
-                name: 'checkmark-circle-outline',
-                type: 'ionicon',
-                color: '#4db356',
-              }}
-            />
-            <Tab.Item
-              title="Pendientes"
-              titleStyle={{ fontSize: 13 }}
-              icon={{ name: 'timer', type: 'ionicon' }}
-            />
-            <Tab.Item
-              title="En Cola"
-              titleStyle={{ fontSize: 12, color: '#d17979' }}
-              icon={{
-                name: 'flame',
-                type: 'ionicon',
-                color: '#d17979',
-              }}
-            />
-          </Tab>
+          <TabView
+            renderTabBar={renderTabBar}
+            navigationState={{ index, routes }}
+            renderScene={renderScene}
+            onIndexChange={setIndex}
+          />
         </View>
-
-        <View style={styles.body}>
-          <TabView animationType="timing" value={index} onChange={setIndex}>
-            <TabView.Item style={styles.tabView}>
-              <Bookings bookings={accepted} state="ACCEPTED" />
-            </TabView.Item>
-
-            <TabView.Item style={styles.tabView}>
-              <Bookings bookings={pending} state="PENDING" />
-            </TabView.Item>
-
-            <TabView.Item style={styles.tabView}>
-              <Bookings bookings={declined} state="DECLINED" />
-            </TabView.Item>
-          </TabView>
-        </View>
-        <Text> Footer </Text>
       </View>
     );
   } else {

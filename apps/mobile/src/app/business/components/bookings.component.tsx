@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { ListItem } from 'react-native-elements';
 
+import { acceptBooking, declineBooking } from '../requests';
 import { BookingActionButton } from './booking-action-button.component';
 
 const styles = StyleSheet.create({
@@ -14,7 +15,6 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   listItem: {
-    elevation: 3,
     padding: 2,
   },
 });
@@ -22,6 +22,18 @@ const styles = StyleSheet.create({
 type Props = {
   bookings: BookingDTO[];
   state: string;
+};
+
+const onPressAcceptBooking = (booking: BookingDTO) => {
+  acceptBooking(booking._id, 'ACCEPTED', booking.noShow).then((res) =>
+    console.log(res?.data)
+  );
+};
+
+const onPressDeclineBooking = (booking: BookingDTO) => {
+  declineBooking(booking._id, 'DECLINED', booking.noShow).then((res) =>
+    console.log(res?.data)
+  );
 };
 
 export const Bookings = (props: Props) => {
@@ -39,7 +51,7 @@ export const Bookings = (props: Props) => {
                 disabled={props.state === 'ACCEPTED' ? true : false}
                 text="Aceptar"
                 color="#4db356"
-                onPress={() => console.log('reserva aceptada')}
+                onPress={() => onPressAcceptBooking(booking)}
               />
             </ListItem.Content>
 
@@ -50,7 +62,12 @@ export const Bookings = (props: Props) => {
                 Mesa para: {booking.numberOfFoodies}{' '}
               </ListItem.Title>
               {booking.noShow ? (
-                <ListItem.Title style={{textAlign: 'center', fontSize: 18, color: 'red'}}> No Show </ListItem.Title>
+                <ListItem.Title
+                  style={{ textAlign: 'center', fontSize: 18, color: 'red' }}
+                >
+                  {' '}
+                  No Show{' '}
+                </ListItem.Title>
               ) : (
                 <ListItem.Title> Ta bien </ListItem.Title>
               )}
@@ -59,9 +76,9 @@ export const Bookings = (props: Props) => {
             <ListItem.Content>
               <BookingActionButton
                 disabled={props.state === 'DECLINED' ? true : false}
-                text={props.state === 'ACCEPTED' ? "NoShow" : "En cola"}
+                text={props.state === 'ACCEPTED' ? 'NoShow' : 'En cola'}
                 color="#d17979"
-                onPress={() => console.log('reserva a la cola')}
+                onPress={() => onPressDeclineBooking(booking)}
               />
             </ListItem.Content>
           </ListItem>
