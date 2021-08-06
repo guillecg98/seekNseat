@@ -22,7 +22,6 @@
     "@react-native-firebase/app": "^12.4.0",
     "@react-native-firebase/auth": "^12.4.0",
     "@react-native-google-signin/google-signin": "^6.0.1",
-    "@react-navigation/bottom-tabs": "^6.0.1",
     "@nestjs/swagger": "^5.0.0",
     "class-validator": "^0.13.1",
     "react-native-pager-view": "^5.4.0",
