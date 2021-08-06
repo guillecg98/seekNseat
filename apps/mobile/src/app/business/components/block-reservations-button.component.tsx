@@ -1,30 +1,29 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { Button } from 'react-native-paper';
+//import { FAB } from 'react-native-paper';
+import { FAB, Icon } from 'react-native-elements';
 
 const styles = StyleSheet.create({
-  button: {
-    margin: 20,
-    elevation: 5,
-    borderRadius: 30,
+  fab: {
+    position: 'absolute',
+    margin: 30,
+    right: 0,
+    bottom: 0,
   },
-});
+})
 
 type Props = {
   onPress: any;
-}
+};
 
 export const BlockReservationsButton = (props: Props) => {
-
   return (
-    <Button
-      style={styles.button}
-      labelStyle={{fontSize: 18}}
-      mode="contained"
-      uppercase={false}
-      color='#4b5173'
-      onPress={props.onPress}>
-        Block reservations
-    </Button>
+    <FAB
+    style={styles.fab}
+    title="Block"
+      icon={<Icon name="cancel" type="ionicons" size={25} color="white" />}
+      color="#4b5173"
+      onPress={props.onPress}
+    />
   );
 };
