@@ -8,7 +8,6 @@ import {
   BusinessBookingsScreen,
   BusinessHomePageScreen,
   BusinessProfileScreen,
-  TempBookingScreen,
 } from '../screens';
 
 const Tab = createBottomTabNavigator();
@@ -43,7 +42,6 @@ export const BusinessStack = () => {
         //   ),
         // })}
       />
-      <Stack.Screen name="TempBookings" component={TempBookingScreen} />
       <Stack.Screen
         name="Profile"
         component={BusinessProfileScreen}

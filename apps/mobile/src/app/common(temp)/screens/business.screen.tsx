@@ -3,8 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
 
+import { getBusiness } from '../../business/requests';
 import { BusinessCard } from '../components';
-import { getBusiness } from '../requests';
+
 
 const styles = StyleSheet.create({
     loadingContainer: {

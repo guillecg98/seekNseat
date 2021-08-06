@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Card, Modal, Paragraph, Portal, Provider, Text  } from 'react-native-paper';
 
-import { ReservationButton } from './reservation-button.component';
+import { ResquestBookingButton } from './request-booking-button.component';
+
 
 const styles = StyleSheet.create({
     container: {
@@ -71,7 +72,7 @@ export const BusinessCard = (props: Props) => {
                     </Paragraph>
                 </Card.Content>
             <Card.Actions style={{justifyContent: 'center'}}>
-                <ReservationButton
+                <ResquestBookingButton
                     onPress={showModal}/>
                 <Portal>
                 <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={styles.modal}>

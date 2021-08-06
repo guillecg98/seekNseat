@@ -1,6 +1,6 @@
 import {
     EditBusinessDTO
-} from "@seekNseat/contracts";
+} from "@seekNseat/contracts/business";
 import axios from "axios";
 
 export const editBusinessProfile = async (id: string, business: EditBusinessDTO) => {
