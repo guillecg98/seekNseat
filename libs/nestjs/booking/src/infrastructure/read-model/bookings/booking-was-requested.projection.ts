@@ -15,7 +15,11 @@ export class BookingWasRequestedProjection
   ) {}
 
   async handle(event: BookingWasRequested) {
-    const booking = new this.bookings({ ...event.payload });
+    const booking = new this.bookings({
+      ...event.payload,
+      bookingState: 'PENDING',
+      noShow: false,
+    });
 
     await booking.save();
   }
