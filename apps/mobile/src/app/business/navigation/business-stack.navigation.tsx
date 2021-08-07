@@ -11,9 +11,9 @@ export const BusinessStack = () => {
 
   const [index,setIndex] = useState(1);
   const [routes] = useState([
-    {key: 'BOOKINGS', title: 'Bookings', icon: 'book', color: '#4b5173'},
-    {key: 'HOME', title: 'Home', icon: 'home', color: '#4b5173'},
-    {key: 'PROFILE', title: 'Profile', icon: 'account-box', color: '#4b5173'},
+    {key: 'BOOKINGS', title: 'Reservas', icon: 'book'},
+    {key: 'HOME', title: 'Home', icon: 'home'},
+    {key: 'PROFILE', title: 'Perfil', icon: 'account-box'},
   ])
 
   const renderScene = BottomNavigation.SceneMap({
@@ -27,6 +27,7 @@ export const BusinessStack = () => {
       navigationState={{ index, routes }}
       onIndexChange={setIndex}
       renderScene={renderScene}
+      barStyle={{padding: 7, backgroundColor: '#4b5173'}}
     />
   );
 };
