@@ -1,5 +1,5 @@
 import { EditBusinessDTO } from '@seekNseat/contracts/business';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   ScrollView,
@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import { Input } from 'react-native-elements';
 
+import { LogoutButton } from '../../auth/components';
+import { AuthContext } from '../../auth/navigation';
 import { SaveProfileButton } from '../components';
 import { editBusinessProfile, getBusiness } from '../requests';
 
@@ -50,6 +52,7 @@ const styles = StyleSheet.create({
 });
 
 export const BusinessProfileScreen = () => {
+  const { logout } = useContext(AuthContext);
   const businessId = 'b6bf988a-f34e-4c4a-bdb6-aa3be8f580f3';
   const [businessToEdit, setBusinessToEdit] = useState<EditBusinessDTO>();
 
@@ -134,6 +137,7 @@ export const BusinessProfileScreen = () => {
         </View>
 
         <View style={styles.sectionFooter}></View>
+        <LogoutButton onPress={logout} />
       </View>
     );
   } else {

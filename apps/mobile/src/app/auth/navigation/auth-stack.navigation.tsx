@@ -16,10 +16,11 @@ export const AuthStack = () => {
   }, []);
 
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      initialRouteName='SignIn'>
       <Stack.Screen name="SignIn" component={SignInScreen} />
       <Stack.Screen
-        name="BusinessRegister"
+        name="Register"
         component={BusinessRegisterScreen}
       />
     </Stack.Navigator>

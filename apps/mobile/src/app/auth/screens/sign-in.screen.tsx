@@ -1,8 +1,3 @@
-import auth from '@react-native-firebase/auth';
-import {
-  GoogleSignin,
-  statusCodes,
-} from '@react-native-google-signin/google-signin';
 import React, { useContext, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 
@@ -29,31 +24,11 @@ const styles = StyleSheet.create({
 });
 
 export const SignInScreen = ({ navigation }) => {
-  //const { socialLogin } = useContext(AuthContext);
-  const { setUser } = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
 
   const onSignIn = () => {
     login();
-    navigation.navigate('Initial');
-  };
-
-  const login = async () => {
-    try {
-      const { idToken, user } = await GoogleSignin.signIn();
-      setUser(user);
-      const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-      await auth().signInWithCredential(googleCredential);
-    } catch (error) {
-      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        // user cancelled the login flow
-      } else if (error.code === statusCodes.IN_PROGRESS) {
-        // operation (e.g. sign in) is in progress already
-      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        // play services not available or outdated
-      } else {
-        // some other error happened
-      }
-    }
+    navigation.navigate('Register');
   };
 
   return (
@@ -64,7 +39,6 @@ export const SignInScreen = ({ navigation }) => {
           buttonType="google"
           color="#59a4de"
           backgroundColor="#cad7e0"
-          // onPress={() => login()}
           onPress={onSignIn}
         />
       </View>
