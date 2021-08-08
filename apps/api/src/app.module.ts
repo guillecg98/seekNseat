@@ -10,8 +10,10 @@ import { AuthModule } from '@seekNseat/nestjs/auth';
 import { BookingModule } from "@seekNseat/nestjs/booking";
 import { BusinessModule } from '@seekNseat/nestjs/business';
 import { UserModule } from '@seekNseat/nestjs/user';
+import { AccessControlModule } from 'nest-access-control';
 import { ConsoleModule } from 'nestjs-console';
 
+import { acl } from './app.acl';
 import configuration from './app.config';
 import { AppLoggerMiddleware } from './app.middleware';
 import { appProviders } from './app.providers';
@@ -46,6 +48,7 @@ import { appProviders } from './app.providers';
       connection:
         process.env.EVENTSTORE_URL || 'esdb://localhost:2113?tls=false',
     }),
+    AccessControlModule.forRoles(acl),
     // Project modules
     AuthModule,
     UserModule,

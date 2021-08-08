@@ -9,18 +9,23 @@ import {
   Post,
   Put,
   Res,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Resource } from '@seekNseat/contracts';
 import {
   BusinessDTO,
   CreateBusinessDTO,
   EditBusinessDTO,
 } from '@seekNseat/contracts/business';
 import { Response } from 'express';
+import { ACGuard, UseRoles } from 'nest-access-control';
 
+import { BusinessGuard } from '../auth/business.guard';
 import { BusinessService } from '../services';
 
+@ApiBearerAuth()
 @ApiTags('businesses')
 @Controller('businesses')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -28,6 +33,15 @@ export class BusinessController {
   constructor(private readonly businessService: BusinessService) {}
 
   @Post()
+  @ApiOperation({ summary: 'Create business' })
+  @ApiResponse({ status: 204, description: 'Business created' })
+  @ApiResponse({ status: 404, description: 'Not found' })
+  @UseRoles({
+    resource: Resource.Business,
+    action: 'create',
+    possession: 'own',
+  })
+  @UseGuards(BusinessGuard, ACGuard)
   async create(
     @Body() createBusinessDTO: CreateBusinessDTO
   ): Promise<BusinessDTO> {
