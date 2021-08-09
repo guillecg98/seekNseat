@@ -1,12 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import {
+  BlockBusinessDTO,
   BusinessDTO,
   CreateBusinessDTO,
   EditBusinessDTO,
 } from '@seekNseat/contracts/business';
 
 import {
+  BlockBusinessCommand,
   CreateBusinessCommand,
   DeleteBusinessCommand,
   EditBusinessCommand,
@@ -57,6 +59,14 @@ export class BusinessService {
         editBusinessDTO.address,
         editBusinessDTO.description
       )
+    );
+
+    return this.findOne(id);
+  }
+
+  async block(id: string, blockBusinessDTO: BlockBusinessDTO): Promise<BusinessDTO> {
+    await this.commandBus.execute(
+      new BlockBusinessCommand(id, blockBusinessDTO.blocked)
     );
 
     return this.findOne(id);
