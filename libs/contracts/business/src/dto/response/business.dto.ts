@@ -6,9 +6,9 @@ interface Props {
     contactPhone: string;
     address?: string;
     description?: string;
-
-        //public readonly images: string[],
-        //public readonly categories: CategoryDTO[],
+    blocked?: boolean;
+    //public readonly images: string[],
+    //public readonly categories: CategoryDTO[],
 }
 
 export class BusinessDTO {
@@ -28,6 +28,8 @@ export class BusinessDTO {
     @ApiProperty()
     public readonly description?: string;
 
+    @ApiProperty()
+    public readonly blocked?: boolean;
 
     constructor(props: Partial<Props>) {
         Object.assign(this, props)
