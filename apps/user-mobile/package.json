@@ -1,0 +1,11 @@
+{
+  "name": "user-mobile",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "react-native": "0.64.2",
+    "react": "17.0.2",
+    "@testing-library/react-native": "7.1.0",
+    "@testing-library/jest-native": "3.4.3"
+  }
+}

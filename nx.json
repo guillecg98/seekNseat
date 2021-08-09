@@ -78,6 +78,13 @@
     "ui": {
       "tags": []
     },
+    "user-mobile": {
+      "tags": []
+    },
+    "user-mobile-e2e": {
+      "tags": [],
+      "implicitDependencies": ["user-mobile"]
+    },
     "web": {
       "tags": []
     },
