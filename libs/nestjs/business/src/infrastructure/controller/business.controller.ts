@@ -20,6 +20,7 @@ import {
 } from '@nestjs/swagger';
 import { Resource } from '@seekNseat/contracts';
 import {
+  BlockBusinessDTO,
   BusinessDTO,
   CreateBusinessDTO,
   EditBusinessDTO,
@@ -126,6 +127,31 @@ export class BusinessController {
   ): Promise<BusinessDTO> {
     try {
       return await this.businessService.edit(id, editBusinessDTO);
+    } catch (e) {
+      if (e instanceof Error) {
+        throw new BadRequestException(e.message);
+      } else {
+        throw new BadRequestException('Server Error');
+      }
+    }
+  }
+
+  @Put('/block/:id')
+  @ApiOperation({ summary: 'Block business to avoid booking requests'})
+  @ApiResponse({ status: 200, description: 'Business blocked'})
+  @ApiResponse({ status: 404, description: 'Not found'})
+  @UseRoles({
+    resource: Resource.Business,
+    action: 'update',
+    possession: 'own',
+  })
+  @UseGuards(BusinessGuard, ACGuard)
+  async block(
+    @Param('id') id: string,
+    @Body() blockBusinessDTO: BlockBusinessDTO
+  ): Promise<BusinessDTO> {
+    try {
+      return await this.businessService.block(id, blockBusinessDTO);
     } catch (e) {
       if (e instanceof Error) {
         throw new BadRequestException(e.message);

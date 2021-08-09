@@ -2,6 +2,7 @@ import { AggregateRoot } from '@aulasoftwarelibre/nestjs-eventstore';
 
 import {
   BusinessProfileWasEdited,
+  BusinessWasBlocked,
   BusinessWasCreated,
   BusinessWasDeleted,
 } from '../event';
@@ -54,10 +55,16 @@ export class Business extends AggregateRoot {
     return this._description;
   }
 
+  get blocked(): boolean | undefined {
+    return this._blocked;
+  }
+
   private onBusinessWasCreated(event: BusinessWasCreated) {
     this._id = BusinessId.fromString(event.id);
     this._name = BusinessName.fromString(event.name);
     this._contactPhone = BusinessContactPhone.fromString(event.contactPhone);
+    this._address = '';
+    this._description = '';
     this._blocked = false;
     this._deleted = undefined;
   }
@@ -84,6 +91,14 @@ export class Business extends AggregateRoot {
     this._contactPhone = BusinessContactPhone.fromString(event.contactPhone);
     this._address = event.address;
     this._description = event.description;
+  }
+
+  blockBookingRequests(blocked: boolean) {
+    this.apply(new BusinessWasBlocked(this.id.value, blocked));
+  }
+
+  private onBusinessWasBlocked(event: BusinessWasBlocked) {
+    this._blocked = event.blocked;
   }
 
   delete(): void {
