@@ -10,18 +10,29 @@ import {
   Put,
   Query,
   Res,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiQuery,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import { Resource } from '@seekNseat/contracts';
 import {
   BookingDTO,
   CreateBookingDTO,
   EditBookingDTO,
 } from '@seekNseat/contracts/booking';
 import { Response } from 'express';
+import { ACGuard, UseRoles } from 'nest-access-control';
 
+import { BookingGuard } from '../auth/booking.guard';
 import { BookingService } from '../services';
 
+@ApiBearerAuth()
 @ApiTags('bookings')
 @Controller('bookings')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -29,7 +40,14 @@ export class BookingController {
   constructor(private readonly bookingService: BookingService) {}
 
   @Post()
+  @ApiOperation({ summary: 'Request booking' })
   @ApiResponse({ status: 200, description: 'Booking created' })
+  @UseRoles({
+    resource: Resource.Booking,
+    action: 'create',
+    possession: 'own',
+  })
+  @UseGuards(BookingGuard, ACGuard)
   async create(
     @Body() createBookingDTO: CreateBookingDTO
   ): Promise<BookingDTO> {
@@ -45,10 +63,17 @@ export class BookingController {
   }
 
   @Get()
+  @ApiOperation({ summary: 'Read all bookings based on user id'})
   @ApiResponse({ status: 200, description: 'List Bookings' })
   @ApiResponse({ status: 404, description: 'Bookings not found' })
   @ApiQuery({ name: 'userId', required: false })
   @ApiQuery({ name: 'businessId', required: false })
+  @UseRoles({
+    resource: Resource.Booking,
+    action: 'read',
+    possession: 'own',
+  })
+  @UseGuards(BookingGuard, ACGuard)
   async findAll(
     @Res({ passthrough: true }) res: Response,
     @Query('userId') userId: string,
@@ -70,8 +95,15 @@ export class BookingController {
   }
 
   @Get(':id')
+  @ApiOperation({summary: 'Get one booking'})
   @ApiResponse({ status: 200, description: 'Booking found' })
   @ApiResponse({ status: 404, description: 'Booking not found' })
+  @UseRoles({
+    resource: Resource.Booking,
+    action: 'read',
+    possession: 'own',
+  })
+  @UseGuards(BookingGuard, ACGuard)
   async findOne(@Param('id') id: string): Promise<BookingDTO> {
     try {
       return this.bookingService.findOne(id);
@@ -85,8 +117,15 @@ export class BookingController {
   }
 
   @Put(':id')
+  @ApiOperation({ summary: 'Update booking state'})
   @ApiResponse({ status: 200, description: 'Booking request responsed' })
   @ApiResponse({ status: 404, description: 'Booking not found' })
+  @UseRoles({
+    resource: Resource.Booking,
+    action: 'update',
+    possession: 'own',
+  })
+  @UseGuards(BookingGuard, ACGuard)
   async update(
     @Param('id') id: string,
     @Body() editBookingDTO: EditBookingDTO
@@ -103,8 +142,15 @@ export class BookingController {
   }
 
   @Delete(':id')
+  @ApiOperation({ summary: 'Delete business'})
   @ApiResponse({ status: 200, description: 'Booking deleted' })
   @ApiResponse({ status: 404, description: 'Booking not found' })
+  @UseRoles({
+    resource: Resource.Booking,
+    action: 'delete',
+    possession: 'own',
+  })
+  @UseGuards(BookingGuard, ACGuard)
   async delete(@Param('id') id: string): Promise<void> {
     try {
       return this.bookingService.delete(id);
