@@ -7,6 +7,7 @@ export type BusinessDocument = BusinessDTO & Document;
 
 export const BusinessSchema = new Schema({
     _id: String,
+    ownerId: String,
     name: String,
     contactPhone: String,
     address: String,

@@ -39,7 +39,7 @@ export class BusinessGuard extends AuthGuard('jwt') {
       .switchToHttp()
       .getRequest()?.business;
 
-    if (business && business.id.includes(user.id)) {
+    if (business && business.ownerId === user.id) {
       user?.roles.push(Role.BusinessOwner)
     }
 

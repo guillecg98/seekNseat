@@ -7,6 +7,10 @@ export class CreateBusinessDTO {
     _id: string;
 
     @ApiProperty()
+    @IsUUID(4)
+    ownerId: string;
+
+    @ApiProperty()
     @IsNotEmpty()
     name: string;
 
