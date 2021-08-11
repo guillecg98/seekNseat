@@ -23,7 +23,7 @@ export class BusinessGuard extends AuthGuard('jwt') {
     const req = context.switchToHttp().getRequest();
 
     const { id } = req?.params;
-
+    
     if (id) {
       req.business = await this.queryBus.execute(new GetBusinessQuery(id));
     }
