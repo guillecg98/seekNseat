@@ -44,7 +44,6 @@ Thumbs.db
 ormconfig.json
 .env.local
 cyreport
-.env
 
 # React Native
 
