@@ -1,46 +1,47 @@
 import { CategoryDTO } from '@seekNseat/contracts';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import { Button, Input } from 'react-native-elements';
 
+import { AuthContext } from '../../auth/navigation';
 import { SearchBar } from '../components';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 20,
     backgroundColor: 'white',
   },
   sectionHeader: {
     flex: 2,
-    padding: 15,
     justifyContent: 'center',
   },
   textHeader: {
     fontSize: 35,
+    fontFamily: 'Feather',
     color: '#4884CA',
     textAlign: 'center',
   },
   section: {
     flex: 4,
-    margin: 15,
-    justifyContent: 'center',
+    padding: 10,
   },
   dropdown: {
+    marginTop: 20,
     margin: 10,
     backgroundColor: 'white',
     borderBottomColor: '#596275',
     borderBottomWidth: 1,
-    marginTop: 30,
   },
   skipButton: {
     backgroundColor: '#4884CA',
     width: 100,
   },
   sectionFooter: {
-    flex: 2,
+    flex: 1,
+    justifyContent:  'center',
     padding: 15,
-    justifyContent: 'center',
   },
 });
 
@@ -55,14 +56,15 @@ const data = [
   { label: 'Japones', value: '8' },
 ];
 
-export const UserHomePage = ({ navigation }) => {
+export const UserHomePage = () => {
+  const { user } = useContext(AuthContext);
   const [foodies, setFoodies] = useState('');
   const [category, setCategory] = useState(null);
 
   return (
     <View style={styles.container}>
       <View style={styles.sectionHeader}>
-        <Text style={styles.textHeader}> Welcome back, username! </Text>
+        <Text style={styles.textHeader}> Welcome back, user.name! </Text>
       </View>
 
       <View style={styles.section}>
@@ -80,24 +82,21 @@ export const UserHomePage = ({ navigation }) => {
           }}
         />
         <Input
+          style={{marginTop: 20,}}
           value={foodies}
           onChangeText={setFoodies}
           placeholder="Number of foodies"
           keyboardType="numeric"
         />
-
-        <Button
-          buttonStyle={styles.skipButton}
-          title="Next"
-          onPress={() => navigation.navigate('Businesses')}
-        />
       </View>
 
       <View style={styles.sectionFooter}>
-        <Text style={{ textAlign: 'center' }}>
-          {' '}
-          The main navbar for users should be here
-        </Text>
+        <Button
+          buttonStyle={styles.skipButton}
+          title="Next"
+          // onPress={() => navigation.navigate('Businesses')}
+          onPress={() => console.log('business list view')}
+        />
       </View>
     </View>
   );
