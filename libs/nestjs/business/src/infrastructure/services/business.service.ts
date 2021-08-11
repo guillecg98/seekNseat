@@ -27,6 +27,7 @@ export class BusinessService {
     await this.commandBus.execute(
       new CreateBusinessCommand(
         createBusinessDTO._id,
+        createBusinessDTO.ownerId,
         createBusinessDTO.name,
         createBusinessDTO.contactPhone
       )

@@ -5,9 +5,10 @@ export class BusinessWasCreated extends Event<CreateBusinessDTO> {
 
     constructor(
         public readonly id: string,
+        public readonly ownerId: string,
         public readonly name: string,
         public readonly contactPhone: string,
     ) {
-        super(id, {_id: id, name, contactPhone});
+        super(id, {_id: id, ownerId, name, contactPhone});
     }
 }

@@ -1,4 +1,5 @@
 import { AggregateRoot } from '@aulasoftwarelibre/nestjs-eventstore';
+import { UserId } from '@seekNseat/nestjs/user';
 
 import {
   BusinessProfileWasEdited,
@@ -12,6 +13,7 @@ import { BusinessName } from './business-name';
 
 export class Business extends AggregateRoot {
   private _id: BusinessId;
+  private _ownerId: UserId;
   private _name: BusinessName;
   private _contactPhone: BusinessContactPhone;
   private _address?: string;
@@ -21,12 +23,13 @@ export class Business extends AggregateRoot {
 
   public static create(
     id: BusinessId,
+    ownerId: UserId,
     name: BusinessName,
     contactPhone: BusinessContactPhone
   ): Business {
     const business = new Business();
     business.apply(
-      new BusinessWasCreated(id.value, name.value, contactPhone.value)
+      new BusinessWasCreated(id.value, ownerId.value, name.value, contactPhone.value)
     );
     return business;
   }
@@ -37,6 +40,10 @@ export class Business extends AggregateRoot {
 
   get id(): BusinessId {
     return this._id;
+  }
+
+  get ownerId(): UserId {
+    return this._ownerId;
   }
 
   get name(): BusinessName {
@@ -61,6 +68,7 @@ export class Business extends AggregateRoot {
 
   private onBusinessWasCreated(event: BusinessWasCreated) {
     this._id = BusinessId.fromString(event.id);
+    this._ownerId = UserId.fromString(event.ownerId);
     this._name = BusinessName.fromString(event.name);
     this._contactPhone = BusinessContactPhone.fromString(event.contactPhone);
     this._address = '';

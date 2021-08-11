@@ -8,12 +8,12 @@ import { QueryBus } from '@nestjs/cqrs';
 import { AuthGuard } from '@nestjs/passport';
 import { Role } from '@seekNseat/contracts';
 
-import { GetBusinessQuery } from '../../application';
-import { BusinessDocument } from '../read-model';
+import { GetBookingQuery } from '../../application';
+import { BookingDocument } from '../read-model';
 
 @Injectable()
-export class BusinessGuard extends AuthGuard('jwt') {
-  private readonly logger = new Logger(BusinessGuard.name);
+export class BookingBusinessGuard extends AuthGuard('jwt') {
+  private readonly logger = new Logger(BookingBusinessGuard.name);
 
   constructor(private readonly queryBus: QueryBus) {
     super();
@@ -23,9 +23,9 @@ export class BusinessGuard extends AuthGuard('jwt') {
     const req = context.switchToHttp().getRequest();
 
     const { id } = req?.params;
-    
+
     if (id) {
-      req.business = await this.queryBus.execute(new GetBusinessQuery(id));
+      req.booking = await this.queryBus.execute(new GetBookingQuery(id));
     }
     return super.canActivate(context) as boolean;
   }
@@ -35,11 +35,11 @@ export class BusinessGuard extends AuthGuard('jwt') {
       throw err || new UnauthorizedException();
     }
 
-    const business: BusinessDocument = context
+    const booking: BookingDocument = context
       .switchToHttp()
-      .getRequest()?.business;
+      .getRequest()?.booking;
 
-    if (business && business.ownerId === user.id) {
+    if (booking && booking.businessId === user.id) {
       user?.roles.push(Role.BusinessOwner)
     }
 

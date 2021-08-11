@@ -16,7 +16,7 @@ export const eventTransformers = {
       event.payload.bookingState,
       event.payload.noShow
     ),
-  BookinWasCanceled: (event: Event) =>
+  BookingWasCanceled: (event: Event) =>
     new BookingWasCanceled(event.aggregateId),
   BookingWasRequested: (event: Event<CreateBookingDTO>) =>
     new BookingWasRequested(

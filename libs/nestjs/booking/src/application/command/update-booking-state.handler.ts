@@ -4,7 +4,7 @@ import {
 } from '@aulasoftwarelibre/nestjs-eventstore';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
-import { Booking, BookingId, State } from '../../domain';
+import { Booking, BookingId, State, States } from '../../domain';
 import { UpdateBookingStateCommand } from './update-booking-state.command';
 
 @CommandHandler(UpdateBookingStateCommand)
@@ -26,7 +26,7 @@ export class UpdateBookingStateHandler
       //BookingNotFound.with(id) Error
     }
 
-    const bookingState = State.fromString(command.bookingState);
+    const bookingState = State.fromString(command.bookingState as States);
     const noShow = command.noShow;
 
     booking.updateBookingState(bookingState, noShow);

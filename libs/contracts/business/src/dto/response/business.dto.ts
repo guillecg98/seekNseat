@@ -2,6 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 interface Props {
     _id: string;
+    ownerId: string;
     name: string;
     contactPhone: string;
     address?: string;
@@ -15,6 +16,9 @@ export class BusinessDTO {
 
     @ApiProperty()
     public readonly _id: string;
+
+    @ApiProperty()
+    public readonly ownerId: string;
 
     @ApiProperty()
     public readonly name: string;

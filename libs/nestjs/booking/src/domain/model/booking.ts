@@ -9,7 +9,7 @@ import {
 } from '../event';
 import { BookingId } from './booking-id';
 import { NumberOfFoodies } from './number-of-foodies';
-import { State } from './state';
+import { State, States } from './state';
 
 export class Booking extends AggregateRoot {
   private _id: BookingId;
@@ -74,7 +74,7 @@ export class Booking extends AggregateRoot {
     this._userId = UserId.fromString(event.userId);
     this._businessId = BusinessId.fromString(event.businessId);
     this._numberOfFoodies = NumberOfFoodies.fromNumber(event.numberOfFoodies);
-    this._bookingState = State.fromString('PENDING');
+    this._bookingState = State.fromString(States.Pending);
     this._noShow = false;
     this._deleted = undefined;
   }
@@ -86,7 +86,7 @@ export class Booking extends AggregateRoot {
   }
 
   private onBookingStateWasUpdated(event: BookingStateWasUpdated) {
-    this._bookingState = State.fromString(event.bookingState);
+    this._bookingState = State.fromString(event.bookingState as States);
     this._noShow = event.noShow;
   }
 

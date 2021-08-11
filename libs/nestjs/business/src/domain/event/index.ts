@@ -19,6 +19,7 @@ export const eventTransformers = {
   BusinessWasCreated: (event: Event<CreateBusinessDTO>) =>
     new BusinessWasCreated(
       event.aggregateId,
+      event.payload.ownerId,
       event.payload.name,
       event.payload.contactPhone
     ),
