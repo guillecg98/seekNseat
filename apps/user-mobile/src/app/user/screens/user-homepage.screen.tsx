@@ -1,8 +1,14 @@
 import { CategoryDTO } from '@seekNseat/contracts';
 import React, { useContext, useState } from 'react';
-import { KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  KeyboardAvoidingView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
-import { Button, Input } from 'react-native-elements';
+import { Button, Icon, Input } from 'react-native-elements';
 
 import { AuthContext } from '../../auth/navigation';
 import { SearchBar } from '../components';
@@ -13,6 +19,11 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: 'white',
   },
+  activityIndicatorContainer: {
+    flex: 1,
+    padding: 20,
+    justifyContent: 'center',
+  },
   sectionHeader: {
     flex: 2,
     justifyContent: 'center',
@@ -20,7 +31,7 @@ const styles = StyleSheet.create({
   textHeader: {
     fontSize: 35,
     fontFamily: 'Feather',
-    color: '#4884CA',
+    color: '#0D8686',
     textAlign: 'center',
   },
   section: {
@@ -28,19 +39,21 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   dropdown: {
-    marginTop: 20,
+    marginTop: 30,
     margin: 10,
     backgroundColor: 'white',
-    borderBottomColor: '#596275',
+    borderBottomColor: '#0D8686',
     borderBottomWidth: 1,
   },
   skipButton: {
-    backgroundColor: '#4884CA',
-    width: 100,
+    alignSelf: 'flex-end',
+    width: 120,
+    borderRadius: 30,
+    backgroundColor: '#0D8686',
   },
   sectionFooter: {
     flex: 1,
-    justifyContent:  'center',
+    justifyContent: 'center',
     padding: 15,
   },
 });
@@ -61,10 +74,10 @@ export const UserHomePage = () => {
   const [foodies, setFoodies] = useState('');
   const [category, setCategory] = useState(null);
 
-  return (
+  return user ? (
     <View style={styles.container}>
       <View style={styles.sectionHeader}>
-        <Text style={styles.textHeader}> Welcome back, user.name! </Text>
+        <Text style={styles.textHeader}> Welcome back, {user.givenName}! </Text>
       </View>
 
       <View style={styles.section}>
@@ -82,10 +95,20 @@ export const UserHomePage = () => {
           }}
         />
         <Input
-          style={{marginTop: 20,}}
+          containerStyle={{ marginTop: 35 }}
           value={foodies}
+          leftIcon={
+            <Icon
+              name="people-outline"
+              size={22}
+              type="ionicons"
+              color="#494949"
+            />
+          }
+          label="Numero de personas"
+          labelStyle={{ color: '#494949' }}
           onChangeText={setFoodies}
-          placeholder="Number of foodies"
+          placeholder="Numero de personas"
           keyboardType="numeric"
         />
       </View>
@@ -93,11 +116,15 @@ export const UserHomePage = () => {
       <View style={styles.sectionFooter}>
         <Button
           buttonStyle={styles.skipButton}
-          title="Next"
+          title="Siguiente"
           // onPress={() => navigation.navigate('Businesses')}
           onPress={() => console.log('business list view')}
         />
       </View>
+    </View>
+  ) : (
+    <View style={styles.activityIndicatorContainer}>
+      <ActivityIndicator animating={true} size="large" color="#4884CA" />
     </View>
   );
 };

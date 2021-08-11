@@ -22,7 +22,7 @@ export const UserStack = () => {
       navigationState={{ index, routes }}
       onIndexChange={setIndex}
       renderScene={renderScene}
-      barStyle={{ padding: 7, backgroundColor: '#4b5173' }}
+      barStyle={{ padding: 7, backgroundColor: '#0D8686' }}
     />
   );
 };

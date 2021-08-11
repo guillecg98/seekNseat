@@ -16,7 +16,7 @@ export const SearchBar = () => {
 
     return(
         <Searchbar
-            selectionColor='#4884CA'
+            selectionColor='#0D8686'
             style={styles.container}
             placeholder="Search by Restaurant..."
             onChangeText={onSearch}
