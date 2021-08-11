@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-//import { FAB } from 'react-native-paper';
 import { FAB, Icon } from 'react-native-elements';
 
 const styles = StyleSheet.create({
