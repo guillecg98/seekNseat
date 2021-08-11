@@ -28,7 +28,7 @@ export const SignInScreen = ({ navigation }) => {
 
   const onSignIn = () => {
     login();
-    navigation.navigate('Register');
+    navigation.navigate('Home');
   };
 
   return (

@@ -9,7 +9,7 @@ export const AppRoutes = () => {
 
   return (
     <NavigationContainer>
-      <UserStack />
+      {user ? <UserStack /> : <AuthStack />}
     </NavigationContainer>
   );
 };
