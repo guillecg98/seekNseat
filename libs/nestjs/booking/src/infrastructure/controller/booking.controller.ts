@@ -29,7 +29,7 @@ import {
 import { Response } from 'express';
 import { ACGuard, UseRoles } from 'nest-access-control';
 
-import { BookingGuard } from '../auth/booking.guard';
+import { BookingBusinessGuard, BookingUserGuard } from '../auth';
 import { BookingService } from '../services';
 
 @ApiBearerAuth()
@@ -47,7 +47,7 @@ export class BookingController {
     action: 'create',
     possession: 'own',
   })
-  @UseGuards(BookingGuard, ACGuard)
+  @UseGuards(BookingUserGuard, BookingBusinessGuard, ACGuard)
   async create(
     @Body() createBookingDTO: CreateBookingDTO
   ): Promise<BookingDTO> {
@@ -73,7 +73,7 @@ export class BookingController {
     action: 'read',
     possession: 'own',
   })
-  @UseGuards(BookingGuard, ACGuard)
+  @UseGuards(BookingUserGuard, BookingBusinessGuard, ACGuard)
   async findAll(
     @Res({ passthrough: true }) res: Response,
     @Query('userId') userId: string,
@@ -103,7 +103,7 @@ export class BookingController {
     action: 'read',
     possession: 'own',
   })
-  @UseGuards(BookingGuard, ACGuard)
+  @UseGuards(BookingUserGuard, BookingBusinessGuard, ACGuard)
   async findOne(@Param('id') id: string): Promise<BookingDTO> {
     try {
       return this.bookingService.findOne(id);
@@ -125,7 +125,7 @@ export class BookingController {
     action: 'update',
     possession: 'own',
   })
-  @UseGuards(BookingGuard, ACGuard)
+  @UseGuards(BookingUserGuard, BookingBusinessGuard, ACGuard)
   async update(
     @Param('id') id: string,
     @Body() editBookingDTO: EditBookingDTO
@@ -150,7 +150,7 @@ export class BookingController {
     action: 'delete',
     possession: 'own',
   })
-  @UseGuards(BookingGuard, ACGuard)
+  @UseGuards(BookingUserGuard, BookingBusinessGuard, ACGuard)
   async delete(@Param('id') id: string): Promise<void> {
     try {
       return this.bookingService.delete(id);

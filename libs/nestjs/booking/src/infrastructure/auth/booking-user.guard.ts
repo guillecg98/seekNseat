@@ -12,8 +12,8 @@ import { GetBookingQuery } from '../../application';
 import { BookingDocument } from '../read-model';
 
 @Injectable()
-export class BookingGuard extends AuthGuard('jwt') {
-  private readonly logger = new Logger(BookingGuard.name);
+export class BookingUserGuard extends AuthGuard('jwt') {
+  private readonly logger = new Logger(BookingUserGuard.name);
 
   constructor(private readonly queryBus: QueryBus) {
     super();
@@ -39,12 +39,8 @@ export class BookingGuard extends AuthGuard('jwt') {
       .switchToHttp()
       .getRequest()?.booking;
 
-    if (booking && booking.userId.includes(user.id)) {
+    if (booking && booking.userId === user.id) {
       user?.roles.push(Role.User)
-    }
-
-    if (booking && booking.businessId.includes(user.id)) {
-      user?.roles.push(Role.BusinessOwner)
     }
 
     return user;
