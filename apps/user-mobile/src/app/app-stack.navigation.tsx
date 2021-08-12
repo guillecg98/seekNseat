@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 import { BottomNavigation } from 'react-native-paper';
 
-import { UserHomePage, UserProfileScreen } from '../screens';
+import { UserBookingsScreen } from './booking/screens';
+import { UserHomePage, UserProfileScreen } from './user/screens';
 
-export const UserStack = () => {
-  const [index, setIndex] = useState(0);
+export const AppStack = () => {
+  const [index, setIndex] = useState(1);
   const [routes] = useState([
-    // { key: 'BOOKINGS', title: 'Reservas', icon: 'book' },
+    { key: 'BOOKINGS', title: 'Reservas', icon: 'book' },
     { key: 'HOME', title: 'Home', icon: 'home' },
     { key: 'PROFILE', title: 'Perfil', icon: 'account-box' },
   ]);
 
   const renderScene = BottomNavigation.SceneMap({
-    //BOOKINGS: ,
+    BOOKINGS: UserBookingsScreen,
     HOME: UserHomePage,
     PROFILE: UserProfileScreen,
   });
