@@ -1,46 +1,60 @@
 import { CategoryDTO } from '@seekNseat/contracts';
-import React, { useState } from 'react';
-import { KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native';
+import React, { useContext, useState } from 'react';
+import {
+  ActivityIndicator,
+  KeyboardAvoidingView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
-import { Button, Input } from 'react-native-elements';
+import { Button, Icon, Input } from 'react-native-elements';
 
+import { AuthContext } from '../../auth/navigation';
 import { SearchBar } from '../components';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 20,
     backgroundColor: 'white',
+  },
+  activityIndicatorContainer: {
+    flex: 1,
+    padding: 20,
+    justifyContent: 'center',
   },
   sectionHeader: {
     flex: 2,
-    padding: 15,
     justifyContent: 'center',
   },
   textHeader: {
     fontSize: 35,
-    color: '#4884CA',
+    fontFamily: 'Feather',
+    color: '#0D8686',
     textAlign: 'center',
   },
   section: {
     flex: 4,
-    margin: 15,
-    justifyContent: 'center',
+    padding: 10,
   },
   dropdown: {
+    marginTop: 30,
     margin: 10,
     backgroundColor: 'white',
-    borderBottomColor: '#596275',
+    borderBottomColor: '#0D8686',
     borderBottomWidth: 1,
-    marginTop: 30,
   },
   skipButton: {
-    backgroundColor: '#4884CA',
-    width: 100,
+    alignSelf: 'flex-end',
+    width: 120,
+    borderRadius: 30,
+    backgroundColor: '#0D8686',
   },
   sectionFooter: {
-    flex: 2,
-    padding: 15,
+    flex: 1,
     justifyContent: 'center',
+    padding: 15,
   },
 });
 
@@ -55,14 +69,15 @@ const data = [
   { label: 'Japones', value: '8' },
 ];
 
-export const UserHomePage = ({ navigation }) => {
+export const UserHomePage = () => {
+  const { user } = useContext(AuthContext);
   const [foodies, setFoodies] = useState('');
   const [category, setCategory] = useState(null);
 
-  return (
+  return user ? (
     <View style={styles.container}>
       <View style={styles.sectionHeader}>
-        <Text style={styles.textHeader}> Welcome back, username! </Text>
+        <Text style={styles.textHeader}> Welcome back, {user.givenName}! </Text>
       </View>
 
       <View style={styles.section}>
@@ -80,25 +95,36 @@ export const UserHomePage = ({ navigation }) => {
           }}
         />
         <Input
+          containerStyle={{ marginTop: 35 }}
           value={foodies}
+          leftIcon={
+            <Icon
+              name="people-outline"
+              size={22}
+              type="ionicons"
+              color="#494949"
+            />
+          }
+          label="Numero de personas"
+          labelStyle={{ color: '#494949' }}
           onChangeText={setFoodies}
-          placeholder="Number of foodies"
+          placeholder="Numero de personas"
           keyboardType="numeric"
-        />
-
-        <Button
-          buttonStyle={styles.skipButton}
-          title="Next"
-          onPress={() => navigation.navigate('Businesses')}
         />
       </View>
 
       <View style={styles.sectionFooter}>
-        <Text style={{ textAlign: 'center' }}>
-          {' '}
-          The main navbar for users should be here
-        </Text>
+        <Button
+          buttonStyle={styles.skipButton}
+          title="Siguiente"
+          // onPress={() => navigation.navigate('Businesses')}
+          onPress={() => console.log('business list view')}
+        />
       </View>
+    </View>
+  ) : (
+    <View style={styles.activityIndicatorContainer}>
+      <ActivityIndicator animating={true} size="large" color="#0D8686" />
     </View>
   );
 };

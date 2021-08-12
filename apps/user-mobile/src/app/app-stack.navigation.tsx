@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import { BottomNavigation } from 'react-native-paper';
 
-import {
-  BusinessBookingsScreen,
-  BusinessHomePageScreen,
-  BusinessProfileScreen,
-} from '../screens';
+import { UserBookingsScreen } from './booking/screens';
+import { UserHomePage, UserProfileScreen } from './user/screens';
 
-export const BusinessStack = () => {
+export const AppStack = () => {
   const [index, setIndex] = useState(1);
   const [routes] = useState([
     { key: 'BOOKINGS', title: 'Reservas', icon: 'book' },
@@ -16,9 +13,9 @@ export const BusinessStack = () => {
   ]);
 
   const renderScene = BottomNavigation.SceneMap({
-    BOOKINGS: BusinessBookingsScreen,
-    HOME: BusinessHomePageScreen,
-    PROFILE: BusinessProfileScreen,
+    BOOKINGS: UserBookingsScreen,
+    HOME: UserHomePage,
+    PROFILE: UserProfileScreen,
   });
 
   return (
@@ -26,7 +23,7 @@ export const BusinessStack = () => {
       navigationState={{ index, routes }}
       onIndexChange={setIndex}
       renderScene={renderScene}
-      barStyle={{ padding: 7, backgroundColor: '#4b5173' }}
+      barStyle={{ padding: 7, backgroundColor: '#0D8686' }}
     />
   );
 };

@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { ActivityIndicator } from "react-native-paper";
 
-import { getBusinesses } from "../../business/requests";
 import { BusinessList } from "../components";
+import { getBusinesses } from "../requests";
 
 const styles = StyleSheet.create({
     container: {

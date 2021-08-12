@@ -4,7 +4,7 @@ import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { TabBar, TabView } from 'react-native-tab-view';
 
-import { BlockReservationsButton, Bookings } from '../components';
+import { Bookings } from '../components';
 import { getBookings } from '../requests';
 
 const styles = StyleSheet.create({
@@ -52,7 +52,7 @@ const renderTabBar = (props) => (
   />
 );
 
-export const BusinessBookingsScreen = () => {
+export const UserBookingsScreen = () => {
   const [bookings, setBookings] = useState<BookingDTO[]>();
   const [index, setIndex] = useState(1);
   const [routes] = useState([
@@ -62,7 +62,7 @@ export const BusinessBookingsScreen = () => {
   ]);
 
   useEffect(() => {
-    getBookings('b6bf988a-f34e-4c4a-bdb6-aa3be8f580f3').then((res) => {
+    getBookings('935ea41a-185b-45eb-8056-714303aa1e7f').then((res) => {
       setBookings(res?.data);
     });
   }, [index]);
@@ -136,13 +136,12 @@ export const BusinessBookingsScreen = () => {
             onIndexChange={setIndex}
           />
         </View>
-        <BlockReservationsButton onPress={() => console.log('blocked')} />
       </View>
     );
   } else {
     return (
       <View style={styles.container}>
-        <ActivityIndicator animating={true} size="large" color="#4884CA" />
+        <ActivityIndicator animating={true} size="large" color="#0D8686" />
       </View>
     );
   }
