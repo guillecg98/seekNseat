@@ -22,7 +22,9 @@ export const eventTransformers = {
     new BookingWasRequested(
       event.aggregateId,
       event.payload.userId,
+      event.payload.username,
       event.payload.businessId,
+      event.payload.businessName,
       event.payload.numberOfFoodies
     ),
 };

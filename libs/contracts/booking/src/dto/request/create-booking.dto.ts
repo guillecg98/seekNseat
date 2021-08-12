@@ -11,8 +11,14 @@ export class CreateBookingDTO {
     userId: string;
 
     @ApiProperty()
+    username?: string;
+
+    @ApiProperty()
     @IsUUID(4)
     businessId: string;
+
+    @ApiProperty()
+    businessName?: string;
     //bookingTime: DateTime; --- TODO
     @ApiProperty()
     @IsNotEmpty()

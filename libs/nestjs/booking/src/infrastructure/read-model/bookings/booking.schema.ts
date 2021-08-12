@@ -8,7 +8,9 @@ export type BookingDocument = BookingDTO & Document;
 export const BookingSchema = new Schema({
     _id: String,
     userId: String,
+    username: String,
     businessId: String,
+    businessName: String,
     numberOfFoodies: Number,
     bookingState: String,
     noShow: Boolean,
