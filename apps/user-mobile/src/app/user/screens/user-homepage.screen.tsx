@@ -124,7 +124,7 @@ export const UserHomePage = () => {
     </View>
   ) : (
     <View style={styles.activityIndicatorContainer}>
-      <ActivityIndicator animating={true} size="large" color="#4884CA" />
+      <ActivityIndicator animating={true} size="large" color="#0D8686" />
     </View>
   );
 };
