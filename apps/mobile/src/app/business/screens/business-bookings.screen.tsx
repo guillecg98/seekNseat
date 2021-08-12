@@ -35,20 +35,20 @@ const renderTabBar = (props) => (
             <Icon
               name="checkmark-circle-outline"
               type="ionicon"
-              color="#4db356"
+              color="#0D8686"
             />
           );
         case 'PENDING':
           return <Icon name="timer" type="ionicon" />;
         case 'DECLINED':
-          return <Icon name="flame" type="ionicon" color="#d17979" />;
+          return <Icon name="flame" type="ionicon" color="#F27979" />;
         default:
           return null;
       }
     }}
     indicatorStyle={{ height: 3, backgroundColor: '#4b5173' }}
     style={{ backgroundColor: '#babbc2' }}
-    labelStyle={{ color: '#46474f', fontSize: 18, textTransform: 'capitalize' }}
+    labelStyle={{ color: '#46474f', fontSize: 16, textTransform: 'capitalize' }}
   />
 );
 
