@@ -115,12 +115,12 @@ export class BusinessController {
   @ApiOperation({ summary: 'Update business profile' })
   @ApiResponse({ status: 200, description: 'Business profile modified' })
   @ApiResponse({ status: 400, description: 'Business profile not found' })
-  @UseGuards(BusinessGuard, ACGuard)
   @UseRoles({
     resource: Resource.Business,
     action: 'update',
     possession: 'own',
   })
+  @UseGuards(BusinessGuard, ACGuard)
   async edit(
     @Param('id') id: string,
     @Body() editBusinessDTO: EditBusinessDTO
