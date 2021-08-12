@@ -3,7 +3,9 @@ import { ApiProperty } from "@nestjs/swagger";
 interface Props {
   _id: string;
   userId: string;
+  username: string;
   businessId: string;
+  businessName: string;
   numberOfFoodies: number;
   bookingState: string;
   noShow?: boolean;
@@ -18,7 +20,13 @@ export class BookingDTO {
   public readonly userId: string;
 
   @ApiProperty()
+  public readonly username: string;
+
+  @ApiProperty()
   public readonly businessId: string;
+
+  @ApiProperty()
+  public readonly businessName: string;
 
   //public readonly bookingTime: DateTime,
   @ApiProperty()

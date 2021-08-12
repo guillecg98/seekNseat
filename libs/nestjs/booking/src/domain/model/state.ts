@@ -1,10 +1,6 @@
 import { ValueObject } from '@aulasoftwarelibre/nestjs-eventstore';
+import { States } from '@seekNseat/contracts';
 
-export enum States {
-  Pending = 'PENDING',
-  Accepted = 'ACCEPTED',
-  Declined = 'DECLINED',
-}
 interface Props {
   value: States;
 }

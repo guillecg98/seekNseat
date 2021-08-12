@@ -3,8 +3,8 @@ import {
   InjectAggregateRepository,
 } from '@aulasoftwarelibre/nestjs-eventstore';
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
-import { BusinessId, GetBusinessQuery } from '@seekNseat/nestjs/business';
-import { GetUserQuery, UserId } from '@seekNseat/nestjs/user';
+import { BusinessId, BusinessName, GetBusinessQuery } from '@seekNseat/nestjs/business';
+import { GetUserQuery, UserId, Username } from '@seekNseat/nestjs/user';
 
 import { Booking, BookingId, NumberOfFoodies } from '../../domain';
 import { RequestBookingCommand } from './request-booking.command';
@@ -31,10 +31,10 @@ export class RequestBookingHandler
     }
 
     const user = await this.queryBus.execute(new GetUserQuery(command.userId));
-
     if (Object.keys(user).length === 0) {
       throw new Error('User not found');
     }
+
 
     const business = await this.queryBus.execute(
       new GetBusinessQuery(command.businessId)
@@ -43,7 +43,7 @@ export class RequestBookingHandler
       throw new Error('Business not found');
     }
 
-    const booking = Booking.create(id, userId, businessId, numberOfFoodies);
+    const booking = Booking.create(id, userId, Username.fromString(user.username), businessId, BusinessName.fromString(business.name), numberOfFoodies);
     this.bookings.save(booking);
   }
 }

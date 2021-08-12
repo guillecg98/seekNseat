@@ -1,8 +1,9 @@
 import { EventsHandler, IEventHandler } from '@nestjs/cqrs';
 import { InjectModel } from '@nestjs/mongoose';
+import { States } from '@seekNseat/contracts';
 import { Model } from 'mongoose';
 
-import { BookingWasRequested, States } from '../../../domain';
+import { BookingWasRequested } from '../../../domain';
 import { BookingDocument, BOOKINGS_PROJECTION } from './booking.schema';
 
 @EventsHandler(BookingWasRequested)
