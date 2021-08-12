@@ -1,4 +1,5 @@
 import { AggregateRoot } from '@aulasoftwarelibre/nestjs-eventstore';
+import { States } from '@seekNseat/contracts';
 import { BusinessId } from "@seekNseat/nestjs/business";
 import { UserId } from '@seekNseat/nestjs/user';
 
@@ -9,7 +10,7 @@ import {
 } from '../event';
 import { BookingId } from './booking-id';
 import { NumberOfFoodies } from './number-of-foodies';
-import { State, States } from './state';
+import { State } from './state';
 
 export class Booking extends AggregateRoot {
   private _id: BookingId;
