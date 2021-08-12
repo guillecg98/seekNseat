@@ -36,7 +36,7 @@ export class RequestBookingHandler
       throw new Error('User not found');
     }
 
-    const business = this.queryBus.execute(
+    const business = await this.queryBus.execute(
       new GetBusinessQuery(command.businessId)
     );
     if (Object.keys(business).length === 0) {
