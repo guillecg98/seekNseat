@@ -41,30 +41,56 @@ export const BusinessHomePageScreen = () => {
     });
   }, []);
 
-  const canceledBookings: BookingDTO[] = bookings.reduce(function (
-    result,
-    booking
-  ) {
-    if (booking.bookingState === States.CanceledByUser) { // Change PENDING by States.CanceledByUser when implemented in backend
-      result.push(booking);
-    }
-    return result;
-  },
-  []);
+  if (bookings) {
+    const accepted: BookingDTO[] = bookings.reduce(function (result, booking) {
+      if (booking.bookingState === States.Accepted) {
+        result.push(booking);
+      }
+      return result;
+    }, []);
 
-  return bookings ? (
-    <View style={styles.container}>
-      <View style={styles.sectionHeader}>
-        <Text style={styles.textHeader}> Welcome back, username! </Text>
-      </View>
+    const pending: BookingDTO[] = bookings.reduce(function (result, booking) {
+      if (booking.bookingState === States.Pending) {
+        result.push(booking);
+      }
+      return result;
+    }, []);
 
-      <View style={styles.section}>
-        <BasicInfoCard bookings={canceledBookings} />
+    const declined: BookingDTO[] = bookings.reduce(function (result, booking) {
+      if (booking.bookingState === States.Declined) {
+        result.push(booking);
+      }
+      return result;
+    }, []);
+
+    const canceled: BookingDTO[] = bookings.reduce(function (result, booking) {
+      if (booking.bookingState === States.CanceledByUser) {
+        result.push(booking);
+      }
+      return result;
+    }, []);
+
+    return (
+      <View style={styles.container}>
+        <View style={styles.sectionHeader}>
+          <Text style={styles.textHeader}> Welcome back, username! </Text>
+        </View>
+
+        <View style={styles.section}>
+          <BasicInfoCard
+            acceptedBookings={accepted}
+            pendingBookings={pending}
+            declinedBookings={declined}
+            canceledBookings={canceled}
+          />
+        </View>
       </View>
-    </View>
-  ) : (
-    <View style={styles.activityIndicatorContainer}>
-      <ActivityIndicator animating={true} size="large" color="#FFC074" />
-    </View>
-  );
+    );
+  } else {
+    return (
+      <View style={styles.activityIndicatorContainer}>
+        <ActivityIndicator animating={true} size="large" color="#FFC074" />
+      </View>
+    );
+  }
 };

@@ -1,3 +1,4 @@
+import { States } from '@seekNseat/contracts';
 import { BookingDTO } from '@seekNseat/contracts/booking';
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
@@ -16,6 +17,11 @@ const styles = StyleSheet.create({
   },
   listItem: {
     padding: 2,
+  },
+  noShow: {
+    textAlign: 'center',
+    fontSize: 18,
+    color: 'red',
   },
 });
 
@@ -40,49 +46,178 @@ export const Bookings = (props: Props) => {
   return (
     <View style={styles.listContainer}>
       <ScrollView style={styles.list}>
-        {props.bookings.map((booking) => (
-          <ListItem
-            key={booking._id}
-            style={styles.listItem}
-            containerStyle={{ borderRadius: 12 }}
-          >
-            <ListItem.Content>
-              <BookingActionButton
-                disabled={props.state === 'ACCEPTED' ? true : false}
-                text="Aceptar"
-                color="#4db356"
-                onPress={() => onPressAcceptBooking(booking)}
-              />
-            </ListItem.Content>
-
-            <ListItem.Content style={{ margin: 5 }}>
-              <ListItem.Title> Nombre: {booking.bookingState} </ListItem.Title>
-              <ListItem.Title>
-                {' '}
-                Mesa para: {booking.numberOfFoodies}{' '}
-              </ListItem.Title>
-              {booking.noShow ? (
-                <ListItem.Title
-                  style={{ textAlign: 'center', fontSize: 18, color: 'red' }}
+        {props.bookings.map((booking) => {
+          switch (props.state) {
+            case States.Accepted:
+              return (
+                <ListItem
+                  key={booking._id}
+                  style={styles.listItem}
+                  containerStyle={{ borderRadius: 12 }}
                 >
-                  {' '}
-                  No Show{' '}
-                </ListItem.Title>
-              ) : (
-                <ListItem.Title> Ta bien </ListItem.Title>
-              )}
-            </ListItem.Content>
+                  <ListItem.Content>
+                    <BookingActionButton
+                      disabled={true}
+                      text="Aceptar"
+                      color="#0D8686"
+                      onPress={() => onPressAcceptBooking(booking)}
+                    />
+                  </ListItem.Content>
+                  <ListItem.Content style={{ margin: 5 }}>
+                    <ListItem.Title>
+                      {' '}
+                      Nombre: {booking.username}{' '}
+                    </ListItem.Title>
+                    <ListItem.Title>
+                      {' '}
+                      Mesa para: {booking.numberOfFoodies}{' '}
+                    </ListItem.Title>
+                    {booking.noShow ? (
+                      <ListItem.Title style={styles.noShow}>
+                        {' '}
+                        No Show{' '}
+                      </ListItem.Title>
+                    ) : null}
+                  </ListItem.Content>
+                  <ListItem.Content>
+                    <BookingActionButton
+                      disabled={false}
+                      text={'NoShow'}
+                      color="#d17979"
+                      onPress={() => onPressDeclineBooking(booking)}
+                    />
+                  </ListItem.Content>
+                </ListItem>
+              );
+              break;
+            case States.Pending:
+              return (
+                <ListItem
+                  key={booking._id}
+                  style={styles.listItem}
+                  containerStyle={{ borderRadius: 12 }}
+                >
+                  <ListItem.Content>
+                    <BookingActionButton
+                      disabled={false}
+                      text="Aceptar"
+                      color="#0D8686"
+                      onPress={() => onPressAcceptBooking(booking)}
+                    />
+                  </ListItem.Content>
+                  <ListItem.Content style={{ margin: 5 }}>
+                    <ListItem.Title style={{textAlign:  'center'}}>
+                      Nombre: {booking.username}
+                    </ListItem.Title>
+                    <ListItem.Title style={{textAlign:  'center'}}>
+                      Mesa para: {booking.numberOfFoodies}{' '}
+                    </ListItem.Title>
+                    {booking.noShow ? (
+                      <ListItem.Title style={styles.noShow}>
+                        {' '}
+                        No Show{' '}
+                      </ListItem.Title>
+                    ) : null}
+                  </ListItem.Content>
+                  <ListItem.Content>
+                    <BookingActionButton
+                      disabled={false}
+                      text={'En cola'}
+                      color="#d17979"
+                      onPress={() => onPressDeclineBooking(booking)}
+                    />
+                  </ListItem.Content>
+                </ListItem>
+              );
+              break;
+            case States.Declined:
+              return (
+                <ListItem
+                  key={booking._id}
+                  style={styles.listItem}
+                  containerStyle={{ borderRadius: 12 }}
+                >
+                  <ListItem.Content>
+                    <BookingActionButton
+                      disabled={false}
+                      text="Aceptar"
+                      color="#0D8686"
+                      onPress={() => onPressAcceptBooking(booking)}
+                    />
+                  </ListItem.Content>
+                  <ListItem.Content style={{ margin: 5 }}>
+                    <ListItem.Title>
+                      {' '}
+                      Nombre: {booking.username}{' '}
+                    </ListItem.Title>
+                    <ListItem.Title>
+                      {' '}
+                      Mesa para: {booking.numberOfFoodies}{' '}
+                    </ListItem.Title>
+                    {booking.noShow ? (
+                      <ListItem.Title style={styles.noShow}>
+                        {' '}
+                        No Show{' '}
+                      </ListItem.Title>
+                    ) : null}
+                  </ListItem.Content>
+                  <ListItem.Content>
+                    <BookingActionButton
+                      disabled={true}
+                      text={'No show'}
+                      color="#d17979"
+                      onPress={() => onPressDeclineBooking(booking)}
+                    />
+                  </ListItem.Content>
+                </ListItem>
+              );
+              break;
+            case States.CanceledByUser:
+              return (
+                <ListItem
+                  key={booking._id}
+                  style={styles.listItem}
+                  containerStyle={{ borderRadius: 12 }}
+                >
+                  <ListItem.Content style={{ margin: 5 }}>
+                    <ListItem.Title>
+                      {' '}
+                      Nombre: {booking.username}{' '}
+                    </ListItem.Title>
+                    <ListItem.Title>
+                      {' '}
+                      Mesa para: {booking.numberOfFoodies}{' '}
+                    </ListItem.Title>
+                    {booking.noShow ? (
+                      <ListItem.Title style={styles.noShow}>
+                        {' '}
+                        No Show{' '}
+                      </ListItem.Title>
+                    ) : null}
+                  </ListItem.Content>
+                  <ListItem.Content>
+                    <BookingActionButton
+                      disabled={false}
+                      text={'Eliminar'}
+                      color="#d17979"
+                      onPress={() => onPressDeclineBooking(booking)}
+                    />
+                    <BookingActionButton
+                      disabled={false}
+                      text="Nueva"
+                      color="#0D8686"
+                      onPress={() => onPressAcceptBooking(booking)}
+                    />
+                  </ListItem.Content>
+                </ListItem>
+              );
+              break;
 
-            <ListItem.Content>
-              <BookingActionButton
-                disabled={props.state === 'DECLINED' ? true : false}
-                text={props.state === 'ACCEPTED' ? 'NoShow' : 'En cola'}
-                color="#d17979"
-                onPress={() => onPressDeclineBooking(booking)}
-              />
-            </ListItem.Content>
-          </ListItem>
-        ))}
+            default:
+              return null;
+              break;
+          }
+        })}
       </ScrollView>
     </View>
   );

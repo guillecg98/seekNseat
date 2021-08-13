@@ -3,6 +3,7 @@ import {
   GoogleSignin,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
+import { BookingDTO } from '@seekNseat/contracts/booking';
 import React, { createContext, useState } from 'react';
 
 interface IUser {
@@ -21,13 +22,17 @@ const initialUser: IUser = {
   photo: '',
   familyName: '',
   givenName: '',
-}
+};
 
 export const AuthContext = createContext({
   user: initialUser,
   setUser: undefined,
-  login: () => {console.log('defaultValue')},
-  logout: () => {console.log('defaultValue')},
+  login: () => {
+    console.log('defaultValue');
+  },
+  logout: () => {
+    console.log('defaultValue');
+  },
 });
 
 export const AuthProvider: React.FC = ({ children }) => {
@@ -44,7 +49,7 @@ export const AuthProvider: React.FC = ({ children }) => {
             const googleCredential =
               auth.GoogleAuthProvider.credential(idToken);
             await auth().signInWithCredential(googleCredential);
-            setUser(user)
+            setUser(user);
           } catch (error) {
             if (error.code === statusCodes.SIGN_IN_CANCELLED) {
               // user cancelled the login flow
@@ -61,7 +66,7 @@ export const AuthProvider: React.FC = ({ children }) => {
           try {
             await GoogleSignin.revokeAccess();
             await GoogleSignin.signOut();
-            setUser(null)
+            setUser(null);
           } catch (error) {
             console.error(error);
           }

@@ -143,7 +143,7 @@ export const BusinessBookingsScreen = () => {
   } else {
     return (
       <View style={styles.container}>
-        <ActivityIndicator animating={true} size="large" color="#4884CA" />
+        <ActivityIndicator animating={true} size="large" color="#FFC074" />
       </View>
     );
   }
