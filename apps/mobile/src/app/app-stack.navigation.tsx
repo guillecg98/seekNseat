@@ -8,7 +8,7 @@ import {
 } from './business/screens';
 
 export const AppStack = () => {
-  const [index, setIndex] = useState(1);
+  const [index, setIndex] = useState(2);
   const [routes] = useState([
     { key: 'BOOKINGS', title: 'Reservas', icon: 'book' },
     { key: 'HOME', title: 'Home', icon: 'home' },

@@ -9,7 +9,7 @@ export const AppRoutes = () => {
 
   return (
     <NavigationContainer>
-      {user === undefined ? <AppStack /> : <AuthStack />}
+      {user ? <AppStack /> : <AuthStack />}
     </NavigationContainer>
   );
 };
