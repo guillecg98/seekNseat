@@ -6,7 +6,7 @@ import { baseProps } from 'react-native-gesture-handler/lib/typescript/handlers/
 const styles = StyleSheet.create({
     button: {
         fontSize: 18,
-        color: '#596275',
+        color: '#212424',
     },
 })
 
@@ -18,7 +18,7 @@ export const SaveProfileButton = (props: Props) => {
     return (
         <Button
             titleStyle={styles.button}
-            title='SAVE'
+            title='Save'
             type='clear'
             onPress={props.onPress} />
     )

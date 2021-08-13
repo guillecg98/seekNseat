@@ -15,7 +15,7 @@ type Props = {
   onPress: any;
 };
 
-export const BlockReservationsButton = (props: Props) => {
+export const BlockBooknigssButton = (props: Props) => {
   return (
     <FAB
     style={styles.fab}

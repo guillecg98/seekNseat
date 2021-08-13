@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { BottomNavigation } from 'react-native-paper';
 
+import { BusinessBookingsScreen } from './booking/screens';
 import {
-  BusinessBookingsScreen,
   BusinessHomePageScreen,
   BusinessProfileScreen,
-} from '../screens';
+} from './business/screens';
 
-export const BusinessStack = () => {
-  const [index, setIndex] = useState(1);
+export const AppStack = () => {
+  const [index, setIndex] = useState(2);
   const [routes] = useState([
     { key: 'BOOKINGS', title: 'Reservas', icon: 'book' },
     { key: 'HOME', title: 'Home', icon: 'home' },
@@ -26,7 +26,7 @@ export const BusinessStack = () => {
       navigationState={{ index, routes }}
       onIndexChange={setIndex}
       renderScene={renderScene}
-      barStyle={{ padding: 7, backgroundColor: '#4b5173' }}
+      barStyle={{ padding: 7, backgroundColor: '#FFC074' }}
     />
   );
 };

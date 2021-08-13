@@ -1,10 +1,11 @@
+import { States } from '@seekNseat/contracts';
 import { BookingDTO } from '@seekNseat/contracts/booking';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { TabBar, TabView } from 'react-native-tab-view';
 
-import { BlockReservationsButton, Bookings } from '../components';
+import { BlockBooknigssButton, Bookings } from '../components';
 import { getBookings } from '../requests';
 
 const styles = StyleSheet.create({
@@ -56,34 +57,34 @@ export const BusinessBookingsScreen = () => {
   const [bookings, setBookings] = useState<BookingDTO[]>();
   const [index, setIndex] = useState(1);
   const [routes] = useState([
-    { key: 'ACCEPTED', title: 'Aceptadas' },
-    { key: 'PENDING', title: 'Pendientes' },
-    { key: 'DECLINED', title: 'En Cola' },
+    { key: States.Accepted, title: 'Aceptadas' },
+    { key: States.Pending, title: 'Pendientes' },
+    { key: States.Declined, title: 'En Cola' },
   ]);
 
   useEffect(() => {
-    getBookings('b6bf988a-f34e-4c4a-bdb6-aa3be8f580f3').then((res) => {
+    getBookings('df6271d8-fe57-4d46-b7a7-2961373f6021').then((res) => {
       setBookings(res?.data);
     });
   }, [index]);
 
   if (bookings) {
     const accepted: BookingDTO[] = bookings.reduce(function (result, booking) {
-      if (booking.bookingState === 'ACCEPTED') {
+      if (booking.bookingState === States.Accepted) {
         result.push(booking);
       }
       return result;
     }, []);
 
     const pending: BookingDTO[] = bookings.reduce(function (result, booking) {
-      if (booking.bookingState === 'PENDING') {
+      if (booking.bookingState === States.Pending) {
         result.push(booking);
       }
       return result;
     }, []);
 
     const declined: BookingDTO[] = bookings.reduce(function (result, booking) {
-      if (booking.bookingState === 'DECLINED') {
+      if (booking.bookingState === States.Declined) {
         result.push(booking);
       }
       return result;
@@ -91,30 +92,30 @@ export const BusinessBookingsScreen = () => {
 
     const renderScene = ({ route }) => {
       switch (route.key) {
-        case 'ACCEPTED':
+        case States.Accepted:
           return accepted.length ? (
             <View style={styles.tabView}>
-              <Bookings bookings={accepted} state="ACCEPTED" />
+              <Bookings bookings={accepted} state={States.Accepted} />
             </View>
           ) : (
             <View style={styles.tabView}>
               <Text style={styles.text}> No hay solicitudes aceptadas </Text>
             </View>
           );
-        case 'PENDING':
+        case States.Pending:
           return pending.length ? (
             <View style={styles.tabView}>
-              <Bookings bookings={pending} state="PENDING" />
+              <Bookings bookings={pending} state={States.Pending} />
             </View>
           ) : (
             <View style={styles.tabView}>
               <Text style={styles.text}> No hay solicitudes pendientes </Text>
             </View>
           );
-        case 'DECLINED':
+        case States.Declined:
           return declined.length ? (
             <View style={styles.tabView}>
-              <Bookings bookings={declined} state="DECLINED" />
+              <Bookings bookings={declined} state={States.Declined} />
             </View>
           ) : (
             <View style={styles.tabView}>
@@ -136,7 +137,7 @@ export const BusinessBookingsScreen = () => {
             onIndexChange={setIndex}
           />
         </View>
-        <BlockReservationsButton onPress={() => console.log('blocked')} />
+        <BlockBooknigssButton onPress={() => console.log('blocked')} />
       </View>
     );
   } else {
