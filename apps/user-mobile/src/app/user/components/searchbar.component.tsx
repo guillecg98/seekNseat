@@ -4,6 +4,8 @@ import { Searchbar } from 'react-native-paper';
 
 const styles = StyleSheet.create({
     container: {
+        justifyContent: 'center',
+        alignContent: 'center',
         marginTop: 25,
         borderRadius: 30,
     }
@@ -18,7 +20,7 @@ export const SearchBar = () => {
         <Searchbar
             selectionColor='#0D8686'
             style={styles.container}
-            placeholder="Search by Restaurant..."
+            placeholder="Búsqueda por nombre"
             onChangeText={onSearch}
             value={searchQuery}/>
     )
