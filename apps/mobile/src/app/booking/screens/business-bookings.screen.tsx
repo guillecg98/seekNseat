@@ -31,7 +31,7 @@ const renderTabBar = (props) => (
     {...props}
     renderIcon={({ route }) => {
       switch (route.key) {
-        case 'ACCEPTED':
+        case States.Accepted:
           return (
             <Icon
               name="checkmark-circle-outline"
@@ -39,9 +39,9 @@ const renderTabBar = (props) => (
               color="#0D8686"
             />
           );
-        case 'PENDING':
+        case States.Pending:
           return <Icon name="timer" type="ionicon" />;
-        case 'DECLINED':
+        case States.Declined:
           return <Icon name="flame" type="ionicon" color="#F27979" />;
         default:
           return null;

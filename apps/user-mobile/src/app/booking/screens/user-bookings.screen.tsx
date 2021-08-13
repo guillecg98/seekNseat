@@ -1,3 +1,4 @@
+import { States } from '@seekNseat/contracts';
 import { BookingDTO } from '@seekNseat/contracts/booking';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
@@ -30,7 +31,7 @@ const renderTabBar = (props) => (
     {...props}
     renderIcon={({ route }) => {
       switch (route.key) {
-        case 'ACCEPTED':
+        case States.Accepted:
           return (
             <Icon
               name="checkmark-circle-outline"
@@ -38,9 +39,9 @@ const renderTabBar = (props) => (
               color="#0D8686"
             />
           );
-        case 'PENDING':
+        case States.Pending:
           return <Icon name="timer" type="ionicon" />;
-        case 'DECLINED':
+        case States.Declined:
           return <Icon name="flame" type="ionicon" color="#F27979" />;
         default:
           return null;
@@ -56,9 +57,9 @@ export const UserBookingsScreen = () => {
   const [bookings, setBookings] = useState<BookingDTO[]>();
   const [index, setIndex] = useState(1);
   const [routes] = useState([
-    { key: 'ACCEPTED', title: 'Aceptadas' },
-    { key: 'PENDING', title: 'Pendientes' },
-    { key: 'DECLINED', title: 'En Cola' },
+    { key: States.Accepted, title: 'Aceptadas' },
+    { key: States.Pending, title: 'Pendientes' },
+    { key: States.Declined, title: 'En Cola' },
   ]);
 
   useEffect(() => {
@@ -69,21 +70,21 @@ export const UserBookingsScreen = () => {
 
   if (bookings) {
     const accepted: BookingDTO[] = bookings.reduce(function (result, booking) {
-      if (booking.bookingState === 'ACCEPTED') {
+      if (booking.bookingState === States.Accepted) {
         result.push(booking);
       }
       return result;
     }, []);
 
     const pending: BookingDTO[] = bookings.reduce(function (result, booking) {
-      if (booking.bookingState === 'PENDING') {
+      if (booking.bookingState === States.Pending) {
         result.push(booking);
       }
       return result;
     }, []);
 
     const declined: BookingDTO[] = bookings.reduce(function (result, booking) {
-      if (booking.bookingState === 'DECLINED') {
+      if (booking.bookingState === States.Declined) {
         result.push(booking);
       }
       return result;
@@ -91,7 +92,7 @@ export const UserBookingsScreen = () => {
 
     const renderScene = ({ route }) => {
       switch (route.key) {
-        case 'ACCEPTED':
+        case States.Accepted:
           return accepted.length ? (
             <View style={styles.tabView}>
               <Bookings bookings={accepted} state="ACCEPTED" />
@@ -101,7 +102,7 @@ export const UserBookingsScreen = () => {
               <Text style={styles.text}> No hay solicitudes aceptadas </Text>
             </View>
           );
-        case 'PENDING':
+        case States.Pending:
           return pending.length ? (
             <View style={styles.tabView}>
               <Bookings bookings={pending} state="PENDING" />
@@ -111,7 +112,7 @@ export const UserBookingsScreen = () => {
               <Text style={styles.text}> No hay solicitudes pendientes </Text>
             </View>
           );
-        case 'DECLINED':
+        case States.Declined:
           return declined.length ? (
             <View style={styles.tabView}>
               <Bookings bookings={declined} state="DECLINED" />

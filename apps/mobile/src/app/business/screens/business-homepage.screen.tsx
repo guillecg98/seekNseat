@@ -45,7 +45,7 @@ export const BusinessHomePageScreen = () => {
     result,
     booking
   ) {
-    if (booking.bookingState === 'PENDING') { // Change PENDING by States.CanceledByUser when implemented in backend
+    if (booking.bookingState === States.CanceledByUser) { // Change PENDING by States.CanceledByUser when implemented in backend
       result.push(booking);
     }
     return result;

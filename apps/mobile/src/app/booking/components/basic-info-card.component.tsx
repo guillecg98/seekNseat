@@ -82,7 +82,7 @@ export const BasicInfoCard = (props: Props) => {
       <Card.Content style={styles.cardBody}>
         <Text style={styles.cardBodyItemTitle}> Reservas Canceladas </Text>
         <Card>
-          <Bookings bookings={props.bookings} state='PENDING' /> {/* Change PENDING by States.CanceledByUser when implemented in backend */}
+          <Bookings bookings={props.bookings} state={States.CanceledByUser} /> {/* Change PENDING by States.CanceledByUser when implemented in backend */}
         </Card>
       </Card.Content>
     </Card>
