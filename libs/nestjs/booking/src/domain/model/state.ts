@@ -17,6 +17,9 @@ export class State extends ValueObject<Props> {
       case 'DECLINED':
         return new State({ value: bookingState });
         break;
+      case 'CANCELED':
+        return new State({ value: bookingState });
+        break;
       default:
         throw new Error('Invalid state');
     }

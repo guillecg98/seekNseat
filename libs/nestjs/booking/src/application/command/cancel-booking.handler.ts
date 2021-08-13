@@ -1,7 +1,8 @@
 import { AggregateRepository, InjectAggregateRepository } from "@aulasoftwarelibre/nestjs-eventstore";
 import { CommandHandler, ICommandHandler } from "@nestjs/cqrs";
+import { States } from "@seekNseat/contracts";
 
-import { Booking,BookingId } from "../../domain";
+import { Booking,BookingId, State } from "../../domain";
 import { CancelBookingCommand } from "./cancel-booking.command";
 
 @CommandHandler(CancelBookingCommand)
@@ -19,7 +20,9 @@ export class CancelBookingHandler implements ICommandHandler<CancelBookingComman
             throw new Error('Booking not found')
         }
 
-        booking.delete();
+        const bookingState = State.fromString(command.bookingState as States);
+
+        booking.cancel(bookingState);
         this.bookings.save(booking);
     }
 }

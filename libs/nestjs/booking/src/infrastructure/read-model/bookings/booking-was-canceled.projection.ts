@@ -15,6 +15,10 @@ export class BookingWasCanceledProjection
   ) {}
 
   async handle(event: BookingWasCanceled) {
-    await this.bookings.findByIdAndDelete(event.aggregateId).exec();
+    await this.bookings
+      .findByIdAndUpdate(event.aggregateId, {
+        bookingState: event.bookingState,
+      })
+      .exec();
   }
 }
