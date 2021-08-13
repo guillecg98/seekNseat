@@ -1,8 +1,10 @@
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React, { useState } from 'react';
 import { BottomNavigation } from 'react-native-paper';
 
 import { UserBookingsScreen } from './booking/screens';
-import { UserHomePage, UserProfileScreen } from './user/screens';
+import { HomeStack } from './user/navigation';
+import { UserProfileScreen } from './user/screens';
 
 export const AppStack = () => {
   const [index, setIndex] = useState(1);
@@ -14,7 +16,7 @@ export const AppStack = () => {
 
   const renderScene = BottomNavigation.SceneMap({
     BOOKINGS: UserBookingsScreen,
-    HOME: UserHomePage,
+    HOME: HomeStack,
     PROFILE: UserProfileScreen,
   });
 

@@ -9,17 +9,17 @@ const styles = StyleSheet.create({
   listContainer: {
     flex: 1,
     elevation: 5,
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
     padding: 10,
   },
   list: {
     flex: 1,
-    marginTop: 10,
     padding: 10,
   },
   listItem: {
-    padding: 2,
+    elevation: 5,
+    padding: 5,
   },
 });
 
@@ -36,22 +36,33 @@ export const BusinessList = (props: Props) => {
           <ListItem
             key={business._id}
             style={styles.listItem}
-            containerStyle={{ borderRadius: 12 }}
+            containerStyle={[
+              { borderRadius: 18 },
+              business.blocked ? { backgroundColor: '#dddddd' } : {},
+            ]}
           >
-            <ListItem.Content>
-              <ListItem.Title>{business.name}</ListItem.Title>
+            <ListItem.Content style={{ alignItems: 'center' }}>
+              <ListItem.Title style={{ fontSize: 16, margin: 5 }}>
+                {business.name}
+              </ListItem.Title>
+              {business.blocked ? (
+                <ListItem.Title
+                  style={{ fontSize: 16, textAlign: 'center', color: 'red' }}
+                > Reservas bloqueadas </ListItem.Title>
+              ) : null}
             </ListItem.Content>
             <Avatar
-              avatarStyle={{ borderRadius: 12 }}
+              avatarStyle={{ borderRadius: 12, alignItems: 'center' }}
               size="large"
               source={{
                 uri: 'https://www.emprendedores.es/wp-content/uploads/2015/01/ginos-logo-1542112796-1024x512.jpg',
               }}
             />
-            <ListItem.Content>
+            <ListItem.Content style={{ alignItems: 'center' }}>
               <CheckInfoButton
+                disabled={business.blocked ? true : false}
                 onPress={() =>
-                  props.navigation.navigate('BusinessProfile', {
+                  props.navigation.navigate('Business', {
                     businessId: business._id,
                   })
                 }

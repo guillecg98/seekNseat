@@ -7,7 +7,6 @@ import { Card } from 'react-native-paper';
 
 import { Bookings } from './bookings.component';
 
-
 const styles = StyleSheet.create({
   container: {
     top: -50,
@@ -39,6 +38,7 @@ const styles = StyleSheet.create({
   },
   cardBodyItemTitle: {
     fontSize: 20,
+    margin: 10,
     fontWeight: 'bold',
     textAlign: 'center',
   },
@@ -50,7 +50,10 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-  bookings: BookingDTO[];
+  acceptedBookings: BookingDTO[];
+  pendingBookings: BookingDTO[];
+  declinedBookings: BookingDTO[];
+  canceledBookings: BookingDTO[];
 }
 
 export const BasicInfoCard = (props: Props) => {
@@ -65,25 +68,48 @@ export const BasicInfoCard = (props: Props) => {
             color="#0D8686"
           />
           <Text style={styles.cardHeaderItemTitle}> Aceptadas </Text>
-          <Text style={styles.cardHeaderItemContent}> 15 </Text>
+          <Text style={styles.cardHeaderItemContent}>
+            {' '}
+            {props.acceptedBookings.length}{' '}
+          </Text>
         </Card>
         <Card style={styles.cardHeaderItem}>
           <Icon name="timer" type="ionicon" />
           <Text style={styles.cardHeaderItemTitle}> Pendientes </Text>
-          <Text style={styles.cardHeaderItemContent}> 4 </Text>
+          <Text style={styles.cardHeaderItemContent}>
+            {' '}
+            {props.pendingBookings.length}{' '}
+          </Text>
         </Card>
         <Card style={styles.cardHeaderItem}>
           <Icon name="flame" type="ionicon" color="#F27979" />
           <Text style={styles.cardHeaderItemTitle}> En cola </Text>
-          <Text style={styles.cardHeaderItemContent}> 3 </Text>
+          <Text style={styles.cardHeaderItemContent}>
+            {' '}
+            {props.declinedBookings.length}{' '}
+          </Text>
         </Card>
       </Card.Content>
 
       <Card.Content style={styles.cardBody}>
         <Text style={styles.cardBodyItemTitle}> Reservas Canceladas </Text>
-        <Card>
-          <Bookings bookings={props.bookings} state='PENDING' /> {/* Change PENDING by States.CanceledByUser when implemented in backend */}
-        </Card>
+        {props.canceledBookings.length === 0 ? (
+          <Card>
+            <Card.Content>
+              <Text style={{ textAlign: 'center', fontSize: 18 }}>
+                {' '}
+                No hay reservas canceladas{' '}
+              </Text>
+            </Card.Content>
+          </Card>
+        ) : (
+          <Card style={{elevation: 5}}>
+            <Bookings
+              bookings={props.canceledBookings}
+              state={States.CanceledByUser}
+            />
+          </Card>
+        )}
       </Card.Content>
     </Card>
   );

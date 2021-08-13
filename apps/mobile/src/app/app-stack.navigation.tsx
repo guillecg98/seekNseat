@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import { BookingDTO } from '@seekNseat/contracts/booking';
+import React, { useContext, useEffect, useState } from 'react';
 import { BottomNavigation } from 'react-native-paper';
 
+import { AuthContext } from './auth/navigation';
+import { getBookings } from './booking/requests';
 import { BusinessBookingsScreen } from './booking/screens';
 import {
   BusinessHomePageScreen,
@@ -8,7 +11,8 @@ import {
 } from './business/screens';
 
 export const AppStack = () => {
-  const [index, setIndex] = useState(2);
+
+  const [index, setIndex] = useState(1);
   const [routes] = useState([
     { key: 'BOOKINGS', title: 'Reservas', icon: 'book' },
     { key: 'HOME', title: 'Home', icon: 'home' },

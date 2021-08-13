@@ -204,7 +204,7 @@ export const BusinessProfileScreen = () => {
   } else {
     return (
       <View style={styles.activityIndicatorContainer}>
-        <ActivityIndicator animating={true} size="large" color="#4884CA" />
+        <ActivityIndicator animating={true} size="large" color="#FFC074" />
       </View>
     );
   }

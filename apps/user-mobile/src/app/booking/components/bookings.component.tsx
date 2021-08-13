@@ -1,3 +1,4 @@
+import { States } from '@seekNseat/contracts';
 import { BookingDTO } from '@seekNseat/contracts/booking';
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
@@ -26,7 +27,7 @@ type Props = {
 };
 
 const onPressDeclineBooking = (booking: BookingDTO) => {
-  declineBooking(booking._id, 'DECLINED', booking.noShow).then((res) =>
+  declineBooking(booking._id, States.Declined, booking.noShow).then((res) =>
     console.log(res?.data)
   );
 };
@@ -37,7 +38,7 @@ export const Bookings = (props: Props) => {
       <ScrollView style={styles.list}>
         {props.bookings.map((booking) => {
           switch (props.state) {
-            case 'ACCEPTED':
+            case States.Accepted:
               return (
                 <ListItem
                   key={booking._id}
@@ -64,7 +65,7 @@ export const Bookings = (props: Props) => {
                 </ListItem>
               );
               break;
-            case 'PENDING':
+            case States.Pending:
               return (
                 <ListItem
                   key={booking._id}
@@ -99,7 +100,7 @@ export const Bookings = (props: Props) => {
                 </ListItem>
               );
               break;
-            case 'DECLINED':
+            case States.Declined:
               return (
                 <ListItem
                   key={booking._id}
