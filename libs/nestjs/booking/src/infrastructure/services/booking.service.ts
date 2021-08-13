@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { CommandBus, QueryBus } from "@nestjs/cqrs";
 import { BookingDTO, CreateBookingDTO, EditBookingDTO } from "@seekNseat/contracts/booking";
 
-import { CancelBookingCommand, GetBookingQuery, GetBookingsQuery, RequestBookingCommand, UpdateBookingStateCommand } from "../../application";
+import { CancelBookingCommand, DeleteBookingCommand, GetBookingQuery, GetBookingsQuery, RequestBookingCommand, UpdateBookingStateCommand } from "../../application";
 
 @Injectable()
 export class BookingService {
@@ -48,7 +48,18 @@ export class BookingService {
       return this.findOne(id);
     }
 
+    async cancel(id: string, editBookingDTO: EditBookingDTO): Promise<BookingDTO> {
+      await this.commandBus.execute(
+        new CancelBookingCommand(
+          id,
+          editBookingDTO.bookingState
+        )
+      );
+
+      return this.findOne(id);
+    }
+
     async delete(id: string) {
-      await this.commandBus.execute(new CancelBookingCommand(id));
+      await this.commandBus.execute(new DeleteBookingCommand(id));
     }
 }

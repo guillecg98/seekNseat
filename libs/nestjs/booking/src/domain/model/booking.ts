@@ -1,11 +1,12 @@
 import { AggregateRoot } from '@aulasoftwarelibre/nestjs-eventstore';
 import { States } from '@seekNseat/contracts';
-import { BusinessId, BusinessName } from "@seekNseat/nestjs/business";
+import { BusinessId, BusinessName } from '@seekNseat/nestjs/business';
 import { UserId, Username } from '@seekNseat/nestjs/user';
 
 import {
   BookingStateWasUpdated,
   BookingWasCanceled,
+  BookingWasDeleted,
   BookingWasRequested,
 } from '../event';
 import { BookingId } from './booking-id';
@@ -108,15 +109,21 @@ export class Booking extends AggregateRoot {
     this._noShow = event.noShow;
   }
 
+  cancel(bookingState: State) {
+    this.apply(new BookingWasCanceled(this.id.value, bookingState.value));
+  }
+
+  private onBookingWasCanceled(event: BookingWasCanceled) {
+    this._bookingState = State.fromString(event.bookingState as States);
+  }
   delete(): void {
     if (this._deleted) {
       return;
     }
 
-    this.apply(new BookingWasCanceled(this.id.value));
+    this.apply(new BookingWasDeleted(this.id.value));
   }
-
-  private onBookingWasCanceled(event: BookingWasCanceled) {
+  private onBookingWasDeleted(event: BookingWasDeleted) {
     this._deleted = new Date(event.metadata._ocurred_on);
   }
 }

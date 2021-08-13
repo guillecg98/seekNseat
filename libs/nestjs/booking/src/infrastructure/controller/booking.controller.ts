@@ -63,7 +63,7 @@ export class BookingController {
   }
 
   @Get()
-  @ApiOperation({ summary: 'Read all bookings based on user id'})
+  @ApiOperation({ summary: 'Read all bookings based on user id' })
   @ApiResponse({ status: 200, description: 'List Bookings' })
   @ApiResponse({ status: 404, description: 'Bookings not found' })
   @ApiQuery({ name: 'userId', required: false })
@@ -95,7 +95,7 @@ export class BookingController {
   }
 
   @Get(':id')
-  @ApiOperation({summary: 'Get one booking'})
+  @ApiOperation({ summary: 'Get one booking' })
   @ApiResponse({ status: 200, description: 'Booking found' })
   @ApiResponse({ status: 404, description: 'Booking not found' })
   // @UseRoles({
@@ -117,7 +117,7 @@ export class BookingController {
   }
 
   @Put(':id')
-  @ApiOperation({ summary: 'Update booking state'})
+  @ApiOperation({ summary: 'Update booking state' })
   @ApiResponse({ status: 200, description: 'Booking request responsed' })
   @ApiResponse({ status: 404, description: 'Booking not found' })
   // @UseRoles({
@@ -141,8 +141,33 @@ export class BookingController {
     }
   }
 
+  @Put('/cancel/:id')
+  @ApiOperation({ summary: 'Cancel Booking' })
+  @ApiResponse({ status: 200, description: 'Booking canceled by user' })
+  @ApiResponse({ status: 404, description: 'Booking not found' })
+  // @UseRoles({
+  //   resource: Resource.Booking,
+  //   action: 'delete',
+  //   possession: 'own',
+  // })
+  // @UseGuards(BookingUserGuard, BookingBusinessGuard, ACGuard)
+  async cancel(
+    @Param('id') id: string,
+    @Body() editBookingDTO: EditBookingDTO
+  ): Promise<BookingDTO> {
+    try {
+      return await this.bookingService.cancel(id, editBookingDTO);
+    } catch (e) {
+      if (e instanceof Error) {
+        throw new BadRequestException(e.message);
+      } else {
+        throw new BadRequestException('Server Error');
+      }
+    }
+  }
+
   @Delete(':id')
-  @ApiOperation({ summary: 'Delete business'})
+  @ApiOperation({ summary: 'Delete Booking' })
   @ApiResponse({ status: 200, description: 'Booking deleted' })
   @ApiResponse({ status: 404, description: 'Booking not found' })
   // @UseRoles({

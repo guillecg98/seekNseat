@@ -1,5 +1,8 @@
-import { ICommand } from "@nestjs/cqrs";
+import { ICommand } from '@nestjs/cqrs';
 
 export class CancelBookingCommand implements ICommand {
-    constructor(public readonly id: string) {}
+  constructor(
+    public readonly id: string,
+    public readonly bookingState: string,
+  ) {}
 }
