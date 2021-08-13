@@ -1,64 +1,57 @@
-import { BusinessDTO } from "@seekNseat/contracts/business";
-import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { ActivityIndicator } from "react-native-paper";
+import { BusinessDTO } from '@seekNseat/contracts/business';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 
-import { BusinessList } from "../components";
-import { getBusinesses } from "../requests";
+import { BusinessList } from '../components';
+import { getBusinesses } from '../requests';
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignContent: 'center',
-    },
-    textContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    text: {
-        color: '#4884CA',
-        fontSize: 23,
-        fontWeight: 'bold',
-    },
-    listContainer: {
-        flex: 5,
-    }
-})
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  textContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    textAlign: 'center',
+    color: '#0D8686',
+    fontSize: 28,
+    fontWeight: 'bold',
+  },
+  listContainer: {
+    flex: 5,
+  },
+});
 
 export const BusinessesScreen = ({ navigation }) => {
+  const [businessList, setBusinessList] = useState<BusinessDTO[]>([]);
 
-    const [businessList, setBusinessList] = useState<BusinessDTO[]>([])
+  useEffect(() => {
+    getBusinesses().then((res) => {
+      setBusinessList(res?.data);
+    });
+  }, []);
 
-    useEffect( () => {
-        getBusinesses()
-        .then( (res) => {
-            setBusinessList(res?.data)
-        })
-    }, []);
+  if (businessList) {
+    return (
+      <View style={styles.container}>
+        <View style={styles.textContainer}>
+          <Text style={styles.text}> Esto es lo que hemos encontrado para tí </Text>
+        </View>
 
-    if(businessList) {
-        return(
-            <View style={styles.container}>
-                <View style={styles.textContainer}>
-                    <Text style={styles.text}> Restaurants based on search </Text>
-                </View>
-
-                <View style={styles.listContainer}>
-                    <BusinessList businessList={businessList} navigation={navigation} />
-                </View>
-            </View>
-        )
-    } else {
-        return(
-            <View style={styles.container}>
-                <ActivityIndicator
-                    animating={true}
-                    size='large'
-                    color='#4884CA' />
-            </View>
-        )
-    }
-
-}
+        <View style={styles.listContainer}>
+          <BusinessList businessList={businessList} navigation={navigation} />
+        </View>
+      </View>
+    );
+  } else {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator animating={true} size="large" color="#0D8686" />
+      </View>
+    );
+  }
+};

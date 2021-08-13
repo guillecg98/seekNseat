@@ -80,7 +80,7 @@ const data = [
   { label: 'Japones', value: '8' },
 ];
 
-export const UserHomePage = () => {
+export const UserHomePageScreen = ({ navigation }) => {
   const { user } = useContext(AuthContext);
   const [foodies, setFoodies] = useState('');
   const [category, setCategory] = useState(null);
@@ -184,8 +184,7 @@ export const UserHomePage = () => {
           iconRight
           buttonStyle={styles.skipButton}
           title="Siguiente"
-          // onPress={() => navigation.navigate('Businesses')}
-          onPress={() => console.log('business list view')}
+          onPress={() => navigation.navigate('Businesses')}
         />
       </View>
     </View>

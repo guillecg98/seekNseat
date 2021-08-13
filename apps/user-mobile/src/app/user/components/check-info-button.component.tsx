@@ -6,12 +6,13 @@ const styles = StyleSheet.create({
     checkInfoButton: {
         borderRadius: 20,
         borderWidth: 2,
-        borderColor: '#4884CA',
+        borderColor: '#0D8686',
         width: 90,
     }
 })
 
 type Props = {
+    disabled: boolean;
     onPress: any;
 }
 
@@ -19,9 +20,10 @@ export const CheckInfoButton = (props: Props) => {
     return(
         <Button
             style={styles.checkInfoButton}
-            mode='outlined'
+            disabled={props.disabled}
+            mode='contained'
             uppercase={false}
-            color='#4884CA'
+            color='#0D8686'
             onPress={props.onPress}>
                 Info
         </Button>
