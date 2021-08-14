@@ -17,6 +17,7 @@ export const AuthStack = () => {
 
   return (
     <Stack.Navigator
+    screenOptions={{ headerShown: false}}
       initialRouteName='SignIn'>
       <Stack.Screen name="SignIn" component={SignInScreen} />
       <Stack.Screen name="Home" component={UserHomePageScreen} />

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { SocialButton } from '../components';
 import { AuthContext } from '../navigation';
@@ -7,19 +7,29 @@ import { AuthContext } from '../navigation';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    padding: 20,
+    paddingTop: 50,
     alignItems: 'center',
-    padding: 15,
+    justifyContent: 'center',
+    backgroundColor: '#FFC074',
+  },
+  logo: {
+    width: 200,
+    height: 180,
+    resizeMode: 'contain',
   },
   sectionContainer: {
-    flex: 1,
+    flex: 2,
     padding: 10,
-    justifyContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
   },
   text: {
-    fontSize: 20,
-    fontFamily: 'Lato-Regular',
+    fontSize: 34,
+    margin: 5,
+    textAlign: 'center',
     fontWeight: 'bold',
+    color: '#2b2b2b',
   },
 });
 
@@ -33,12 +43,18 @@ export const SignInScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <Text style={[styles.text, { marginTop: 20 }]}> Bienvenido a</Text>
+      <Text style={styles.text}> Seek N Seat Restaurants</Text>
       <View style={styles.sectionContainer}>
+        <Image
+          source={require('../../assets/retaurant-logo.png')}
+          style={styles.logo}
+        />
         <SocialButton
-          buttonTitle="Sign In with Google"
+          buttonTitle="Inicia sesión con Google"
           buttonType="google"
-          color="#59a4de"
-          backgroundColor="#cad7e0"
+          color="#FFC074"
+          backgroundColor="#2b2b2b"
           onPress={onSignIn}
         />
       </View>
