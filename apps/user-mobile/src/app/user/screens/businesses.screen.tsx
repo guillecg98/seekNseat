@@ -1,6 +1,12 @@
 import { BusinessDTO } from '@seekNseat/contracts/business';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 
 import { BusinessList } from '../components';
 import { getBusinesses } from '../requests';
@@ -8,10 +14,10 @@ import { getBusinesses } from '../requests';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
   },
   textContainer: {
     flex: 1,
+    margin: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -20,9 +26,6 @@ const styles = StyleSheet.create({
     color: '#0D8686',
     fontSize: 28,
     fontWeight: 'bold',
-  },
-  listContainer: {
-    flex: 5,
   },
 });
 
@@ -37,15 +40,16 @@ export const BusinessesScreen = ({ navigation }) => {
 
   if (businessList) {
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <View style={styles.textContainer}>
-          <Text style={styles.text}> Esto es lo que hemos encontrado para tí </Text>
+          <Text style={styles.text}>
+            {' '}
+            Esto es lo que hemos encontrado para tí{' '}
+          </Text>
         </View>
 
-        <View style={styles.listContainer}>
-          <BusinessList businessList={businessList} navigation={navigation} />
-        </View>
-      </View>
+        <BusinessList businessList={businessList} navigation={navigation} />
+      </ScrollView>
     );
   } else {
     return (

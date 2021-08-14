@@ -9,16 +9,14 @@ const styles = StyleSheet.create({
   listContainer: {
     flex: 1,
     elevation: 5,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
     padding: 10,
   },
   list: {
-    flex: 1,
     padding: 10,
   },
   listItem: {
-    elevation: 5,
     padding: 5,
   },
 });
@@ -31,7 +29,7 @@ type Props = {
 export const BusinessList = (props: Props) => {
   return (
     <View style={styles.listContainer}>
-      <ScrollView style={styles.list}>
+      <View style={styles.list}>
         {props.businessList.map((business) => (
           <ListItem
             key={business._id}
@@ -48,7 +46,10 @@ export const BusinessList = (props: Props) => {
               {business.blocked ? (
                 <ListItem.Title
                   style={{ fontSize: 16, textAlign: 'center', color: 'red' }}
-                > Reservas bloqueadas </ListItem.Title>
+                >
+                  {' '}
+                  Reservas bloqueadas{' '}
+                </ListItem.Title>
               ) : null}
             </ListItem.Content>
             <Avatar
@@ -70,7 +71,7 @@ export const BusinessList = (props: Props) => {
             </ListItem.Content>
           </ListItem>
         ))}
-      </ScrollView>
+      </View>
     </View>
   );
 };

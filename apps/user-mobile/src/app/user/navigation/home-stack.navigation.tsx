@@ -1,5 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
+import { Button } from 'react-native';
 
 import {
   BusinessesScreen,
@@ -11,10 +12,34 @@ const Stack = createStackNavigator();
 
 export const HomeStack = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Home" component={UserHomePageScreen} />
-      <Stack.Screen name="Businesses" component={BusinessesScreen} />
-      <Stack.Screen name="Business" component={BusinessScreen} />
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Home"
+        component={UserHomePageScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Businesses"
+        component={BusinessesScreen}
+        options={{
+          headerTitle: 'Back to Home',
+          headerStyle: {
+            backgroundColor: '#0D8686',
+          },
+          headerTintColor: 'white',
+        }}
+      />
+      <Stack.Screen
+        name="Business"
+        component={BusinessScreen}
+        options={{
+          headerTitle: 'Back to Search',
+          headerStyle: {
+            backgroundColor: '#0D8686',
+          },
+          headerTintColor: 'white',
+        }}
+      />
     </Stack.Navigator>
   );
 };
