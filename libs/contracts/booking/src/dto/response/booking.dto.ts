@@ -7,6 +7,7 @@ interface Props {
   businessId: string;
   businessName: string;
   numberOfFoodies: number;
+  time: Date;
   bookingState: string;
   noShow?: boolean;
 }
@@ -28,9 +29,11 @@ export class BookingDTO {
   @ApiProperty()
   public readonly businessName: string;
 
-  //public readonly bookingTime: DateTime,
   @ApiProperty()
   public readonly numberOfFoodies: number;
+
+  @ApiProperty()
+  public readonly time: Date;
 
   @ApiProperty()
   public readonly bookingState: string;

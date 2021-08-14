@@ -3,7 +3,11 @@ import {
   InjectAggregateRepository,
 } from '@aulasoftwarelibre/nestjs-eventstore';
 import { CommandHandler, ICommandHandler, QueryBus } from '@nestjs/cqrs';
-import { BusinessId, BusinessName, GetBusinessQuery } from '@seekNseat/nestjs/business';
+import {
+  BusinessId,
+  BusinessName,
+  GetBusinessQuery,
+} from '@seekNseat/nestjs/business';
 import { GetUserQuery, UserId, Username } from '@seekNseat/nestjs/user';
 
 import { Booking, BookingId, NumberOfFoodies } from '../../domain';
@@ -24,6 +28,7 @@ export class RequestBookingHandler
     const userId = UserId.fromString(command.userId);
     const businessId = BusinessId.fromString(command.businessId);
     const numberOfFoodies = NumberOfFoodies.fromNumber(command.numerOfFoodies);
+    const time = command.time;
 
     if (await this.bookings.find(id)) {
       throw new Error('Booking with this id already exists');
@@ -35,7 +40,6 @@ export class RequestBookingHandler
       throw new Error('User not found');
     }
 
-
     const business = await this.queryBus.execute(
       new GetBusinessQuery(command.businessId)
     );
@@ -43,7 +47,15 @@ export class RequestBookingHandler
       throw new Error('Business not found');
     }
 
-    const booking = Booking.create(id, userId, Username.fromString(user.username), businessId, BusinessName.fromString(business.name), numberOfFoodies);
+    const booking = Booking.create(
+      id,
+      userId,
+      Username.fromString(user.username),
+      businessId,
+      BusinessName.fromString(business.name),
+      numberOfFoodies,
+      time
+    );
     this.bookings.save(booking);
   }
 }

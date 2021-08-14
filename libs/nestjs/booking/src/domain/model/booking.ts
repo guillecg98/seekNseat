@@ -19,8 +19,8 @@ export class Booking extends AggregateRoot {
   private _username: Username;
   private _businessId: BusinessId;
   private _businessName: BusinessName;
-  //private _bookingTime: DateTime;
   private _numberOfFoodies: NumberOfFoodies;
+  private _time: Date;
   private _bookingState: State;
   private _noShow: boolean;
   private _deleted?: Date;
@@ -31,8 +31,8 @@ export class Booking extends AggregateRoot {
     username: Username,
     businessId: BusinessId,
     businessName: BusinessName,
-    //bookingTime: dateTime,
-    numberOfFoodies: NumberOfFoodies
+    numberOfFoodies: NumberOfFoodies,
+    time: Date,
   ): Booking {
     const booking = new Booking();
     booking.apply(
@@ -42,8 +42,8 @@ export class Booking extends AggregateRoot {
         username.value,
         businessId.value,
         businessName.value,
-        //bookingTime,
-        numberOfFoodies.value
+        numberOfFoodies.value,
+        time,
       )
     );
 
@@ -78,6 +78,10 @@ export class Booking extends AggregateRoot {
     return this._numberOfFoodies;
   }
 
+  get time(): Date {
+    return this._time;
+  }
+
   get bookingState(): State {
     return this._bookingState;
   }
@@ -93,6 +97,7 @@ export class Booking extends AggregateRoot {
     this._businessId = BusinessId.fromString(event.businessId);
     this._businessName = BusinessName.fromString(event.businessName);
     this._numberOfFoodies = NumberOfFoodies.fromNumber(event.numberOfFoodies);
+    this._time = event.time;
     this._bookingState = State.fromString(States.Pending);
     this._noShow = false;
     this._deleted = undefined;

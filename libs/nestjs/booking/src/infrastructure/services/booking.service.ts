@@ -18,6 +18,7 @@ export class BookingService {
               createBookingDTO.userId,
               createBookingDTO.businessId,
               createBookingDTO.numberOfFoodies,
+              createBookingDTO.time,
           )
       );
 

@@ -19,7 +19,8 @@ export const eventTransformers = {
       event.payload.username,
       event.payload.businessId,
       event.payload.businessName,
-      event.payload.numberOfFoodies
+      event.payload.numberOfFoodies,
+      event.payload.time,
     ),
   BookingStateWasUpdated: (event: Event<EditBookingDTO>) =>
     new BookingStateWasUpdated(

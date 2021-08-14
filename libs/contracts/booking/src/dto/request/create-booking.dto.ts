@@ -19,7 +19,10 @@ export class CreateBookingDTO {
 
     @ApiProperty()
     businessName?: string;
-    //bookingTime: DateTime; --- TODO
+
+    @ApiProperty()
+    time: Date;
+    
     @ApiProperty()
     @IsNotEmpty()
     @IsNumber()

@@ -97,8 +97,8 @@ export const UserHomePageScreen = ({ navigation }) => {
 
   const handleConfirm = (time: Date) => {
     hideTimePicker();
+    console.log(time)
     setTime(time);
-    // setSelectedTime(time)
   };
 
   return user ? (
