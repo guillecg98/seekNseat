@@ -12,6 +12,7 @@ export const BookingSchema = new Schema({
     businessId: String,
     businessName: String,
     numberOfFoodies: Number,
+    time: Date,
     bookingState: String,
     noShow: Boolean,
     deleted: Date,

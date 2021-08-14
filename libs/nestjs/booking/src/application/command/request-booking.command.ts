@@ -6,5 +6,6 @@ export class RequestBookingCommand implements ICommand {
         public readonly userId: string,
         public readonly businessId: string,
         public readonly numerOfFoodies: number,
+        public readonly time: Date,
     ) {}
 }

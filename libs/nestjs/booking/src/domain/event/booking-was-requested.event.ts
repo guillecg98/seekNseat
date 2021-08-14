@@ -8,8 +8,17 @@ export class BookingWasRequested extends Event<CreateBookingDTO> {
     public readonly username: string,
     public readonly businessId: string,
     public readonly businessName: string,
-    public readonly numberOfFoodies: number
+    public readonly numberOfFoodies: number,
+    public readonly time: Date
   ) {
-    super(id, { _id: id, userId, username, businessId, businessName, numberOfFoodies });
+    super(id, {
+      _id: id,
+      userId,
+      username,
+      businessId,
+      businessName,
+      numberOfFoodies,
+      time,
+    });
   }
 }
