@@ -4,7 +4,7 @@ import { Button } from 'react-native-paper';
 
 const styles = StyleSheet.create({
   button: {
-      margin: 5,
+      margin: 10,
       borderRadius: 20,
       elevation: 5,
   }
