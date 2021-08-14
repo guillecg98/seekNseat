@@ -1,88 +1,72 @@
+import { BusinessDTO } from '@seekNseat/contracts/business';
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { Card, Modal, Paragraph, Portal, Provider, Text  } from 'react-native-paper';
+import { Icon } from 'react-native-elements';
+import {
+  Card,
+  Divider,
+  Paragraph,
+  Text,
+  Title,
+} from 'react-native-paper';
 
 import { ResquestBookingButton } from './request-booking-button.component';
 
-
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        elevation: 4,
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
-        padding: 12,
-    },
-    cardContainer: {
-        marginTop: 15,
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
-    },
-    cardTitle: {
-        fontSize: 24,
-        textAlign: 'center',
-        color: '#4884CA',
-        padding: 10,
-    },
-    cardCover: {
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
-    },
-    descriptionStyle: {
-        fontSize: 16,
-        color: 'black',
-        margin: 10,
-        marginTop: 30,
-    },
-    modal: {
-        height: 150,
-        backgroundColor: 'white',
-        padding: 20,
-        margin: 20,
-    }
+  container: {
+    flex: 1,
+  },
+  descriptionStyle: {
+    fontSize: 16,
+    color: '#525252',
+    margin: 10,
+    fontStyle: 'italic',
+    marginTop: 30,
+  },
 });
 
 type Props = {
-    name: string;
-    contactPhone: string;
-    address?: string;
-    description?: string;
-}
+  business: BusinessDTO;
+};
 
 export const BusinessCard = (props: Props) => {
+  return (
+    <ScrollView>
+      <Card>
+        <Card.Cover source={{ uri: 'https://static1-sevilla.abc.es/Media/201411/24/tgb-restalia-campana--644x362.jpg' }} />
+        <Card.Content style={{ padding: 15 }}>
+          <Title style={{margin: 5}}> {props.business.name} </Title>
+          <View
+            style={{flexDirection: 'row', marginTop: 10,}}
+          >
+            <Card.Content style={{flex:3, marginTop: 5, flexDirection: 'row' }}>
+              <Icon name="location" type="ionicon" color="#0D8686" />
+              <Text style={{fontSize: 14, color: '#808080'}}> {props.business.address ? props.business.address : 'No se ha añadido dirección'} </Text>
+            </Card.Content>
 
-    const [visible, setVisible] = useState(false);
-
-    const showModal = () => setVisible(true)
-    const hideModal = () => setVisible(false);
-
-    return(
-        <View  style={styles.container}>
-        <Provider>
-            <ScrollView>
-        <Card style={styles.cardContainer}>
-            <Card.Title titleStyle={styles.cardTitle} title={props.name} />
-                <Card.Content>
-                    <Card.Cover style={styles.cardCover} source={{ uri: 'https://picsum.photos/300' }} />
-                    <Paragraph style={styles.descriptionStyle}>
-                        {props.description ? props.description : 'There is no description for this business yet'}
-                    </Paragraph>
-                    <Paragraph style={styles.descriptionStyle}>
-                        Contact phone: {props.contactPhone}
-                    </Paragraph>
-                </Card.Content>
-            <Card.Actions style={{justifyContent: 'center'}}>
-                <ResquestBookingButton
-                    onPress={showModal}/>
-                <Portal>
-                <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={styles.modal}>
-                    <Text style={{fontSize: 20}}>Yeah! you asked for a reservation, you will get response ASAP!</Text>
-                </Modal>
-                </Portal>
-            </Card.Actions>
-        </Card>
-        </ScrollView>
-        </Provider>
-        </View>
-    )
-}
+            <Card.Content
+              style={{
+                flex:2,
+                marginTop: 5,
+                flexDirection: 'row',
+                justifyContent: 'flex-end',
+              }}
+            >
+              <Icon name="call" type="ionicon" color="#0D8686" />
+              <Text style={{fontSize: 14, color: '#808080'}}> {props.business.contactPhone} </Text>
+            </Card.Content>
+          </View>
+        </Card.Content>
+        <Divider />
+        <Card.Content style={{ margin: 5, justifyContent: 'center', }}>
+          <Paragraph style={styles.descriptionStyle}>
+            "{props.business.description
+              ? props.business.description
+              : 'Este establecimiento aún no tiene descripción'}"
+          </Paragraph>
+        </Card.Content>
+      </Card>
+      <Divider />
+    </ScrollView>
+  );
+};

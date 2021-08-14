@@ -4,13 +4,21 @@ import { Button } from 'react-native-paper';
 
 const styles = StyleSheet.create({
   button: {
-    margin: 15,
-    elevation: 8,
-    borderRadius: 30,
+    margin: 20,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: '#0D8686',
   },
 });
 
+export enum mode {
+  Outlined = 'outlined',
+  Contained = 'contained',
+}
+
 type Props = {
+  mode: mode;
+  text: string;
   onPress: any;
 }
 
@@ -19,11 +27,11 @@ export const ResquestBookingButton = (props: Props) => {
   return (
     <Button
       style={styles.button}
-      mode="contained"
+      mode={props.mode}
       uppercase={false}
-      color='#4884CA'
+      color='#0D8686'
       onPress={props.onPress}>
-        Solicitar Reserva
+        {props.text}
     </Button>
   );
 };

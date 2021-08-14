@@ -55,37 +55,41 @@ export const Bookings = (props: Props) => {
                   style={styles.listItem}
                   containerStyle={{ borderRadius: 12 }}
                 >
-                  <ListItem.Content>
-                    <BookingActionButton
-                      disabled={true}
-                      text="Aceptar"
-                      color="#0D8686"
-                      onPress={() => onPressAcceptBooking(booking)}
-                    />
-                  </ListItem.Content>
-                  <ListItem.Content style={{ margin: 5 }}>
+                  <ListItem.Content style={{ alignItems: 'center' }}>
                     <ListItem.Title>
                       {' '}
                       Nombre: {booking.username}{' '}
                     </ListItem.Title>
-                    <ListItem.Title>
-                      {' '}
-                      Mesa para: {booking.numberOfFoodies}{' '}
-                    </ListItem.Title>
+                    <View style={{ flexDirection: 'row' }}>
+                      <ListItem.Title>
+                        {' '}
+                        Mesa para: {booking.numberOfFoodies}{' '}
+                      </ListItem.Title>
+                      <ListItem.Title>
+                        {' '}
+                        Hora: {booking.time.toString().slice(11, -8)}{' '}
+                      </ListItem.Title>
+                    </View>
                     {booking.noShow ? (
                       <ListItem.Title style={styles.noShow}>
                         {' '}
                         No Show{' '}
                       </ListItem.Title>
                     ) : null}
-                  </ListItem.Content>
-                  <ListItem.Content>
-                    <BookingActionButton
-                      disabled={false}
-                      text={'NoShow'}
-                      color="#d17979"
-                      onPress={() => onPressDeclineBooking(booking)}
-                    />
+                    <View style={{ marginTop: 10, flexDirection: 'row' }}>
+                      <BookingActionButton
+                        disabled={true}
+                        text="Aceptar"
+                        color="#0D8686"
+                        onPress={() => onPressAcceptBooking(booking)}
+                      />
+                      <BookingActionButton
+                        disabled={false}
+                        text={'No Show'}
+                        color="#d17979"
+                        onPress={() => onPressDeclineBooking(booking)}
+                      />
+                    </View>
                   </ListItem.Content>
                 </ListItem>
               );
@@ -97,35 +101,41 @@ export const Bookings = (props: Props) => {
                   style={styles.listItem}
                   containerStyle={{ borderRadius: 12 }}
                 >
-                  <ListItem.Content>
-                    <BookingActionButton
-                      disabled={false}
-                      text="Aceptar"
-                      color="#0D8686"
-                      onPress={() => onPressAcceptBooking(booking)}
-                    />
-                  </ListItem.Content>
-                  <ListItem.Content style={{ margin: 5 }}>
-                    <ListItem.Title style={{textAlign:  'center'}}>
-                      Nombre: {booking.username}
+                  <ListItem.Content style={{ alignItems: 'center' }}>
+                    <ListItem.Title>
+                      {' '}
+                      Nombre: {booking.username}{' '}
                     </ListItem.Title>
-                    <ListItem.Title style={{textAlign:  'center'}}>
-                      Mesa para: {booking.numberOfFoodies}{' '}
-                    </ListItem.Title>
+                    <View style={{ flexDirection: 'row' }}>
+                      <ListItem.Title>
+                        {' '}
+                        Mesa para: {booking.numberOfFoodies}{' '}
+                      </ListItem.Title>
+                      <ListItem.Title>
+                        {' '}
+                        Hora: {booking.time.toString().slice(11, -8)}{' '}
+                      </ListItem.Title>
+                    </View>
                     {booking.noShow ? (
                       <ListItem.Title style={styles.noShow}>
                         {' '}
                         No Show{' '}
                       </ListItem.Title>
                     ) : null}
-                  </ListItem.Content>
-                  <ListItem.Content>
-                    <BookingActionButton
-                      disabled={false}
-                      text={'En cola'}
-                      color="#d17979"
-                      onPress={() => onPressDeclineBooking(booking)}
-                    />
+                    <View style={{ marginTop: 10, flexDirection: 'row' }}>
+                      <BookingActionButton
+                        disabled={false}
+                        text="Aceptar"
+                        color="#0D8686"
+                        onPress={() => onPressAcceptBooking(booking)}
+                      />
+                      <BookingActionButton
+                        disabled={false}
+                        text={'En cola'}
+                        color="#d17979"
+                        onPress={() => onPressDeclineBooking(booking)}
+                      />
+                    </View>
                   </ListItem.Content>
                 </ListItem>
               );
@@ -133,43 +143,47 @@ export const Bookings = (props: Props) => {
             case States.Declined:
               return (
                 <ListItem
-                  key={booking._id}
-                  style={styles.listItem}
-                  containerStyle={{ borderRadius: 12 }}
-                >
-                  <ListItem.Content>
+                key={booking._id}
+                style={styles.listItem}
+                containerStyle={{ borderRadius: 12 }}
+              >
+                <ListItem.Content style={{ alignItems: 'center' }}>
+                  <ListItem.Title>
+                    {' '}
+                    Nombre: {booking.username}{' '}
+                  </ListItem.Title>
+                  <View style={{ flexDirection: 'row' }}>
+                    <ListItem.Title>
+                      {' '}
+                      Mesa para: {booking.numberOfFoodies}{' '}
+                    </ListItem.Title>
+                    <ListItem.Title>
+                      {' '}
+                      Hora: {booking.time.toString().slice(11, -8)}{' '}
+                    </ListItem.Title>
+                  </View>
+                  {booking.noShow ? (
+                    <ListItem.Title style={styles.noShow}>
+                      {' '}
+                      No Show{' '}
+                    </ListItem.Title>
+                  ) : null}
+                  <View style={{ marginTop: 10, flexDirection: 'row' }}>
                     <BookingActionButton
                       disabled={false}
                       text="Aceptar"
                       color="#0D8686"
                       onPress={() => onPressAcceptBooking(booking)}
                     />
-                  </ListItem.Content>
-                  <ListItem.Content style={{ margin: 5 }}>
-                    <ListItem.Title>
-                      {' '}
-                      Nombre: {booking.username}{' '}
-                    </ListItem.Title>
-                    <ListItem.Title>
-                      {' '}
-                      Mesa para: {booking.numberOfFoodies}{' '}
-                    </ListItem.Title>
-                    {booking.noShow ? (
-                      <ListItem.Title style={styles.noShow}>
-                        {' '}
-                        No Show{' '}
-                      </ListItem.Title>
-                    ) : null}
-                  </ListItem.Content>
-                  <ListItem.Content>
                     <BookingActionButton
                       disabled={true}
-                      text={'No show'}
+                      text={'En cola'}
                       color="#d17979"
                       onPress={() => onPressDeclineBooking(booking)}
                     />
-                  </ListItem.Content>
-                </ListItem>
+                  </View>
+                </ListItem.Content>
+              </ListItem>
               );
               break;
             case States.CanceledByUser:
@@ -179,35 +193,41 @@ export const Bookings = (props: Props) => {
                   style={styles.listItem}
                   containerStyle={{ borderRadius: 12 }}
                 >
-                  <ListItem.Content style={{ margin: 5 }}>
-                    <ListItem.Title>
+                  <ListItem.Content style={{ alignItems: 'center' }}>
+                  <ListItem.Title>
                       {' '}
                       Nombre: {booking.username}{' '}
                     </ListItem.Title>
-                    <ListItem.Title>
-                      {' '}
-                      Mesa para: {booking.numberOfFoodies}{' '}
-                    </ListItem.Title>
+                    <View style={{ flexDirection: 'row' }}>
+                      <ListItem.Title>
+                        {' '}
+                        Mesa para: {booking.numberOfFoodies}{' '}
+                      </ListItem.Title>
+                      <ListItem.Title>
+                        {' '}
+                        Hora: {booking.time.toString().slice(11, -8)}{' '}
+                      </ListItem.Title>
+                    </View>
                     {booking.noShow ? (
                       <ListItem.Title style={styles.noShow}>
                         {' '}
                         No Show{' '}
                       </ListItem.Title>
                     ) : null}
-                  </ListItem.Content>
-                  <ListItem.Content>
-                    <BookingActionButton
-                      disabled={false}
-                      text={'Eliminar'}
-                      color="#d17979"
-                      onPress={() => onPressDeclineBooking(booking)}
-                    />
-                    <BookingActionButton
-                      disabled={false}
-                      text="Nueva"
-                      color="#0D8686"
-                      onPress={() => onPressAcceptBooking(booking)}
-                    />
+                    <View style={{ marginTop: 10, flexDirection: 'row' }}>
+                      <BookingActionButton
+                        disabled={false}
+                        text="Nueva"
+                        color="#0D8686"
+                        onPress={() => onPressAcceptBooking(booking)}
+                      />
+                      <BookingActionButton
+                        disabled={false}
+                        text={'Eliminar'}
+                        color="#d17979"
+                        onPress={() => onPressDeclineBooking(booking)}
+                      />
+                    </View>
                   </ListItem.Content>
                 </ListItem>
               );
