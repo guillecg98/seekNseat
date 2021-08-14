@@ -11,7 +11,6 @@ import { SearchBar } from '../components';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
     backgroundColor: 'white',
   },
   activityIndicatorContainer: {
@@ -31,7 +30,7 @@ const styles = StyleSheet.create({
   },
   section: {
     flex: 4,
-    padding: 10,
+    padding: 20,
   },
   dropdown: {
     marginTop: 30,
@@ -65,7 +64,7 @@ const styles = StyleSheet.create({
   sectionFooter: {
     flex: 1,
     justifyContent: 'center',
-    padding: 15,
+    padding: 20,
   },
 });
 
