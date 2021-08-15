@@ -4,9 +4,6 @@ import React, { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { ListItem } from 'react-native-elements';
 
-import { declineBooking } from '../requests';
-import { BookingActionButton } from './booking-action-button.component';
-
 const styles = StyleSheet.create({
   listContainer: {
     flex: 1,
@@ -26,51 +23,22 @@ type Props = {
   state: string;
 };
 
-const onPressDeclineBooking = (booking: BookingDTO) => {
-  declineBooking(booking._id, States.Declined, booking.noShow).then((res) =>
-    console.log(res?.data)
-  );
-};
-
 export const Bookings = (props: Props) => {
   return (
     <View style={styles.listContainer}>
       <ScrollView style={styles.list}>
         {props.bookings.map((booking) => {
           switch (props.state) {
-            case States.Accepted:
-              return (
-                <ListItem
-                  key={booking._id}
-                  style={styles.listItem}
-                  containerStyle={{ borderRadius: 12 }}
-                >
-                  <ListItem.Content style={{ alignItems: 'center' }}>
-                    <ListItem.Title style={{ fontSize: 16, margin: 5 }}>
-                      GENIAL!
-                    </ListItem.Title>
-                    <ListItem.Title style={{ fontSize: 18 }}>
-                      "TGB" (hc)
-                    </ListItem.Title>
-                    <ListItem.Title style={{ fontSize: 16, margin: 5 }}>
-                      Ha aceptdo tu solicitud!
-                    </ListItem.Title>
-                    <ListItem.Title style={{ fontSize: 18, marginTop: 5 }}>
-                      Tienes una mesa para: {booking.numberOfFoodies} a las
-                    </ListItem.Title>
-                    <ListItem.Title style={{ fontSize: 18, margin: 5 }}>
-                      21:30 (hc)
-                    </ListItem.Title>
-                  </ListItem.Content>
-                </ListItem>
-              );
-              break;
             case States.Pending:
               return (
                 <ListItem
                   key={booking._id}
                   style={styles.listItem}
-                  containerStyle={{ borderRadius: 12 }}
+                  containerStyle={{
+                    borderRadius: 12,
+                    borderWidth: 2,
+                    borderColor: '#ececec',
+                  }}
                 >
                   <ListItem.Content>
                     <ListItem.Title style={{ fontSize: 16, margin: 5 }}>
@@ -105,7 +73,11 @@ export const Bookings = (props: Props) => {
                 <ListItem
                   key={booking._id}
                   style={styles.listItem}
-                  containerStyle={{ borderRadius: 12 }}
+                  containerStyle={{
+                    borderRadius: 12,
+                    borderWidth: 2,
+                    borderColor: '#ececec',
+                  }}
                 >
                   <ListItem.Content>
                     <ListItem.Title style={{ fontSize: 16, margin: 5 }}>

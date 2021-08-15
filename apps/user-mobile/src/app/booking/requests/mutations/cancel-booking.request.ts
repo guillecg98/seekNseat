@@ -1,12 +1,12 @@
 import axios from 'axios';
 
-export const declineBooking = async (
+export const cancelBooking = async (
   id: string,
   state: string,
   noShow: boolean
 ) => {
   try {
-    return await axios.put(`http://localhost:3333/api/bookings/` + id, {
+    return await axios.put(`http://localhost:3333/api/bookings/cancel/` + id, {
       bookingState: state,
       noShow: noShow,
     });

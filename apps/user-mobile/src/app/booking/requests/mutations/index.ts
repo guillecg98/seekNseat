@@ -1,1 +1,1 @@
-export * from './decline-booking.request';
+export * from './cancel-booking.request';

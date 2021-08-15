@@ -1,28 +1,29 @@
-import { States } from '@seekNseat/contracts';
 import { BookingDTO } from '@seekNseat/contracts/booking';
 import React from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { Icon } from 'react-native-elements';
+import { ScrollView } from 'react-native-gesture-handler';
 import { Card } from 'react-native-paper';
 
-import { Bookings } from './bookings.component';
+import { CanceledBookings } from './canceled-bookings.component';
 
 const styles = StyleSheet.create({
   container: {
-    top: -50,
+    top: -60,
     margin: 10,
     elevation: 5,
     borderRadius: 20,
     alignSelf: 'center',
-    position: 'absolute',
+    backgroundColor: '#f4f4f7',
   },
   cardHeader: {
     flexDirection: 'row',
     justifyContent: 'center',
   },
   cardHeaderItem: {
-    margin: 7,
-    elevation: 5,
+    padding: 7,
+    margin: 5,
+    elevation: 4,
     borderRadius: 20,
   },
   cardHeaderItemTitle: {
@@ -36,23 +37,29 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
+  cardBody: {
+    padding: 15,
+    marginTop: 15,
+    justifyContent: 'center',
+  },
   cardBodyItemTitle: {
     fontSize: 20,
     margin: 10,
     fontWeight: 'bold',
     textAlign: 'center',
   },
-  cardBody: {
-    padding: 15,
-    marginTop: 15,
-    justifyContent: 'center',
+  cardBodyItemText: {
+    textAlign: 'center',
+    fontSize: 16,
+    marginTop: 60,
+    marginBottom: 40,
   },
 });
 
 interface Props {
-  acceptedBookings: BookingDTO[];
-  pendingBookings: BookingDTO[];
-  declinedBookings: BookingDTO[];
+  acceptedBookings: number;
+  pendingBookings: number;
+  declinedBookings: number;
   canceledBookings: BookingDTO[];
 }
 
@@ -70,7 +77,7 @@ export const BasicInfoCard = (props: Props) => {
           <Text style={styles.cardHeaderItemTitle}> Aceptadas </Text>
           <Text style={styles.cardHeaderItemContent}>
             {' '}
-            {props.acceptedBookings.length}{' '}
+            {props.acceptedBookings}{' '}
           </Text>
         </Card>
         <Card style={styles.cardHeaderItem}>
@@ -78,7 +85,7 @@ export const BasicInfoCard = (props: Props) => {
           <Text style={styles.cardHeaderItemTitle}> Pendientes </Text>
           <Text style={styles.cardHeaderItemContent}>
             {' '}
-            {props.pendingBookings.length}{' '}
+            {props.pendingBookings}{' '}
           </Text>
         </Card>
         <Card style={styles.cardHeaderItem}>
@@ -86,7 +93,7 @@ export const BasicInfoCard = (props: Props) => {
           <Text style={styles.cardHeaderItemTitle}> En cola </Text>
           <Text style={styles.cardHeaderItemContent}>
             {' '}
-            {props.declinedBookings.length}{' '}
+            {props.declinedBookings}{' '}
           </Text>
         </Card>
       </Card.Content>
@@ -94,21 +101,12 @@ export const BasicInfoCard = (props: Props) => {
       <Card.Content style={styles.cardBody}>
         <Text style={styles.cardBodyItemTitle}> Reservas Canceladas </Text>
         {props.canceledBookings.length === 0 ? (
-          <Card>
-            <Card.Content>
-              <Text style={{ textAlign: 'center', fontSize: 18 }}>
-                {' '}
-                No hay reservas canceladas{' '}
-              </Text>
-            </Card.Content>
-          </Card>
+          <Text style={styles.cardBodyItemText}>
+            {' '}
+            No hay reservas canceladas
+          </Text>
         ) : (
-          <Card style={{elevation: 5}}>
-            <Bookings
-              bookings={props.canceledBookings}
-              state={States.CanceledByUser}
-            />
-          </Card>
+          <CanceledBookings canceledBookings={props.canceledBookings} />
         )}
       </Card.Content>
     </Card>

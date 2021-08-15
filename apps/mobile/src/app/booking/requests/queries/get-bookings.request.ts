@@ -1,3 +1,4 @@
+import { BookingDTO } from "@seekNseat/contracts/booking";
 import axios from "axios"
 
 export const getBookings = async (businessId: string) => {
