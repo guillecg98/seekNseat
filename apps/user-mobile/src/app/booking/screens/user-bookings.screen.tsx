@@ -5,7 +5,7 @@ import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { TabBar, TabView } from 'react-native-tab-view';
 
-import { Bookings } from '../components';
+import { AcceptedBookings, DeclinedBookings, PendingBookings } from '../components';
 import { getBookings } from '../requests';
 
 const styles = StyleSheet.create({
@@ -69,33 +69,22 @@ export const UserBookingsScreen = () => {
   }, [index]);
 
   if (bookings) {
-    const accepted: BookingDTO[] = bookings.reduce(function (result, booking) {
-      if (booking.bookingState === States.Accepted) {
-        result.push(booking);
-      }
-      return result;
-    }, []);
-
-    const pending: BookingDTO[] = bookings.reduce(function (result, booking) {
-      if (booking.bookingState === States.Pending) {
-        result.push(booking);
-      }
-      return result;
-    }, []);
-
-    const declined: BookingDTO[] = bookings.reduce(function (result, booking) {
-      if (booking.bookingState === States.Declined) {
-        result.push(booking);
-      }
-      return result;
-    }, []);
+    const accepted: BookingDTO[] = bookings.filter(
+      (booking) => booking.bookingState === States.Accepted
+    );
+    const pending: BookingDTO[] = bookings.filter(
+      (booking) => booking.bookingState === States.Pending
+    );
+    const declined: BookingDTO[] = bookings.filter(
+      (booking) => booking.bookingState === States.Declined
+    );
 
     const renderScene = ({ route }) => {
       switch (route.key) {
         case States.Accepted:
-          return accepted.length ? (
+          return accepted.length !== 0 ? (
             <View style={styles.tabView}>
-              <Bookings bookings={accepted} state="ACCEPTED" />
+              <AcceptedBookings acceptedBookings={accepted} />
             </View>
           ) : (
             <View style={styles.tabView}>
@@ -103,9 +92,9 @@ export const UserBookingsScreen = () => {
             </View>
           );
         case States.Pending:
-          return pending.length ? (
+          return pending.length !== 0 ? (
             <View style={styles.tabView}>
-              <Bookings bookings={pending} state="PENDING" />
+              <PendingBookings pendingBookings={pending} />
             </View>
           ) : (
             <View style={styles.tabView}>
@@ -113,9 +102,9 @@ export const UserBookingsScreen = () => {
             </View>
           );
         case States.Declined:
-          return declined.length ? (
+          return declined.length !== 0 ? (
             <View style={styles.tabView}>
-              <Bookings bookings={declined} state="DECLINED" />
+              <DeclinedBookings declinedBookings={declined} />
             </View>
           ) : (
             <View style={styles.tabView}>

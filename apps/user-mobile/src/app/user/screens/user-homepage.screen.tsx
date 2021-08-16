@@ -1,5 +1,6 @@
 import { CategoryDTO } from '@seekNseat/contracts';
 import React, { useContext, useState } from 'react';
+import { useController, useForm } from 'react-hook-form';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import { Button, Icon, Input } from 'react-native-elements';
@@ -79,12 +80,33 @@ const data = [
   { label: 'Japones', value: '8' },
 ];
 
+const NumberOfFoodiesInput = ({ name, control }) => {
+  const { field } = useController({
+    control,
+    defaultValue: '',
+    name,
+  });
+  return (
+    <Input
+      containerStyle={{ marginTop: 35 }}
+      value={field.value}
+      leftIcon={
+        <Icon name="people-outline" size={22} type="ionicons" color="#494949" />
+      }
+      label="Numero de personas"
+      labelStyle={{ color: '#494949' }}
+      onChangeText={field.onChange}
+      placeholder="Numero de personas"
+      keyboardType="numeric"
+    />
+  );
+};
+
 export const UserHomePageScreen = ({ navigation }) => {
-  const { user } = useContext(AuthContext);
-  const [foodies, setFoodies] = useState('');
+  const { user, bookingData, setBookingData } = useContext(AuthContext);
+  const { control, handleSubmit } = useForm();
   const [category, setCategory] = useState(null);
   const [isTimePickerVisible, setTimePickerVisible] = useState(false);
-  const [time, setTime] = useState(new Date());
 
   const showTimePicker = () => {
     setTimePickerVisible(true);
@@ -94,13 +116,24 @@ export const UserHomePageScreen = ({ navigation }) => {
     setTimePickerVisible(false);
   };
 
-  const handleConfirm = (time: Date) => {
+  const handleConfirm = (selectedTime: Date) => {
     hideTimePicker();
-    console.log(time)
-    setTime(time);
+    selectedTime.setHours(selectedTime.getHours() + 2);
+    setBookingData((bookingData) => ({
+      ...bookingData,
+      time: selectedTime,
+    }));
   };
 
-  return user ? (
+  const onSubmit = (inputData) => {
+    setBookingData((bookingData) => ({
+      ...bookingData,
+      foodies: parseInt(inputData.foodies),
+    }));
+    navigation.navigate('Businesses');
+  };
+
+  return user && bookingData ? (
     <View style={styles.container}>
       <View style={styles.sectionHeader}>
         <Text style={styles.textHeader}>
@@ -123,34 +156,15 @@ export const UserHomePageScreen = ({ navigation }) => {
             setCategory(item.value);
           }}
         />
-        <Input
-          containerStyle={{ marginTop: 35 }}
-          value={foodies}
-          leftIcon={
-            <Icon
-              name="people-outline"
-              size={22}
-              type="ionicons"
-              color="#494949"
-            />
-          }
-          label="Numero de personas"
-          labelStyle={{ color: '#494949' }}
-          onChangeText={setFoodies}
-          placeholder="Numero de personas"
-          keyboardType="numeric"
-        />
+        <NumberOfFoodiesInput name="foodies" control={control} />
 
         <View style={styles.timeSection}>
-          <Text style={styles.timeText}>
-            {' '}
-            Selecciona la hora{' '}
-          </Text>
+          <Text style={styles.timeText}> Selecciona la hora </Text>
           <Button
             buttonStyle={styles.timeButton}
             titleStyle={styles.timeButtonTitle}
             type="outline"
-            title={time.toLocaleTimeString().slice(0, -3)}
+            title={bookingData.time.toJSON().slice(11, -8)}
             onPress={showTimePicker}
           />
           <Icon
@@ -183,7 +197,7 @@ export const UserHomePageScreen = ({ navigation }) => {
           iconRight
           buttonStyle={styles.skipButton}
           title="Siguiente"
-          onPress={() => navigation.navigate('Businesses')}
+          onPress={handleSubmit(onSubmit)}
         />
       </View>
     </View>

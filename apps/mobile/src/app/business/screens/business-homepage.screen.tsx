@@ -1,8 +1,17 @@
 import { States } from '@seekNseat/contracts';
 import { BookingDTO } from '@seekNseat/contracts/booking';
-import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { userInfo } from 'node:os';
+import React, { useContext, useEffect, useState } from 'react';
+import {
+  ActivityIndicator,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import { Provider } from 'react-native-paper';
 
+import { AuthContext } from '../../auth/navigation';
 import { BasicInfoCard } from '../../booking/components';
 import { getBookings } from '../../booking/requests';
 
@@ -18,7 +27,8 @@ const styles = StyleSheet.create({
   },
   textHeader: {
     fontSize: 35,
-    color: '#212424',
+    color: '#2b2b2b',
+    fontWeight: 'bold',
     textAlign: 'center',
   },
   section: {
@@ -32,59 +42,47 @@ const styles = StyleSheet.create({
   },
 });
 
-export const BusinessHomePageScreen = () => {
-  const [bookings, setBookings] = useState<BookingDTO[]>();
+interface Props {
+  bookings: BookingDTO[];
+}
 
-  useEffect(() => {
-    getBookings('df6271d8-fe57-4d46-b7a7-2961373f6021').then((res) => {
-      setBookings(res?.data);
-    });
-  }, []);
+export const BusinessHomePageScreen = (props: Props) => {
+  const { user } = useContext(AuthContext);
 
-  if (bookings) {
-    const accepted: BookingDTO[] = bookings.reduce(function (result, booking) {
-      if (booking.bookingState === States.Accepted) {
-        result.push(booking);
-      }
-      return result;
-    }, []);
-
-    const pending: BookingDTO[] = bookings.reduce(function (result, booking) {
-      if (booking.bookingState === States.Pending) {
-        result.push(booking);
-      }
-      return result;
-    }, []);
-
-    const declined: BookingDTO[] = bookings.reduce(function (result, booking) {
-      if (booking.bookingState === States.Declined) {
-        result.push(booking);
-      }
-      return result;
-    }, []);
-
-    const canceled: BookingDTO[] = bookings.reduce(function (result, booking) {
-      if (booking.bookingState === States.CanceledByUser) {
-        result.push(booking);
-      }
-      return result;
-    }, []);
+  if (props.bookings) {
+    const acceptedBookings = props.bookings.filter(
+      (booking) => booking.bookingState === States.Accepted
+    ).length;
+    const pendingBookings = props.bookings.filter(
+      (booking) => booking.bookingState === States.Pending
+    ).length;
+    const declinedBookings = props.bookings.filter(
+      (booking) => booking.bookingState === States.Declined
+    ).length;
+    const canceledBookings: BookingDTO[] = props.bookings.filter(
+      (booking) => booking.bookingState === States.CanceledByUser
+    );
 
     return (
-      <View style={styles.container}>
-        <View style={styles.sectionHeader}>
-          <Text style={styles.textHeader}> Welcome back, username! </Text>
-        </View>
+      <Provider>
+        <ScrollView style={styles.container}>
+          <View style={styles.sectionHeader}>
+            <Text style={styles.textHeader}>
+              {' '}
+              Bienvenido de nuevo, {user.givenName}!{' '}
+            </Text>
+          </View>
 
-        <View style={styles.section}>
-          <BasicInfoCard
-            acceptedBookings={accepted}
-            pendingBookings={pending}
-            declinedBookings={declined}
-            canceledBookings={canceled}
-          />
-        </View>
-      </View>
+          <View style={styles.section}>
+            <BasicInfoCard
+              acceptedBookings={acceptedBookings}
+              pendingBookings={pendingBookings}
+              declinedBookings={declinedBookings}
+              canceledBookings={canceledBookings}
+            />
+          </View>
+        </ScrollView>
+      </Provider>
     );
   } else {
     return (

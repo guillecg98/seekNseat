@@ -5,8 +5,12 @@ import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { TabBar, TabView } from 'react-native-tab-view';
 
-import { BlockBooknigssButton, Bookings } from '../components';
-import { getBookings } from '../requests';
+import {
+  AcceptedBookings,
+  BlockBooknigssButton,
+  DeclinedBookings,
+  PendingBookings,
+} from '../components';
 
 const styles = StyleSheet.create({
   container: {
@@ -53,8 +57,11 @@ const renderTabBar = (props) => (
   />
 );
 
-export const BusinessBookingsScreen = () => {
-  const [bookings, setBookings] = useState<BookingDTO[]>();
+interface Props {
+  bookings: BookingDTO[];
+}
+
+export const BusinessBookingsScreen = (props: Props) => {
   const [index, setIndex] = useState(1);
   const [routes] = useState([
     { key: States.Accepted, title: 'Aceptadas' },
@@ -62,40 +69,23 @@ export const BusinessBookingsScreen = () => {
     { key: States.Declined, title: 'En Cola' },
   ]);
 
-  useEffect(() => {
-    getBookings('df6271d8-fe57-4d46-b7a7-2961373f6021').then((res) => {
-      setBookings(res?.data);
-    });
-  }, [index]);
-
-  if (bookings) {
-    const accepted: BookingDTO[] = bookings.reduce(function (result, booking) {
-      if (booking.bookingState === States.Accepted) {
-        result.push(booking);
-      }
-      return result;
-    }, []);
-
-    const pending: BookingDTO[] = bookings.reduce(function (result, booking) {
-      if (booking.bookingState === States.Pending) {
-        result.push(booking);
-      }
-      return result;
-    }, []);
-
-    const declined: BookingDTO[] = bookings.reduce(function (result, booking) {
-      if (booking.bookingState === States.Declined) {
-        result.push(booking);
-      }
-      return result;
-    }, []);
+  if (props.bookings) {
+    const accepted: BookingDTO[] = props.bookings.filter(
+      (booking) => booking.bookingState === States.Accepted
+    );
+    const pending: BookingDTO[] = props.bookings.filter(
+      (booking) => booking.bookingState === States.Pending
+    );
+    const declined: BookingDTO[] = props.bookings.filter(
+      (booking) => booking.bookingState === States.Declined
+    );
 
     const renderScene = ({ route }) => {
       switch (route.key) {
         case States.Accepted:
-          return accepted.length ? (
+          return accepted.length !== 0 ? (
             <View style={styles.tabView}>
-              <Bookings bookings={accepted} state={States.Accepted} />
+              <AcceptedBookings acceptedBookings={accepted} />
             </View>
           ) : (
             <View style={styles.tabView}>
@@ -103,9 +93,9 @@ export const BusinessBookingsScreen = () => {
             </View>
           );
         case States.Pending:
-          return pending.length ? (
+          return pending.length !== 0 ? (
             <View style={styles.tabView}>
-              <Bookings bookings={pending} state={States.Pending} />
+              <PendingBookings pendingBookings={pending} />
             </View>
           ) : (
             <View style={styles.tabView}>
@@ -113,9 +103,9 @@ export const BusinessBookingsScreen = () => {
             </View>
           );
         case States.Declined:
-          return declined.length ? (
+          return declined.length !== 0 ? (
             <View style={styles.tabView}>
-              <Bookings bookings={declined} state={States.Declined} />
+              <DeclinedBookings declinedBookings={declined} />
             </View>
           ) : (
             <View style={styles.tabView}>

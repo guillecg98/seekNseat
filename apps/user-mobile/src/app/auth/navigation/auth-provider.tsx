@@ -14,6 +14,16 @@ interface IUser {
   givenName: string;
 }
 
+interface IBookingData {
+  foodies: number;
+  time: Date;
+}
+
+const initialBookingData: IBookingData = {
+  foodies: 1,
+  time: new Date(),
+};
+
 const initialUser: IUser = {
   id: '',
   name: '',
@@ -21,21 +31,30 @@ const initialUser: IUser = {
   photo: '',
   familyName: '',
   givenName: '',
-}
+};
 
 export const AuthContext = createContext({
+  bookingData: initialBookingData,
+  setBookingData: undefined,
   user: initialUser,
   setUser: undefined,
-  login: () => {console.log('defaultValue')},
-  logout: () => {console.log('defaultValue')},
+  login: () => {
+    console.log('defaultValue');
+  },
+  logout: () => {
+    console.log('defaultValue');
+  },
 });
 
 export const AuthProvider: React.FC = ({ children }) => {
+  const [bookingData, setBookingData] = useState<IBookingData>(initialBookingData);
   const [user, setUser] = useState<IUser>();
 
   return (
     <AuthContext.Provider
       value={{
+        bookingData,
+        setBookingData,
         user,
         setUser,
         login: async () => {
@@ -44,7 +63,7 @@ export const AuthProvider: React.FC = ({ children }) => {
             const googleCredential =
               auth.GoogleAuthProvider.credential(idToken);
             await auth().signInWithCredential(googleCredential);
-            setUser(user)
+            setUser(user);
           } catch (error) {
             if (error.code === statusCodes.SIGN_IN_CANCELLED) {
               // user cancelled the login flow
@@ -61,7 +80,7 @@ export const AuthProvider: React.FC = ({ children }) => {
           try {
             await GoogleSignin.revokeAccess();
             await GoogleSignin.signOut();
-            setUser(null)
+            setUser(null);
           } catch (error) {
             console.error(error);
           }

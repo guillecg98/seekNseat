@@ -1,5 +1,5 @@
 import { BusinessDTO } from '@seekNseat/contracts/business';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   ScrollView,
@@ -8,7 +8,8 @@ import {
   View,
 } from 'react-native';
 
-import { BusinessList } from '../components';
+import { AuthContext } from '../../auth/navigation';
+import { Businesses } from '../components';
 import { getBusinesses } from '../requests';
 
 const styles = StyleSheet.create({
@@ -30,32 +31,31 @@ const styles = StyleSheet.create({
 });
 
 export const BusinessesScreen = ({ navigation }) => {
-  const [businessList, setBusinessList] = useState<BusinessDTO[]>([]);
+  const [businesses, setBusinesses] = useState<BusinessDTO[]>([]);
 
   useEffect(() => {
     getBusinesses().then((res) => {
-      setBusinessList(res?.data);
+      setBusinesses(res?.data);
     });
   }, []);
 
-  if (businessList) {
-    return (
-      <ScrollView style={styles.container}>
-        <View style={styles.textContainer}>
-          <Text style={styles.text}>
-            {' '}
-            Esto es lo que hemos encontrado para tí{' '}
-          </Text>
-        </View>
-
-        <BusinessList businessList={businessList} navigation={navigation} />
-      </ScrollView>
-    );
-  } else {
-    return (
-      <View style={styles.container}>
-        <ActivityIndicator animating={true} size="large" color="#0D8686" />
+  return businesses.length !== 0 ? (
+    <ScrollView style={styles.container}>
+      <View style={styles.textContainer}>
+        <Text style={styles.text}>
+          {' '}
+          Esto es lo que hemos encontrado para tí{' '}
+        </Text>
       </View>
-    );
-  }
+
+      <Businesses
+        businesses={businesses}
+        navigation={navigation}
+      />
+    </ScrollView>
+  ) : (
+    <View style={styles.container}>
+      <ActivityIndicator animating={true} size="large" color="#0D8686" />
+    </View>
+  );
 };
