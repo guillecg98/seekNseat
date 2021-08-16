@@ -31,7 +31,7 @@ import { ACGuard, UseRoles } from 'nest-access-control';
 import { BusinessGuard } from '../auth/business.guard';
 import { BusinessService } from '../services';
 
-// @ApiBearerAuth()
+@ApiBearerAuth()
 @ApiTags('businesses')
 @Controller('businesses')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -41,12 +41,6 @@ export class BusinessController {
   @Post()
   @ApiOperation({ summary: 'Create business' })
   @ApiResponse({ status: 200, description: 'Business created' })
-  // @UseRoles({
-  //   resource: Resource.Business,
-  //   action: 'create',
-  //   possession: 'own',
-  // })
-  // @UseGuards(BusinessGuard, ACGuard)
   async create(
     @Body() createBusinessDTO: CreateBusinessDTO
   ): Promise<BusinessDTO> {
@@ -65,12 +59,12 @@ export class BusinessController {
   @ApiOperation({ summary: 'Get all businesses' })
   @ApiResponse({ status: 200, description: 'List Businesses' })
   @ApiResponse({ status: 404, description: 'Not found' })
-  // @UseRoles({
-  //   resource: Resource.Business,
-  //   action: 'read',
-  //   possession: 'any',
-  // })
-  // @UseGuards(BusinessGuard, ACGuard)
+  @UseRoles({
+    resource: Resource.Business,
+    action: 'read',
+    possession: 'any',
+  })
+  @UseGuards(BusinessGuard, ACGuard)
   async findAll(
     @Res({ passthrough: true }) res: Response
   ): Promise<BusinessDTO[]> {
@@ -93,12 +87,12 @@ export class BusinessController {
   @ApiOperation({ summary: 'Get one business by id' })
   @ApiResponse({ status: 200, description: 'Business found' })
   @ApiResponse({ status: 404, description: 'Business not found' })
-  // @UseRoles({
-  //   resource: Resource.Business,
-  //   action: 'read',
-  //   possession: 'any',
-  // })
-  // @UseGuards(BusinessGuard, ACGuard)
+  @UseRoles({
+    resource: Resource.Business,
+    action: 'read',
+    possession: 'any',
+  })
+  @UseGuards(BusinessGuard, ACGuard)
   async findOne(@Param('id') id: string): Promise<BusinessDTO> {
     try {
       return this.businessService.findOne(id);
@@ -115,12 +109,12 @@ export class BusinessController {
   @ApiOperation({ summary: 'Update business profile' })
   @ApiResponse({ status: 200, description: 'Business profile modified' })
   @ApiResponse({ status: 400, description: 'Business profile not found' })
-  // @UseRoles({
-  //   resource: Resource.Business,
-  //   action: 'update',
-  //   possession: 'own',
-  // })
-  // @UseGuards(BusinessGuard, ACGuard)
+  @UseRoles({
+    resource: Resource.Business,
+    action: 'update',
+    possession: 'own',
+  })
+  @UseGuards(BusinessGuard, ACGuard)
   async edit(
     @Param('id') id: string,
     @Body() editBusinessDTO: EditBusinessDTO
@@ -137,15 +131,15 @@ export class BusinessController {
   }
 
   @Put('/block/:id')
-  @ApiOperation({ summary: 'Block business to avoid booking requests'})
-  @ApiResponse({ status: 200, description: 'Business blocked'})
-  @ApiResponse({ status: 404, description: 'Not found'})
-  // @UseRoles({
-  //   resource: Resource.Business,
-  //   action: 'update',
-  //   possession: 'own',
-  // })
-  // @UseGuards(BusinessGuard, ACGuard)
+  @ApiOperation({ summary: 'Block business to avoid booking requests' })
+  @ApiResponse({ status: 200, description: 'Business blocked' })
+  @ApiResponse({ status: 404, description: 'Not found' })
+  @UseRoles({
+    resource: Resource.Business,
+    action: 'update',
+    possession: 'own',
+  })
+  @UseGuards(BusinessGuard, ACGuard)
   async block(
     @Param('id') id: string,
     @Body() blockBusinessDTO: BlockBusinessDTO
@@ -162,15 +156,15 @@ export class BusinessController {
   }
 
   @Delete(':id')
-  @ApiOperation({summary: 'Delete business'})
+  @ApiOperation({ summary: 'Delete business' })
   @ApiResponse({ status: 200, description: 'Business deleted' })
   @ApiResponse({ status: 404, description: 'Business not found' })
-  // @UseRoles({
-  //   resource: Resource.Business,
-  //   action: 'delete',
-  //   possession: 'own',
-  // })
-  // @UseGuards(BusinessGuard, ACGuard)
+  @UseRoles({
+    resource: Resource.Business,
+    action: 'delete',
+    possession: 'own',
+  })
+  @UseGuards(BusinessGuard, ACGuard)
   async delete(@Param('id') id: string): Promise<void> {
     try {
       return this.businessService.delete(id);

@@ -15,12 +15,15 @@ export class CancelBookingHandler implements ICommandHandler<CancelBookingComman
     async execute(command: CancelBookingCommand) {
         const id = BookingId.fromString(command.id);
         const booking = await this.bookings.find(id);
+        const bookingState = State.fromString(command.bookingState as States);
 
         if(!booking) {
             throw new Error('Booking not found')
         }
 
-        const bookingState = State.fromString(command.bookingState as States);
+        if(booking.bookingState.value !== States.Accepted) {
+            throw new Error('Cannot cancel a booking which was not accepted previously')
+        }
 
         booking.cancel(bookingState);
         this.bookings.save(booking);

@@ -5,11 +5,12 @@ export const acl: RolesBuilder = new RolesBuilder();
 
 acl
   .grant(Role.User)
+    .createOwn(Resource.Business)
     .readAny(Resource.Business)
     .createOwn(Resource.Booking)
     .readOwn(Resource.Booking)
+    .updateOwn(Resource.Booking)
   .grant(Role.BusinessOwner)
-    .createOwn(Resource.Business)
     .updateOwn(Resource.Business)
     .deleteOwn(Resource.Business)
     .readOwn(Resource.Booking)

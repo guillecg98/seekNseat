@@ -39,7 +39,7 @@ export class BookingUserGuard extends AuthGuard('jwt') {
       .switchToHttp()
       .getRequest()?.booking;
 
-    if (booking && booking.userId === user.id) {
+    if (booking && booking.userId === user._id) {
       user?.roles.push(Role.User)
     }
 
