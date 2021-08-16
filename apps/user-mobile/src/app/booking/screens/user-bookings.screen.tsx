@@ -5,7 +5,7 @@ import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { TabBar, TabView } from 'react-native-tab-view';
 
-import { AcceptedBookings, Bookings } from '../components';
+import { AcceptedBookings, DeclinedBookings, PendingBookings } from '../components';
 import { getBookings } from '../requests';
 
 const styles = StyleSheet.create({
@@ -94,7 +94,7 @@ export const UserBookingsScreen = () => {
         case States.Pending:
           return pending.length !== 0 ? (
             <View style={styles.tabView}>
-              <Bookings bookings={pending} state="PENDING" />
+              <PendingBookings pendingBookings={pending} />
             </View>
           ) : (
             <View style={styles.tabView}>
@@ -104,7 +104,7 @@ export const UserBookingsScreen = () => {
         case States.Declined:
           return declined.length !== 0 ? (
             <View style={styles.tabView}>
-              <Bookings bookings={declined} state="DECLINED" />
+              <DeclinedBookings declinedBookings={declined} />
             </View>
           ) : (
             <View style={styles.tabView}>

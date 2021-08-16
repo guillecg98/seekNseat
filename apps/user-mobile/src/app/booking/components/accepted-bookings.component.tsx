@@ -26,11 +26,6 @@ const styles = StyleSheet.create({
     margin: 15,
     borderRadius: 10,
   },
-  noShow: {
-    color: 'red',
-    fontSize: 18,
-    textAlign: 'center',
-  },
   text: {
     fontSize: 18,
     textAlign: 'center',
@@ -76,14 +71,15 @@ export const AcceptedBookings = (props: Props) => {
               }}
             >
               <ListItem.Content style={{ alignItems: 'center' }}>
-                <ListItem.Title style={{ fontSize: 18 }}>
-                  Genial! {booking.businessName}
-                </ListItem.Title>
-                <ListItem.Title style={{ fontSize: 16, margin: 5 }}>
-                  Ha aceptdo tu solicitud!
+                <ListItem.Title style={{fontSize: 20}}>
+                  <Text>¡Genial! </Text>
+                  <Text style={{fontWeight: 'bold'}}>{booking.businessName}</Text>
                 </ListItem.Title>
                 <ListItem.Title style={{ fontSize: 18, margin: 5 }}>
-                  Tu mesa de: {booking.numberOfFoodies} a las{' '}
+                  Ha aceptdo tu solicitud!
+                </ListItem.Title>
+                <ListItem.Title style={{ alignSelf: 'center', textAlign: 'justify', fontSize: 18, margin: 15 }}>
+                  Tu mesa para {booking.numberOfFoodies} estará lista a las{' '}
                   {booking.time.toString().slice(11, -8)}
                 </ListItem.Title>
                 <Portal>
