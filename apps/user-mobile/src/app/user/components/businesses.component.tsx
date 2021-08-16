@@ -21,16 +21,23 @@ const styles = StyleSheet.create({
   },
 });
 
-type Props = {
-  businessList: BusinessDTO[];
+interface Props {
+  businesses: BusinessDTO[];
   navigation: any;
-};
+}
 
-export const BusinessList = (props: Props) => {
+export const Businesses = (props: Props) => {
+
+  const onCheckBusinessInfo = (businessId: string) => {
+    props.navigation.navigate('Business', {
+      businessId: businessId,
+    });
+  };
+
   return (
     <View style={styles.listContainer}>
       <View style={styles.list}>
-        {props.businessList.map((business) => (
+        {props.businesses.map((business) => (
           <ListItem
             key={business._id}
             style={styles.listItem}
@@ -62,11 +69,7 @@ export const BusinessList = (props: Props) => {
             <ListItem.Content style={{ alignItems: 'center' }}>
               <CheckInfoButton
                 disabled={business.blocked ? true : false}
-                onPress={() =>
-                  props.navigation.navigate('Business', {
-                    businessId: business._id,
-                  })
-                }
+                onPress={() => onCheckBusinessInfo(business._id)}
               />
             </ListItem.Content>
           </ListItem>
