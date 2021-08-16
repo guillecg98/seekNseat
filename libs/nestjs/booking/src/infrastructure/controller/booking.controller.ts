@@ -32,7 +32,7 @@ import { ACGuard, UseRoles } from 'nest-access-control';
 import { BookingBusinessGuard, BookingUserGuard } from '../auth';
 import { BookingService } from '../services';
 
-// @ApiBearerAuth()
+@ApiBearerAuth()
 @ApiTags('bookings')
 @Controller('bookings')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -42,12 +42,6 @@ export class BookingController {
   @Post()
   @ApiOperation({ summary: 'Request booking' })
   @ApiResponse({ status: 200, description: 'Booking created' })
-  // @UseRoles({
-  //   resource: Resource.Booking,
-  //   action: 'create',
-  //   possession: 'own',
-  // })
-  // @UseGuards(BookingUserGuard, BookingBusinessGuard, ACGuard)
   async create(
     @Body() createBookingDTO: CreateBookingDTO
   ): Promise<BookingDTO> {
@@ -68,12 +62,12 @@ export class BookingController {
   @ApiResponse({ status: 404, description: 'Bookings not found' })
   @ApiQuery({ name: 'userId', required: false })
   @ApiQuery({ name: 'businessId', required: false })
-  // @UseRoles({
-  //   resource: Resource.Booking,
-  //   action: 'read',
-  //   possession: 'own',
-  // })
-  // @UseGuards(BookingUserGuard, BookingBusinessGuard, ACGuard)
+  @UseRoles({
+    resource: Resource.Booking,
+    action: 'read',
+    possession: 'own',
+  })
+  @UseGuards(BookingUserGuard, BookingBusinessGuard, ACGuard)
   async findAll(
     @Res({ passthrough: true }) res: Response,
     @Query('userId') userId: string,
@@ -98,12 +92,12 @@ export class BookingController {
   @ApiOperation({ summary: 'Get one booking' })
   @ApiResponse({ status: 200, description: 'Booking found' })
   @ApiResponse({ status: 404, description: 'Booking not found' })
-  // @UseRoles({
-  //   resource: Resource.Booking,
-  //   action: 'read',
-  //   possession: 'own',
-  // })
-  // @UseGuards(BookingUserGuard, BookingBusinessGuard, ACGuard)
+  @UseRoles({
+    resource: Resource.Booking,
+    action: 'read',
+    possession: 'own',
+  })
+  @UseGuards(BookingUserGuard, BookingBusinessGuard, ACGuard)
   async findOne(@Param('id') id: string): Promise<BookingDTO> {
     try {
       return this.bookingService.findOne(id);
@@ -120,12 +114,12 @@ export class BookingController {
   @ApiOperation({ summary: 'Update booking state' })
   @ApiResponse({ status: 200, description: 'Booking request responsed' })
   @ApiResponse({ status: 404, description: 'Booking not found' })
-  // @UseRoles({
-  //   resource: Resource.Booking,
-  //   action: 'update',
-  //   possession: 'own',
-  // })
-  // @UseGuards(BookingUserGuard, BookingBusinessGuard, ACGuard)
+  @UseRoles({
+    resource: Resource.Booking,
+    action: 'update',
+    possession: 'own',
+  })
+  @UseGuards(BookingUserGuard, BookingBusinessGuard, ACGuard)
   async update(
     @Param('id') id: string,
     @Body() editBookingDTO: EditBookingDTO
@@ -145,12 +139,12 @@ export class BookingController {
   @ApiOperation({ summary: 'Cancel Booking' })
   @ApiResponse({ status: 200, description: 'Booking canceled by user' })
   @ApiResponse({ status: 404, description: 'Booking not found' })
-  // @UseRoles({
-  //   resource: Resource.Booking,
-  //   action: 'delete',
-  //   possession: 'own',
-  // })
-  // @UseGuards(BookingUserGuard, BookingBusinessGuard, ACGuard)
+  @UseRoles({
+    resource: Resource.Booking,
+    action: 'update',
+    possession: 'own',
+  })
+  @UseGuards(BookingUserGuard, BookingBusinessGuard, ACGuard)
   async cancel(
     @Param('id') id: string,
     @Body() editBookingDTO: EditBookingDTO
@@ -170,12 +164,12 @@ export class BookingController {
   @ApiOperation({ summary: 'Delete Booking' })
   @ApiResponse({ status: 200, description: 'Booking deleted' })
   @ApiResponse({ status: 404, description: 'Booking not found' })
-  // @UseRoles({
-  //   resource: Resource.Booking,
-  //   action: 'delete',
-  //   possession: 'own',
-  // })
-  // @UseGuards(BookingUserGuard, BookingBusinessGuard, ACGuard)
+  @UseRoles({
+    resource: Resource.Booking,
+    action: 'delete',
+    possession: 'own',
+  })
+  @UseGuards(BookingUserGuard, BookingBusinessGuard, ACGuard)
   async delete(@Param('id') id: string): Promise<void> {
     try {
       return this.bookingService.delete(id);

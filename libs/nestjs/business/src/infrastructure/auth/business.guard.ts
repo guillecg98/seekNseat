@@ -1,4 +1,4 @@
-import {
+  import {
   ExecutionContext,
   Injectable,
   Logger,
@@ -23,7 +23,7 @@ export class BusinessGuard extends AuthGuard('jwt') {
     const req = context.switchToHttp().getRequest();
 
     const { id } = req?.params;
-    
+
     if (id) {
       req.business = await this.queryBus.execute(new GetBusinessQuery(id));
     }
@@ -34,12 +34,11 @@ export class BusinessGuard extends AuthGuard('jwt') {
     if (err || !user) {
       throw err || new UnauthorizedException();
     }
-
     const business: BusinessDocument = context
       .switchToHttp()
       .getRequest()?.business;
 
-    if (business && business.ownerId === user.id) {
+    if (business && business.ownerId === user._id) {
       user?.roles.push(Role.BusinessOwner)
     }
 
