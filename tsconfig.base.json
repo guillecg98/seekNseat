@@ -19,12 +19,16 @@
       "@seekNseat/contracts/auth": ["libs/contracts/auth/src/index.ts"],
       "@seekNseat/contracts/booking": ["libs/contracts/booking/src/index.ts"],
       "@seekNseat/contracts/business": ["libs/contracts/business/src/index.ts"],
+      "@seekNseat/contracts/google-auth": [
+        "libs/contracts/google-auth/src/index.ts"
+      ],
       "@seekNseat/contracts/user": ["libs/contracts/user/src/index.ts"],
       "@seekNseat/domain": ["libs/domain/src/index.ts"],
       "@seekNseat/nestjs/auth": ["libs/nestjs/auth/src/index.ts"],
       "@seekNseat/nestjs/booking": ["libs/nestjs/booking/src/index.ts"],
       "@seekNseat/nestjs/business": ["libs/nestjs/business/src/index.ts"],
       "@seekNseat/nestjs/common": ["libs/nestjs/common/src/index.ts"],
+      "@seekNseat/nestjs/google-auth": ["libs/nestjs/google-auth/src/index.ts"],
       "@seekNseat/nestjs/user": ["libs/nestjs/user/src/index.ts"],
       "@seekNseat/ui": ["libs/ui/src/index.ts"]
     }

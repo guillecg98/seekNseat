@@ -9,6 +9,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from '@seekNseat/nestjs/auth';
 import { BookingModule } from "@seekNseat/nestjs/booking";
 import { BusinessModule } from '@seekNseat/nestjs/business';
+import { GoogleAuthModule } from '@seekNseat/nestjs/google-auth';
 import { UserModule } from '@seekNseat/nestjs/user';
 import { AccessControlModule } from 'nest-access-control';
 import { ConsoleModule } from 'nestjs-console';
@@ -51,9 +52,10 @@ import { appProviders } from './app.providers';
     AccessControlModule.forRoles(acl),
     // Project modules
     AuthModule,
-    UserModule,
+    BookingModule,
     BusinessModule,
-    BookingModule
+    GoogleAuthModule,
+    UserModule,
   ],
   providers: [...appProviders],
 })
