@@ -22,7 +22,7 @@ export class GetUserByUsernameHandler
     const user = await this.finder.findOneByUsername(username);
 
     if (!user) {
-      throw UsernameNotFoundError.with(username);
+      return;
     }
 
     return user;

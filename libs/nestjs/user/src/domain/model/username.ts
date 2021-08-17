@@ -10,7 +10,7 @@ export class Username extends ValueObject<Props> {
       throw new Error('Username cannot be empty');
     }
 
-    if (!/^[a-zA-Z0-9ñÑ]+$/.test(name)) {
+    if (!/^[a-zA-Z0-9ñÑ_@.]*$/.test(name)) {
       throw new Error('Invalid username characters');
     }
 

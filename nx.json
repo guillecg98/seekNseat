@@ -51,6 +51,9 @@
     "contracts-business": {
       "tags": []
     },
+    "contracts-google-auth": {
+      "tags": []
+    },
     "contracts-user": {
       "tags": []
     },
@@ -70,6 +73,9 @@
       "tags": []
     },
     "nestjs-common": {
+      "tags": []
+    },
+    "nestjs-google-auth": {
       "tags": []
     },
     "nestjs-user": {
