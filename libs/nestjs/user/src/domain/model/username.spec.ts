@@ -1,8 +1,8 @@
 import { Username } from './username';
 
 describe('Username', () => {
-  it('should be a lowercase string without spaces', () => {
-    expect(Username.fromString('username').value).toBe('username');
+  it('should have email format', () => {
+    expect(Username.fromString('guillecosano42@gmail.com').value).toBe('guillecosano42@gmail.com');
   });
   it('should not have spaces', () => {
     expect(() => {
