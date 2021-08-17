@@ -1,3 +1,4 @@
+export * from './application/command/create-user.command';
 export * from './application/query/get-user.query';
 export * from './application/query/get-user-by-username.query';
 export * from './application/query/get-users.query';
