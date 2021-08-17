@@ -45,7 +45,6 @@ ormconfig.json
 .env.local
 cyreport
 .env
-
 # React Native
 
 ## Xcode
