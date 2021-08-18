@@ -35,6 +35,9 @@ export class BusinessDTO {
     @ApiProperty()
     public readonly blocked?: boolean;
 
+    @ApiProperty()
+    public readonly categories: string[];
+
     constructor(props: Partial<Props>) {
         Object.assign(this, props)
     }

@@ -12,7 +12,10 @@ export class EditBusinessDTO {
 
     @ApiProperty()
     description: string;
+
+    @ApiProperty()
+    categories: string[];
+
     // TODO
     //images
-    //categories
 }

@@ -6,16 +6,21 @@ import {
   BusinessWasBlocked,
   BusinessWasCreated,
   BusinessWasDeleted,
+  CategoryWasAdded,
+  CategoryWasRemoved,
 } from '../event';
 import { BusinessContactPhone } from './business-contact-phone';
 import { BusinessId } from './business-id';
 import { BusinessName } from './business-name';
+
+export type CategoryWasUpdatedProps = { category: string };
 
 export class Business extends AggregateRoot {
   private _id: BusinessId;
   private _ownerId: UserId;
   private _name: BusinessName;
   private _contactPhone: BusinessContactPhone;
+  private _categories: string[];
   private _address?: string;
   private _description?: string;
   private _blocked?: boolean;
@@ -29,7 +34,12 @@ export class Business extends AggregateRoot {
   ): Business {
     const business = new Business();
     business.apply(
-      new BusinessWasCreated(id.value, ownerId.value, name.value, contactPhone.value)
+      new BusinessWasCreated(
+        id.value,
+        ownerId.value,
+        name.value,
+        contactPhone.value
+      )
     );
     return business;
   }
@@ -66,15 +76,50 @@ export class Business extends AggregateRoot {
     return this._blocked;
   }
 
+  get categorires(): string[] {
+    return Array.from(this._categories);
+  }
+
+  hasCategory(category: string): boolean {
+    return this.categorires.includes(category);
+  }
+
+  addCategory(category: string) {
+    if (this.hasCategory(category)) {
+      return;
+    }
+
+    this.apply(new CategoryWasAdded(this.id.value, category));
+  }
+
+  removeCategory(category: string) {
+    if (!this.hasCategory(category)) {
+      return;
+    }
+
+    this.apply(new CategoryWasRemoved(this.id.value, category));
+  }
+
   private onBusinessWasCreated(event: BusinessWasCreated) {
     this._id = BusinessId.fromString(event.id);
     this._ownerId = UserId.fromString(event.ownerId);
     this._name = BusinessName.fromString(event.name);
     this._contactPhone = BusinessContactPhone.fromString(event.contactPhone);
+    this._categories = [];
     this._address = '';
     this._description = '';
     this._blocked = false;
     this._deleted = undefined;
+  }
+
+  private onCategoryWasAdded(event: CategoryWasAdded) {
+    this._categories.push(event.category);
+  }
+
+  private onCategoryWasRemoved(event: CategoryWasRemoved) {
+    this._categories = this._categories.filter(
+      (item: string) => item !== event.category
+    );
   }
 
   editProfile(
@@ -89,7 +134,7 @@ export class Business extends AggregateRoot {
         name.value,
         contactPhone.value,
         address,
-        description
+        description,
       )
     );
   }

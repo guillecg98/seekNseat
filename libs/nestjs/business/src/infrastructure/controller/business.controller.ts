@@ -8,6 +8,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
   Res,
   UseGuards,
   UseInterceptors,
@@ -15,6 +16,7 @@ import {
 import {
   ApiBearerAuth,
   ApiOperation,
+  ApiQuery,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
@@ -56,9 +58,10 @@ export class BusinessController {
   }
 
   @Get()
-  @ApiOperation({ summary: 'Get all businesses' })
+  @ApiOperation({ summary: 'Get all businesses based on categories' })
   @ApiResponse({ status: 200, description: 'List Businesses' })
   @ApiResponse({ status: 404, description: 'Not found' })
+  @ApiQuery({ name: 'category', required: false })
   @UseRoles({
     resource: Resource.Business,
     action: 'read',
@@ -66,10 +69,11 @@ export class BusinessController {
   })
   @UseGuards(BusinessGuard, ACGuard)
   async findAll(
-    @Res({ passthrough: true }) res: Response
+    @Res({ passthrough: true }) res: Response,
+    @Query('category') category: string
   ): Promise<BusinessDTO[]> {
     try {
-      const businesses = await this.businessService.findAll();
+      const businesses = await this.businessService.findAll(category);
       const length = businesses.length;
 
       res.setHeader('X-Total-Count', length);

@@ -6,5 +6,6 @@ export class CreateBusinessCommand implements ICommand {
         public readonly ownerId: string,
         public readonly name: string,
         public readonly contactPhone: string,
+        public readonly categories: string[]
     ) {}
 }

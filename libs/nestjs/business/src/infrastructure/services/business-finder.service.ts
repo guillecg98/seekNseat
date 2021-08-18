@@ -23,6 +23,12 @@ export class BusinessFinder implements IBusinessFinder {
     return businesses.map((business) => new BusinessDTO(business));
   }
 
+  async findAllByCategory(category: string): Promise<BusinessDTO[]> {
+    const businesses = await this.businesses
+      .find({ categories: category })
+      .lean();
+    return businesses.map((business) => new BusinessDTO(business));
+  }
   async find(id: BusinessId): Promise<BusinessDTO> {
     const business = await this.businesses.findById(id.value).lean();
 

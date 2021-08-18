@@ -37,6 +37,21 @@ export class EditBusinessHandler
     const description = command.description;
 
     business.editProfile(name, contactPhone, address, description);
+    this.updateCategories(business,command);
     this.businesses.save(business);
+  }
+
+  private updateCategories(business: Business, command: EditBusinessCommand) {
+    if (command.categories === undefined) {
+      return;
+    }
+
+    business.categorires.map(
+      (category) =>
+        !command.categories.includes(category) &&
+        business.removeCategory(category)
+    );
+
+    command.categories.map((category) => business.addCategory(category));
   }
 }

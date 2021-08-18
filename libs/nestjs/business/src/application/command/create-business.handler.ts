@@ -40,6 +40,9 @@ export class CreateBusinessHandler
     }
 
     const business = Business.create(id, ownerId, name, contactPhone);
+    command.categories.map((category: string) =>
+      business.addCategory(category)
+    );
     this.businesses.save(business);
   }
 }

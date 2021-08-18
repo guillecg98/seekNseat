@@ -29,16 +29,17 @@ export class BusinessService {
         createBusinessDTO._id,
         createBusinessDTO.ownerId,
         createBusinessDTO.name,
-        createBusinessDTO.contactPhone
+        createBusinessDTO.contactPhone,
+        createBusinessDTO.categories
       )
     );
 
     return new BusinessDTO(createBusinessDTO);
   }
 
-  async findAll(): Promise<BusinessDTO[]> {
+  async findAll(category: string): Promise<BusinessDTO[]> {
     return this.queryBus.execute<GetBusinessesQuery, BusinessDTO[]>(
-      new GetBusinessesQuery()
+      new GetBusinessesQuery(category)
     );
   }
 
@@ -58,14 +59,18 @@ export class BusinessService {
         editBusinessDTO.name,
         editBusinessDTO.contactPhone,
         editBusinessDTO.address,
-        editBusinessDTO.description
+        editBusinessDTO.description,
+        editBusinessDTO.categories
       )
     );
 
     return this.findOne(id);
   }
 
-  async block(id: string, blockBusinessDTO: BlockBusinessDTO): Promise<BusinessDTO> {
+  async block(
+    id: string,
+    blockBusinessDTO: BlockBusinessDTO
+  ): Promise<BusinessDTO> {
     await this.commandBus.execute(
       new BlockBusinessCommand(id, blockBusinessDTO.blocked)
     );
