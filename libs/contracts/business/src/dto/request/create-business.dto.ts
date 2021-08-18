@@ -17,4 +17,8 @@ export class CreateBusinessDTO {
     @ApiProperty()
     @IsNotEmpty()
     contactPhone: string;
+
+    @ApiProperty()
+    @IsNotEmpty()
+    categories: string[];
 }

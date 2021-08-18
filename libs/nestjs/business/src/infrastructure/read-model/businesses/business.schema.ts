@@ -14,8 +14,8 @@ export const BusinessSchema = new Schema({
     description: String,
     blocked: Boolean,
     deleted: Date,
-    //images: String [],
-    //categories: CategoriesDTO[],
+    categories: [String],
+    //images: [String],
     },
     {
         versionKey: false,
