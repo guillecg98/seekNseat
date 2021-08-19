@@ -19077,6 +19077,20 @@ ra-core@^3.16.3:
     query-string "^5.1.1"
     reselect "~3.0.0"
 
+ra-core@^3.8.5:
+  version "3.17.2"
+  resolved "https://registry.yarnpkg.com/ra-core/-/ra-core-3.17.2.tgz#3d6cbf96e2314ac10c7d5e69ada795263ce29dab"
+  integrity sha512-TOVIqB/AnwP73HMqiev0ySs93B8GZZqq9mCB2tPYNms81wbD670SIISzwrkYQggMrjDulSj5IhUfpX1FYeFJ0A==
+  dependencies:
+    classnames "~2.2.5"
+    date-fns "^1.29.0"
+    eventemitter3 "^3.0.0"
+    inflection "~1.12.0"
+    lodash "~4.17.5"
+    prop-types "^15.6.1"
+    query-string "^5.1.1"
+    reselect "~3.0.0"
+
 ra-data-json-server@^3.11.1:
   version "3.16.3"
   resolved "https://registry.yarnpkg.com/ra-data-json-server/-/ra-data-json-server-3.16.3.tgz#887dcb29faa55b41fcf51de7d0d63af6a90176b5"
@@ -19084,6 +19098,14 @@ ra-data-json-server@^3.11.1:
   dependencies:
     query-string "^5.1.1"
     ra-core "^3.16.3"
+
+ra-data-rest-client@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/ra-data-rest-client/-/ra-data-rest-client-1.1.1.tgz#565f6e7a3741a70efea672e53b7ab16c026d84f9"
+  integrity sha512-TqyBF5hwwnkR8gLHWXt4QN6yG44XcP8oG6e3IETElTPU5w/YCk/aJCIejusnUznQhxy6z1vobYJtg0mxl88miA==
+  dependencies:
+    query-string "^5.1.1"
+    ra-core "^3.8.5"
 
 ra-i18n-polyglot@^3.16.3:
   version "3.16.3"
