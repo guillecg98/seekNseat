@@ -1,4 +1,4 @@
-import { Resource, Role } from '@seekNseat/contracts';
+import { Resource, Role } from '@seekNseat/contracts/auth';
 import { RolesBuilder } from 'nest-access-control';
 
 export const acl: RolesBuilder = new RolesBuilder();
