@@ -15,7 +15,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@seekNseat/contracts": ["libs/contracts/src/index.ts"],
       "@seekNseat/contracts/auth": ["libs/contracts/auth/src/index.ts"],
       "@seekNseat/contracts/booking": ["libs/contracts/booking/src/index.ts"],
       "@seekNseat/contracts/business": ["libs/contracts/business/src/index.ts"],
