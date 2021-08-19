@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { AuthGuard } from '@nestjs/passport';
-import { Role } from '@seekNseat/contracts';
+import { Role } from '@seekNseat/contracts/auth';
 
 import { GetBookingQuery } from '../../application';
 import { BookingDocument } from '../read-model';

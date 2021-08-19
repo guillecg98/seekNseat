@@ -1,4 +1,3 @@
-import { CategoryDTO } from '@seekNseat/contracts';
 import React, { useContext, useState } from 'react';
 import { useController, useForm } from 'react-hook-form';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';

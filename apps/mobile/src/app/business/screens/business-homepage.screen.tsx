@@ -1,5 +1,4 @@
-import { States } from '@seekNseat/contracts';
-import { BookingDTO } from '@seekNseat/contracts/booking';
+import { BookingDTO, States } from '@seekNseat/contracts/booking';
 import { userInfo } from 'node:os';
 import React, { useContext, useEffect, useState } from 'react';
 import {

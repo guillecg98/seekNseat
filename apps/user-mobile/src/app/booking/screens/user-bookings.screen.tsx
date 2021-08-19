@@ -1,5 +1,4 @@
-import { States } from '@seekNseat/contracts';
-import { BookingDTO } from '@seekNseat/contracts/booking';
+import { BookingDTO, States } from '@seekNseat/contracts/booking';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { Icon } from 'react-native-elements';
