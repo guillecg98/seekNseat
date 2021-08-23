@@ -69,14 +69,15 @@ const styles = StyleSheet.create({
 });
 
 const data = [
-  { label: 'Indio', value: '1' },
-  { label: 'Chino', value: '2' },
-  { label: 'Mexicano', value: '3' },
-  { label: 'Fast-food', value: '4' },
-  { label: 'Vegetariano', value: '5' },
-  { label: 'Americano', value: '6' },
-  { label: 'Italiano', value: '7' },
-  { label: 'Japones', value: '8' },
+  { label: 'Indio', value: 'indio' },
+  { label: 'Chino', value: 'chino' },
+  { label: 'Mexicano', value: 'mexicano' },
+  { label: 'Fast-food', value: 'fast-food' },
+  { label: 'Vegetariano', value: 'vegetariano' },
+  { label: 'Americano', value: 'americano' },
+  { label: 'Italiano', value: 'italiano' },
+  { label: 'Japonés', value: 'japones' },
+  { label: 'Mediterránea', value: 'mediterranea' },
 ];
 
 const NumberOfFoodiesInput = ({ name, control }) => {
@@ -129,7 +130,7 @@ export const UserHomePageScreen = ({ navigation }) => {
       ...bookingData,
       foodies: parseInt(inputData.foodies),
     }));
-    navigation.navigate('Businesses');
+    navigation.navigate('Businesses', { selecctedCategory: category});
   };
 
   return user && bookingData ? (
@@ -137,7 +138,7 @@ export const UserHomePageScreen = ({ navigation }) => {
       <View style={styles.sectionHeader}>
         <Text style={styles.textHeader}>
           {' '}
-          Bienvenido de nuevo, {user.givenName}!{' '}
+          Bienvenido, {user.givenName}!{' '}
         </Text>
       </View>
 
