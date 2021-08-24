@@ -1,5 +1,4 @@
-import { BookingDTO, States } from '@seekNseat/contracts/booking';
-import { userInfo } from 'node:os';
+import { BookingDTO } from '@seekNseat/contracts/booking';
 import React, { useContext, useEffect, useState } from 'react';
 import {
   ActivityIndicator,
@@ -13,6 +12,7 @@ import { Provider } from 'react-native-paper';
 import { AuthContext } from '../../auth/navigation';
 import { BasicInfoCard } from '../../booking/components';
 import { getBookings } from '../../booking/requests';
+import { States } from '../../utils';
 
 const styles = StyleSheet.create({
   container: {

@@ -1,8 +1,9 @@
-import { BookingDTO, States } from '@seekNseat/contracts/booking';
+import { BookingDTO } from '@seekNseat/contracts/booking';
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { ListItem } from 'react-native-elements';
 
+import { States } from '../../utils';
 import { acceptBooking } from '../requests';
 import { BookingActionButton } from './booking-action-button.component';
 

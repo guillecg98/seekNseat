@@ -3,7 +3,6 @@ import {
   GoogleSignin,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
-import { BookingDTO } from '@seekNseat/contracts/booking';
 import axios from 'axios';
 import React, { createContext, useState } from 'react';
 
