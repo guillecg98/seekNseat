@@ -3,7 +3,7 @@ import {
   InjectAggregateRepository,
 } from '@aulasoftwarelibre/nestjs-eventstore';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { States } from '@seekNseat/contracts';
+import { States } from '@seekNseat/contracts/booking';
 
 import { Booking, BookingId, State } from '../../domain';
 import { UpdateBookingStateCommand } from './update-booking-state.command';

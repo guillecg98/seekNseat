@@ -1,5 +1,5 @@
 import { AggregateRoot } from '@aulasoftwarelibre/nestjs-eventstore';
-import { States } from '@seekNseat/contracts';
+import { States } from '@seekNseat/contracts/booking';
 import { BusinessId, BusinessName } from '@seekNseat/nestjs/business';
 import { UserId, Username } from '@seekNseat/nestjs/user';
 

@@ -6,7 +6,7 @@
 } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { AuthGuard } from '@nestjs/passport';
-import { Role } from '@seekNseat/contracts';
+import { Role } from '@seekNseat/contracts/auth';
 
 import { GetBusinessQuery } from '../../application';
 import { BusinessDocument } from '../read-model';

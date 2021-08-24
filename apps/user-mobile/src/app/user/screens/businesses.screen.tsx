@@ -1,5 +1,5 @@
 import { BusinessDTO } from '@seekNseat/contracts/business';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   ScrollView,
@@ -8,7 +8,6 @@ import {
   View,
 } from 'react-native';
 
-import { AuthContext } from '../../auth/navigation';
 import { Businesses } from '../components';
 import { getBusinesses } from '../requests';
 
@@ -30,9 +29,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export const BusinessesScreen = ({ navigation }) => {
+export const BusinessesScreen = ({ navigation, route }) => {
   const [businesses, setBusinesses] = useState<BusinessDTO[]>([]);
-
+  const { selecctedCategory } = route.params;
+  console.debug(selecctedCategory);
   useEffect(() => {
     getBusinesses().then((res) => {
       setBusinesses(res?.data);

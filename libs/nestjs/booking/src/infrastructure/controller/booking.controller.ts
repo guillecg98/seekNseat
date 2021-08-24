@@ -20,7 +20,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { Resource } from '@seekNseat/contracts';
+import { Resource } from '@seekNseat/contracts/auth';
 import {
   BookingDTO,
   CreateBookingDTO,

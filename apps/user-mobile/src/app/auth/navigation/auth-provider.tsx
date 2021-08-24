@@ -81,7 +81,6 @@ export const AuthProvider: React.FC = ({ children }) => {
             );
             setUserId(response.data._id);
             setUser(user);
-            console.log(user);
           } catch (error) {
             if (error.code === statusCodes.SIGN_IN_CANCELLED) {
               throw new Error('User Canceled loggin');

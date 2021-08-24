@@ -2,7 +2,7 @@ import {
   isAccessToken,
   isCredentials,
   isJwtPayload,
-} from '@seekNseat/contracts';
+} from '@seekNseat/contracts/auth';
 import axios from 'axios';
 import jose from 'jose';
 import jwt from 'jsonwebtoken';

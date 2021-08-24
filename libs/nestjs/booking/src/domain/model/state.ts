@@ -1,5 +1,5 @@
 import { ValueObject } from '@aulasoftwarelibre/nestjs-eventstore';
-import { States } from '@seekNseat/contracts';
+import { States } from '@seekNseat/contracts/booking';
 
 interface Props {
   value: States;

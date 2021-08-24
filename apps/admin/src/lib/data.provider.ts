@@ -1,4 +1,4 @@
-import jsonServerProvider from 'ra-data-json-server';
+import restDataProvider from 'ra-data-rest-client';
 import { fetchUtils } from 'react-admin';
 
 import { getToken } from './auth.provider';
@@ -10,7 +10,14 @@ const httpClient = (url, options = { headers: undefined }) => {
 
   const access_token = getToken();
   options.headers.set('Authorization', `Bearer ${access_token}`);
+
   return fetchUtils.fetchJson(url, options);
 };
 
-export const dataProvider = jsonServerProvider(`/api`, httpClient);
+export const dataProvider = restDataProvider(
+  `${process.env.NODE_API_URL || process.env.NX_API_URL}/api`,
+  { users: '_id' },
+  {},
+  httpClient,
+  'X-Total-Count'
+);

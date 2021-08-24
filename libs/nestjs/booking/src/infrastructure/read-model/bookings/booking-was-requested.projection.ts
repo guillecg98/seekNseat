@@ -1,6 +1,6 @@
 import { EventsHandler, IEventHandler } from '@nestjs/cqrs';
 import { InjectModel } from '@nestjs/mongoose';
-import { States } from '@seekNseat/contracts';
+import { States } from '@seekNseat/contracts/booking';
 import { Model } from 'mongoose';
 
 import { BookingWasRequested } from '../../../domain';

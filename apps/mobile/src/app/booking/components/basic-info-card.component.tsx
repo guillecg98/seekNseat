@@ -2,7 +2,6 @@ import { BookingDTO } from '@seekNseat/contracts/booking';
 import React from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { ScrollView } from 'react-native-gesture-handler';
 import { Card } from 'react-native-paper';
 
 import { CanceledBookings } from './canceled-bookings.component';
