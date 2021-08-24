@@ -14,7 +14,6 @@ export const BookingSchema = new Schema({
     numberOfFoodies: Number,
     time: Date,
     bookingState: String,
-    noShow: Boolean,
     deleted: Date,
 },
 {

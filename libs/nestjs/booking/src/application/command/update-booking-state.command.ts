@@ -4,6 +4,5 @@ export class UpdateBookingStateCommand implements ICommand {
     constructor(
         public readonly id: string,
         public readonly bookingState: string,
-        public readonly noShow: boolean,
     ) {}
 }

@@ -18,7 +18,6 @@ export class BookingStateWasUpdatedProjection
     this.bookings
       .findByIdAndUpdate(event.aggregateId, {
         bookingState: event.bookingState,
-        noShow: event.noShow,
       })
       .exec();
   }

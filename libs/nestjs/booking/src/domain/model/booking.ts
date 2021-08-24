@@ -22,7 +22,6 @@ export class Booking extends AggregateRoot {
   private _numberOfFoodies: NumberOfFoodies;
   private _time: Date;
   private _bookingState: State;
-  private _noShow: boolean;
   private _deleted?: Date;
 
   public static create(
@@ -86,10 +85,6 @@ export class Booking extends AggregateRoot {
     return this._bookingState;
   }
 
-  get noShow(): boolean {
-    return this._noShow;
-  }
-
   private onBookingWasRequested(event: BookingWasRequested) {
     this._id = BookingId.fromString(event.id);
     this._userId = UserId.fromString(event.userId);
@@ -99,19 +94,17 @@ export class Booking extends AggregateRoot {
     this._numberOfFoodies = NumberOfFoodies.fromNumber(event.numberOfFoodies);
     this._time = event.time;
     this._bookingState = State.fromString(States.Pending);
-    this._noShow = false;
     this._deleted = undefined;
   }
 
-  updateBookingState(bookingState: State, noShow: boolean) {
+  updateBookingState(bookingState: State) {
     this.apply(
-      new BookingStateWasUpdated(this.id.value, bookingState.value, noShow)
+      new BookingStateWasUpdated(this.id.value, bookingState.value)
     );
   }
 
   private onBookingStateWasUpdated(event: BookingStateWasUpdated) {
     this._bookingState = State.fromString(event.bookingState as States);
-    this._noShow = event.noShow;
   }
 
   cancel(bookingState: State) {
