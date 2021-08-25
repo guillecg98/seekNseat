@@ -10,7 +10,7 @@ const Stack = createStackNavigator();
 export const AuthStack = () => {
   useEffect(() => {
     GoogleSignin.configure({
-      webClientId: process.env.GOOGLE_AUTH_CLIENT_ID,
+      webClientId: process.env.NX_GOOGLE_AUTH_CLIENT_ID,
     });
   }, []);
 
