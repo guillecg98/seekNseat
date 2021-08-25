@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { QueryBus, CommandBus } from '@nestjs/cqrs';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { JwtService } from '@nestjs/jwt';
 import {
   AccessTokenInterface,
@@ -7,11 +7,9 @@ import {
 } from '@seekNseat/contracts/auth';
 import { UserDto } from '@seekNseat/contracts/user';
 import { delay } from '@seekNseat/nestjs/common';
-import { GetUserByUsernameQuery } from '@seekNseat/nestjs/user';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { GetUserByUsernameQuery } from '@seekNseat/nestjs/user';
 import * as bcrypt from 'bcrypt';
-
-
 
 @Injectable()
 export class AuthService {
@@ -21,7 +19,7 @@ export class AuthService {
     private commandBus: CommandBus,
     private queryBus: QueryBus,
     private jwtService: JwtService
-    ) {}
+  ) {}
 
   async encodePassword(password: string): Promise<string> {
     const salt = await bcrypt.genSalt();
@@ -57,6 +55,7 @@ export class AuthService {
       access_token: this.jwtService.sign(payload, {
         algorithm: 'HS512',
       }),
+      id: user._id,
     };
   }
 }
