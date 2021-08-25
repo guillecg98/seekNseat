@@ -7,8 +7,8 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { AccessTokenInterface } from '@seekNseat/contracts/auth';
 import { TokenVerificationDTO } from '@seekNseat/contracts/google-auth';
-import { UserDto } from '@seekNseat/contracts/user';
 
 import { GoogleAuthService } from './google-auth.service';
 
@@ -19,13 +19,14 @@ export class GoogleAuthController {
   constructor(private readonly googleAuthService: GoogleAuthService) {}
 
   @Post()
-  async authentincate(
+  async authenticate(
     @Body() tokenData: TokenVerificationDTO
-  ): Promise<UserDto> {
+  ): Promise<AccessTokenInterface> {
     try {
       const user = await this.googleAuthService.authenticate(tokenData.token);
-      console.debug(user);
-      return user;
+
+      return this.googleAuthService.generateAccessToken(user.username);
+
     } catch (err) {
       if (err instanceof Error) {
         throw new BadRequestException(err.message);
