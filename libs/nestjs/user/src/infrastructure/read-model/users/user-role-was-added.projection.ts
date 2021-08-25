@@ -15,7 +15,7 @@ export class UserRoleWasAddedProjection
   ) {}
 
   async handle(event: UserRoleWasAdded) {
-    this.users
+    await this.users
       .findByIdAndUpdate(event.aggregateId, {
         $push: { roles: event.role },
       })

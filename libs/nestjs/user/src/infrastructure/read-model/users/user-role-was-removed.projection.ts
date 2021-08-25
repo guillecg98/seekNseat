@@ -15,7 +15,7 @@ export class UserRoleWasRemovedProjection
   ) {}
 
   async handle(event: UserRoleWasRemoved) {
-    this.users
+    await this.users
       .findByIdAndUpdate(event.aggregateId, {
         $pull: { roles: event.role },
       })

@@ -1,5 +1,4 @@
 import { Event } from '@aulasoftwarelibre/nestjs-eventstore';
-
 import { EditUserDto } from '@seekNseat/contracts/user';
 
 export type UserPasswordWasUpdatedProps = Pick<EditUserDto, 'password'>;

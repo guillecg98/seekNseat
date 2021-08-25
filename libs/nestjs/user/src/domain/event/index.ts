@@ -1,5 +1,5 @@
 import { Event } from '@aulasoftwarelibre/nestjs-eventstore';
-import { CreateUserDto } from '@seekNseat/contracts/user';
+import { CreateUserDto, NoShowUserDto } from '@seekNseat/contracts/user';
 
 import {
   UserPasswordWasUpdated,
@@ -15,12 +15,14 @@ import {
 } from './user-role-was-removed.event';
 import { UserWasCreated } from './user-was-created.event';
 import { UserWasDeleted } from './user-was-deleted.event';
+import { UserWasMarkedAsNoShow } from './user-was-marked-as-no-show.event';
 
 export * from './user-password-was-updated.event';
 export * from './user-role-was-added.event';
 export * from './user-role-was-removed.event';
 export * from './user-was-created.event';
 export * from './user-was-deleted.event';
+export * from './user-was-marked-as-no-show.event';
 
 export const eventTransformers = {
   UserPasswordWasUpdated: (event: Event<UserPasswordWasUpdatedProps>) =>
@@ -33,7 +35,9 @@ export const eventTransformers = {
     new UserWasCreated(
       event.aggregateId,
       event.payload.username,
-      event.payload.password,
+      event.payload.password
     ),
   UserWasDeleted: (event: Event) => new UserWasDeleted(event.aggregateId),
+  UserWasMarkedAsNoShow: (event: Event<NoShowUserDto>) =>
+    new UserWasMarkedAsNoShow(event.aggregateId, event.payload.noShow),
 };
