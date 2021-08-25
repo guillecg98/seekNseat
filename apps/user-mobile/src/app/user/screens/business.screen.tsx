@@ -31,14 +31,14 @@ const styles = StyleSheet.create({
 });
 
 export const BusinessScreen = ({ route }) => {
-  const { user, bookingData } = useContext(AuthContext);
+  const { user, bookingData, bearerToken } = useContext(AuthContext);
   const { businessId } = route.params;
   const [bookingRequest, setBookingRequest] = useState<CreateBookingDTO>();
   const [business, setBusiness] = useState<BusinessDTO>();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    getBusiness(businessId).then((res) => {
+    getBusiness(businessId, bearerToken).then((res) => {
       setBusiness(res?.data);
     });
   }, [businessId]);
@@ -59,7 +59,7 @@ export const BusinessScreen = ({ route }) => {
   };
 
   const onConfirmRequestBooking = () => {
-    requestBooking(bookingRequest).then((res) => hideModal());
+    requestBooking(bookingRequest, bearerToken).then((res) => hideModal());
   };
 
   return business ? (

@@ -1,9 +1,10 @@
 import { BookingDTO } from '@seekNseat/contracts/booking';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { TabBar, TabView } from 'react-native-tab-view';
 
+import { AuthContext } from '../../auth/navigation';
 import { States } from '../../utils';
 import { AcceptedBookings, DeclinedBookings, PendingBookings } from '../components';
 import { getBookings } from '../requests';
@@ -54,6 +55,7 @@ const renderTabBar = (props) => (
 );
 
 export const UserBookingsScreen = () => {
+  const { bearerToken } = useContext(AuthContext);
   const [bookings, setBookings] = useState<BookingDTO[]>();
   const [index, setIndex] = useState(1);
   const [routes] = useState([
@@ -63,7 +65,7 @@ export const UserBookingsScreen = () => {
   ]);
 
   useEffect(() => {
-    getBookings('935ea41a-185b-45eb-8056-714303aa1e7f').then((res) => {
+    getBookings('935ea41a-185b-45eb-8056-714303aa1e7f', bearerToken).then((res) => {
       setBookings(res?.data);
     });
   }, [index]);

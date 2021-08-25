@@ -35,7 +35,7 @@ export const Businesses = (props: Props) => {
   };
 
   return (
-    <View style={styles.listContainer}>
+    <ScrollView style={styles.listContainer}>
       <View style={styles.list}>
         {props.businesses.map((business) => (
           <ListItem
@@ -75,6 +75,6 @@ export const Businesses = (props: Props) => {
           </ListItem>
         ))}
       </View>
-    </View>
+    </ScrollView>
   );
 };
