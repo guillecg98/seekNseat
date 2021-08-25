@@ -45,11 +45,15 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#494949',
     margin: 10,
-  }
+  },
 });
 
 export const UserProfileScreen = () => {
   const { user, logout } = useContext(AuthContext);
+
+  const onLogOut = () => {
+    logout();
+  };
 
   return (
     <View style={styles.container}>
@@ -73,7 +77,7 @@ export const UserProfileScreen = () => {
         <Text style={styles.text}> famName: {user.familyName}</Text>
       </View>
 
-      <LogoutButton onPress={logout} />
+      <LogoutButton onPress={onLogOut} />
     </View>
   );
 };

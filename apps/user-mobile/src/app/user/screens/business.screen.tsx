@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
 });
 
 export const BusinessScreen = ({ route }) => {
-  const { user, bookingData, bearerToken } = useContext(AuthContext);
+  const { bookingData, bearerToken, userId } = useContext(AuthContext);
   const { businessId } = route.params;
   const [bookingRequest, setBookingRequest] = useState<CreateBookingDTO>();
   const [business, setBusiness] = useState<BusinessDTO>();
@@ -51,7 +51,7 @@ export const BusinessScreen = ({ route }) => {
     setBookingRequest((bookingRequest) => ({
       ...bookingRequest,
       _id: uuidv4(),
-      userId: '935ea41a-185b-45eb-8056-714303aa1e7f',
+      userId: userId,
       businessId: businessId,
       numberOfFoodies: bookingData.foodies,
       time: bookingData.time,

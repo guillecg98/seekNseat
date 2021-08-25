@@ -35,12 +35,14 @@ const initialBookingData: IBookingData = {
 };
 
 export const AuthContext = createContext({
-  bookingData: initialBookingData,
-  setBookingData: undefined,
-  user: initialUser,
-  setUser: undefined,
   bearerToken: '',
   setBearerToken: undefined,
+  bookingData: initialBookingData,
+  setBookingData: undefined,
+  userId: '',
+  setUserId: undefined,
+  user: initialUser,
+  setUser: undefined,
   login: () => {
     console.log('defaultValue');
   },
@@ -53,6 +55,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   const [bookingData, setBookingData] =
     useState<IBookingData>(initialBookingData);
   const [user, setUser] = useState<IUser>();
+  const [userId, setUserId] = useState('');
   const [bearerToken, setBearerToken] = useState('');
 
   return (
@@ -64,6 +67,8 @@ export const AuthProvider: React.FC = ({ children }) => {
         setUser,
         bearerToken,
         setBearerToken,
+        userId,
+        setUserId,
         login: async () => {
           try {
             const { idToken, user } = await GoogleSignin.signIn();
@@ -78,6 +83,7 @@ export const AuthProvider: React.FC = ({ children }) => {
               }
             );
             setBearerToken(response.data.access_token);
+            setUserId(response.data.id);
             setUser(user);
           } catch (error) {
             if (error.code === statusCodes.SIGN_IN_CANCELLED) {

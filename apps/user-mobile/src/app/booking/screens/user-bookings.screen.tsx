@@ -55,7 +55,7 @@ const renderTabBar = (props) => (
 );
 
 export const UserBookingsScreen = () => {
-  const { bearerToken } = useContext(AuthContext);
+  const { bearerToken, userId } = useContext(AuthContext);
   const [bookings, setBookings] = useState<BookingDTO[]>();
   const [index, setIndex] = useState(1);
   const [routes] = useState([
@@ -65,7 +65,7 @@ export const UserBookingsScreen = () => {
   ]);
 
   useEffect(() => {
-    getBookings('935ea41a-185b-45eb-8056-714303aa1e7f', bearerToken).then((res) => {
+    getBookings(userId, bearerToken).then((res) => {
       setBookings(res?.data);
     });
   }, [index]);
