@@ -67,7 +67,7 @@ export const BusinessHomePageScreen = (props: Props) => {
           <View style={styles.sectionHeader}>
             <Text style={styles.textHeader}>
               {' '}
-              Bienvenido de nuevo, {user.givenName}!{' '}
+              Hola, {user.givenName}!{' '}
             </Text>
           </View>
 

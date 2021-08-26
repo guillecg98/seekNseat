@@ -27,12 +27,14 @@ const initialUser: IUser = {
 export const AuthContext = createContext({
   bearerToken: '',
   setBearerToken: undefined,
-  user: initialUser,
-  setUser: undefined,
   businessId: '',
   setBusinessId: undefined,
   owner: false,
   setOwner: undefined,
+  ownerId: '',
+  setOwnerId: undefined,
+  user: initialUser,
+  setUser: undefined,
   login: () => {
     console.log('defaultValue');
   },
@@ -42,22 +44,25 @@ export const AuthContext = createContext({
 });
 
 export const AuthProvider: React.FC = ({ children }) => {
-  const [user, setUser] = useState<IUser>();
-  const [businessId, setBusinessId] = useState('');
   const [bearerToken, setBearerToken] = useState('');
+  const [businessId, setBusinessId] = useState('');
   const [owner, setOwner] = useState(false);
+  const [ownerId, setOwnerId] = useState('')
+  const [user, setUser] = useState<IUser>();
 
   return (
     <AuthContext.Provider
       value={{
         bearerToken,
         setBearerToken,
-        user,
-        setUser,
         businessId,
         setBusinessId,
         owner,
         setOwner,
+        ownerId,
+        setOwnerId,
+        user,
+        setUser,
         login: async () => {
           try {
             const { idToken, user } = await GoogleSignin.signIn();
@@ -72,7 +77,7 @@ export const AuthProvider: React.FC = ({ children }) => {
               }
             );
             setBearerToken(response.data.access_token);
-            setBusinessId(response.data.id);
+            setOwnerId(response.data.id);
             setUser(user);
           } catch (error) {
             if (error.code === statusCodes.SIGN_IN_CANCELLED) {
