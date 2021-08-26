@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import { BusinessDTO } from '@seekNseat/contracts/business';
+import React, { useContext, useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import { Button, Input } from 'react-native-elements';
 
+import { AuthContext } from '../../auth/navigation';
 import { PublishBusinessButton } from '../components';
 import { createBusiness } from '../requests';
+import { getBusinesses } from '../requests/queries/get-businesses.request';
 
 const styles = StyleSheet.create({
   container: {
@@ -47,16 +50,34 @@ const data = [
   { label: 'Japones', value: '8' },
 ];
 
-
 export const BusinessRegisterScreen = ({ navigation }) => {
+  const { bearerToken, businessId, setOwner } = useContext(AuthContext);
   const [name, setName] = useState('');
   const [contactPhone, setContactPhone] = useState('');
   const [category, setCategory] = useState(null);
+  const [businesses, setBusinesses] = useState<BusinessDTO[]>();
+
+  useEffect(() => {
+    if (bearerToken) {
+      getBusinesses(bearerToken).then((res) => {
+        setBusinesses(res?.data);
+      });
+    }
+  }, [bearerToken]);
+
+  if (
+    businesses &&
+    businesses.some((business) => business.ownerId === businessId)
+  ) {
+    setOwner(true);
+  }
 
   const onPublishBusiness = () => {
-    createBusiness(name, contactPhone).then((res) => console.log(res?.data));
+    createBusiness(name, contactPhone, bearerToken).then((res) =>
+      console.log(res?.data)
+    );
 
-    navigation.navigate('Initial');
+    navigation.navigate('Home');
   };
 
   return (
@@ -98,12 +119,6 @@ export const BusinessRegisterScreen = ({ navigation }) => {
         />
 
         <PublishBusinessButton onPress={onPublishBusiness} />
-
-        <Button
-          buttonStyle={styles.skipButton}
-          title="Skip"
-          onPress={() => navigation.navigate('BusinessHomePage')}
-        />
       </View>
 
       <View style={{ flex: 0.5 }} />

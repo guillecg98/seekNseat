@@ -66,19 +66,18 @@ const styles = StyleSheet.create({
 });
 
 export const BusinessProfileScreen = () => {
-  const { user, logout } = useContext(AuthContext);
-  const businessId = 'df6271d8-fe57-4d46-b7a7-2961373f6021';
+  const { bearerToken, businessId, user, logout } = useContext(AuthContext);
   const [businessToEdit, setBusinessToEdit] = useState<EditBusinessDTO>();
 
   useEffect(() => {
-    getBusiness(businessId).then((res) => {
+    getBusiness(businessId, bearerToken).then((res) => {
       setBusinessToEdit(res?.data);
     });
   }, []);
 
   const onSaveProfile = () => {
     if (businessToEdit) {
-      editBusinessProfile(businessId, businessToEdit).then((res) =>
+      editBusinessProfile(businessId, businessToEdit, bearerToken).then((res) =>
         console.log(res?.data)
       );
     } else {

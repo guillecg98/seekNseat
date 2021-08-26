@@ -1,10 +1,11 @@
 import { BookingDTO } from '@seekNseat/contracts/booking';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { ListItem } from 'react-native-elements';
 
+import { AuthContext } from '../../auth/navigation';
 import { States } from '../../utils';
-import { acceptBooking, declineBooking } from '../requests';
+import { acceptBooking, declineBooking, getUser } from '../requests';
 import { BookingActionButton } from './booking-action-button.component';
 
 const styles = StyleSheet.create({
@@ -34,12 +35,13 @@ type Props = {
 };
 
 export const PendingBookings = (props: Props) => {
+  const { bearerToken } = useContext(AuthContext);
   const [pendingBookings, setPendingBookings] = useState<BookingDTO[]>(
     props.pendingBookings
   );
 
   const onPressAcceptBooking = (booking: BookingDTO) => {
-    acceptBooking(booking._id, States.Accepted, false).then((res) => {
+    acceptBooking(booking._id, States.Accepted, bearerToken).then((res) => {
       setPendingBookings(
         pendingBookings.filter(
           (pendingBooking) => pendingBooking._id !== booking._id
@@ -49,7 +51,7 @@ export const PendingBookings = (props: Props) => {
   };
 
   const onPressDeclineBooking = (booking: BookingDTO) => {
-    declineBooking(booking._id, States.Declined, false).then((res) => {
+    declineBooking(booking._id, States.Declined, bearerToken).then((res) => {
       setPendingBookings(
         pendingBookings.filter(
           (pendingBooking) => pendingBooking._id !== booking._id
@@ -83,7 +85,7 @@ export const PendingBookings = (props: Props) => {
                   Hora: {booking.time.toString().slice(11, -8)}{' '}
                 </ListItem.Title>
               </View>
-              {booking.noShow ? (
+              {getUser(booking.userId, bearerToken).then((res) => res.data.noShow) ? (
                 <ListItem.Title style={styles.noShow}> No Show </ListItem.Title>
               ) : null}
               <View style={{ marginTop: 10, flexDirection: 'row' }}>

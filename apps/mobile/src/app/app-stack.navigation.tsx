@@ -1,8 +1,9 @@
 import { BookingDTO } from '@seekNseat/contracts/booking';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { BottomNavigation } from 'react-native-paper';
 
+import { AuthContext } from './auth/navigation';
 import { getBookings } from './booking/requests';
 import { BusinessBookingsScreen } from './booking/screens';
 import {
@@ -18,6 +19,7 @@ const styles = StyleSheet.create({
 });
 
 export const AppStack = () => {
+  const { bearerToken, businessId } = useContext(AuthContext);
   const [index, setIndex] = useState(1);
   const [routes] = useState([
     { key: 'BOOKINGS', title: 'Reservas', icon: 'book' },
@@ -27,7 +29,7 @@ export const AppStack = () => {
   const [bookings, setBookings] = useState<BookingDTO[]>([]);
 
   useEffect(() => {
-    getBookings('9b584fcb-86f4-4c96-8da1-6495397b9943').then((res) => {
+    getBookings(businessId, bearerToken).then((res) => {
       setBookings(res.data);
     });
   }, [index]);

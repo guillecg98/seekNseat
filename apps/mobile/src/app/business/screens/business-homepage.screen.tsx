@@ -11,7 +11,6 @@ import { Provider } from 'react-native-paper';
 
 import { AuthContext } from '../../auth/navigation';
 import { BasicInfoCard } from '../../booking/components';
-import { getBookings } from '../../booking/requests';
 import { States } from '../../utils';
 
 const styles = StyleSheet.create({

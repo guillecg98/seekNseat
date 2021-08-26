@@ -1,10 +1,11 @@
 import { BookingDTO } from '@seekNseat/contracts/booking';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Icon, ListItem } from 'react-native-elements';
 import { Card, Modal, Portal } from 'react-native-paper';
 
-import { deleteBooking } from '../requests';
+import { AuthContext } from '../../auth/navigation';
+import { deleteBooking, getUser } from '../requests';
 import { BookingActionButton } from './booking-action-button.component';
 import { DeleteBookingButton, mode } from './delete-booking-button.component';
 
@@ -43,6 +44,7 @@ interface Props {
 }
 
 export const CanceledBookings = (props: Props) => {
+  const { bearerToken } = useContext(AuthContext);
   const [canceledBookings, setCanceledBookings] = useState<BookingDTO[]>(
     props.canceledBookings
   );
@@ -52,7 +54,7 @@ export const CanceledBookings = (props: Props) => {
   const hideModal = () => setVisible(false);
 
   const onPressDeleteBooking = (deletedBooking: BookingDTO) => {
-    deleteBooking(deletedBooking._id).then((res) =>
+    deleteBooking(deletedBooking._id, bearerToken).then((res) =>
       setCanceledBookings(
         canceledBookings.filter((booking) => booking._id !== deletedBooking._id)
       )
@@ -89,7 +91,7 @@ export const CanceledBookings = (props: Props) => {
                   Hora: {booking.time.toString().slice(11, -8)}{' '}
                 </ListItem.Title>
               </View>
-              {booking.noShow ? (
+              {getUser(booking.userId, bearerToken).then((res) => res.data.noShow) ? (
                 <ListItem.Title style={styles.noShow}> No Show </ListItem.Title>
               ) : null}
               <Portal>
