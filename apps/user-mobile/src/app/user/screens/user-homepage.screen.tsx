@@ -94,10 +94,10 @@ const NumberOfFoodiesInput = ({ name, control }) => {
       leftIcon={
         <Icon name="people-outline" size={22} type="ionicons" color="#494949" />
       }
-      label="Numero de personas"
+      label="Número de personas"
       labelStyle={{ color: '#494949' }}
       onChangeText={field.onChange}
-      placeholder="Numero de personas"
+      placeholder="Número de personas"
       keyboardType="numeric"
     />
   );
