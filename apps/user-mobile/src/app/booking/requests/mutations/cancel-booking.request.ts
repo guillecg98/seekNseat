@@ -15,7 +15,7 @@ export const cancelBooking = async (
       },
       {
         headers: { Authorization: `Bearer ${token}` },
-      },
+      }
     );
   } catch (e) {
     console.log(e);
