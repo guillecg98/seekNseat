@@ -13,15 +13,16 @@ const styles = StyleSheet.create({
 
 type Props = {
   onPress: any;
+  blocked: boolean;
 };
 
 export const BlockBooknigssButton = (props: Props) => {
   return (
     <FAB
     style={styles.fab}
-    title="Block"
-      icon={<Icon name="cancel" type="ionicons" size={25} color="white" />}
-      color="#4b5173"
+    title={props.blocked ? "Desbloquear" : "Bloquear"}
+      icon={<Icon name={props.blocked ? "lock-open" : "lock"} type="ionicons" size={25} color="white" />}
+      color={props.blocked ? "#4b5173" : "#F27979"}
       onPress={props.onPress}
     />
   );

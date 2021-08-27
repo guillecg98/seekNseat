@@ -1,9 +1,12 @@
 import { BookingDTO } from '@seekNseat/contracts/booking';
-import React, { useEffect, useState } from 'react';
+import { BusinessDTO } from '@seekNseat/contracts/business';
+import React, { useContext, useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { TabBar, TabView } from 'react-native-tab-view';
 
+import { AuthContext } from '../../auth/navigation';
+import { getBusiness } from '../../business/requests';
 import { States } from '../../utils';
 import {
   AcceptedBookings,
@@ -11,6 +14,7 @@ import {
   DeclinedBookings,
   PendingBookings,
 } from '../components';
+import { blockBookings } from '../requests';
 
 const styles = StyleSheet.create({
   container: {
@@ -62,6 +66,9 @@ interface Props {
 }
 
 export const BusinessBookingsScreen = (props: Props) => {
+  const { bearerToken, businessId } = useContext(AuthContext);
+  const [blocked, setBlocked] = useState(false);
+  const [business, setBusiness] = useState<BusinessDTO>();
   const [index, setIndex] = useState(1);
   const [routes] = useState([
     { key: States.Accepted, title: 'Aceptadas' },
@@ -69,7 +76,25 @@ export const BusinessBookingsScreen = (props: Props) => {
     { key: States.Declined, title: 'En Cola' },
   ]);
 
-  if (props.bookings) {
+  useEffect(() => {
+    getBusiness(businessId, bearerToken).then((res) => {
+      setBusiness(res.data);
+      setBlocked(res.data.blocked);
+    });
+  }, [blocked]);
+
+  const onUnlockBookings = () => {
+    const unlock = false;
+    blockBookings(businessId, unlock, bearerToken);
+    setBlocked(unlock);
+  };
+  const onBlockBookings = () => {
+    const block = true;
+    blockBookings(businessId, block, bearerToken);
+    setBlocked(block);
+  };
+
+  if (props.bookings && business) {
     const accepted: BookingDTO[] = props.bookings.filter(
       (booking) => booking.bookingState === States.Accepted
     );
@@ -127,7 +152,10 @@ export const BusinessBookingsScreen = (props: Props) => {
             onIndexChange={setIndex}
           />
         </View>
-        <BlockBooknigssButton onPress={() => console.log('blocked')} />
+        <BlockBooknigssButton
+          blocked={business.blocked}
+          onPress={business.blocked ? onUnlockBookings : onBlockBookings}
+        />
       </View>
     );
   } else {
