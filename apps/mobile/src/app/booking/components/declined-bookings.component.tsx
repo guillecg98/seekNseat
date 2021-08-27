@@ -1,10 +1,11 @@
 import { BookingDTO } from '@seekNseat/contracts/booking';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { ListItem } from 'react-native-elements';
 
+import { AuthContext } from '../../auth/navigation';
 import { States } from '../../utils';
-import { acceptBooking } from '../requests';
+import { acceptBooking, getUser } from '../requests';
 import { BookingActionButton } from './booking-action-button.component';
 
 const styles = StyleSheet.create({
@@ -34,12 +35,13 @@ interface Props {
 }
 
 export const DeclinedBookings = (props: Props) => {
+  const { bearerToken } = useContext(AuthContext);
   const [declinedBookings, setDeclinedBookings] = useState<BookingDTO[]>(
     props.declinedBookings
   );
 
   const onPressAcceptBooking = (booking: BookingDTO) => {
-    acceptBooking(booking._id, States.Accepted, false).then((res) => {
+    acceptBooking(booking._id, States.Accepted, bearerToken).then((res) => {
       setDeclinedBookings(
         declinedBookings.filter(
           (declinedBooking) => declinedBooking._id !== booking._id
@@ -73,7 +75,7 @@ export const DeclinedBookings = (props: Props) => {
                   Hora: {booking.time.toString().slice(11, -8)}{' '}
                 </ListItem.Title>
               </View>
-              {booking.noShow ? (
+              {getUser(booking.userId, bearerToken).then((res) => res.data.noShow) ? (
                 <ListItem.Title style={styles.noShow}> No Show </ListItem.Title>
               ) : null}
               <View style={{ marginTop: 10, flexDirection: 'row' }}>

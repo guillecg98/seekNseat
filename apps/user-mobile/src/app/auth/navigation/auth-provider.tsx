@@ -6,8 +6,6 @@ import {
 import axios from 'axios';
 import React, { createContext, useState } from 'react';
 
-import { googleLogin } from '../../user/requests';
-
 interface IUser {
   id: string;
   name: string;
@@ -37,12 +35,14 @@ const initialBookingData: IBookingData = {
 };
 
 export const AuthContext = createContext({
+  bearerToken: '',
+  setBearerToken: undefined,
   bookingData: initialBookingData,
   setBookingData: undefined,
-  user: initialUser,
-  setUser: undefined,
   userId: '',
   setUserId: undefined,
+  user: initialUser,
+  setUser: undefined,
   login: () => {
     console.log('defaultValue');
   },
@@ -55,7 +55,8 @@ export const AuthProvider: React.FC = ({ children }) => {
   const [bookingData, setBookingData] =
     useState<IBookingData>(initialBookingData);
   const [user, setUser] = useState<IUser>();
-  const [userId, setUserId] = useState('')
+  const [userId, setUserId] = useState('');
+  const [bearerToken, setBearerToken] = useState('');
 
   return (
     <AuthContext.Provider
@@ -64,6 +65,8 @@ export const AuthProvider: React.FC = ({ children }) => {
         setBookingData,
         user,
         setUser,
+        bearerToken,
+        setBearerToken,
         userId,
         setUserId,
         login: async () => {
@@ -79,11 +82,12 @@ export const AuthProvider: React.FC = ({ children }) => {
                 token: googleCredential.token,
               }
             );
-            setUserId(response.data._id);
+            setBearerToken(response.data.access_token);
+            setUserId(response.data.id);
             setUser(user);
           } catch (error) {
             if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-              throw new Error('User Canceled loggin');
+              throw new Error('User canceled loggin');
             } else if (error.code === statusCodes.IN_PROGRESS) {
               // operation (e.g. sign in) is in progress already
             } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {

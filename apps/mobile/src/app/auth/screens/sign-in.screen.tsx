@@ -1,6 +1,8 @@
-import React, { useContext, useEffect } from 'react';
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { BusinessDTO } from '@seekNseat/contracts/business';
+import React, { useContext, useState } from 'react';
+import { Image, StyleSheet, Text, View } from 'react-native';
 
+import { getBusinesses } from '../../business/requests/queries/get-businesses.request';
 import { SocialButton } from '../components';
 import { AuthContext } from '../navigation';
 

@@ -6,6 +6,7 @@ import {
   UserRoleWasRemoved,
   UserWasCreated,
   UserWasDeleted,
+  UserWasMarkedAsNoShow,
 } from '../event';
 import { Password } from './password';
 import { Role } from './role';
@@ -17,21 +18,18 @@ export class User extends EncryptedAggregateRoot {
   private _username: Username;
   private _password: Password;
   private _roles: Role[];
+  private _noShow?: boolean;
   private _deleted?: Date;
 
   public static add(
     userId: UserId,
     username: Username,
-    password: Password,
+    password: Password
   ): User {
     const user = new User();
 
     user.apply(
-      new UserWasCreated(
-        userId.value,
-        username.value,
-        password.value,
-      )
+      new UserWasCreated(userId.value, username.value, password.value)
     );
 
     return user;
@@ -55,6 +53,10 @@ export class User extends EncryptedAggregateRoot {
 
   get roles(): Role[] {
     return Array.from(this._roles);
+  }
+
+  get isNoShow(): boolean | undefined {
+    return this._noShow;
   }
 
   get deleted(): boolean {
@@ -89,6 +91,10 @@ export class User extends EncryptedAggregateRoot {
     this.apply(new UserPasswordWasUpdated(this.id.value, password.value));
   }
 
+  markAsNoShow(noShow: boolean) {
+    this.apply(new UserWasMarkedAsNoShow(this.id.value, noShow));
+  }
+
   delete(): void {
     if (this._deleted) {
       return;
@@ -102,7 +108,8 @@ export class User extends EncryptedAggregateRoot {
     this._username = Username.fromString(event.username);
     this._password = Password.fromString(event.password);
     this._roles = [];
-    this._deleted = null;
+    this._noShow = false;
+    this._deleted = undefined;
   }
 
   private onUserRoleWasAdded(event: UserRoleWasAdded) {
@@ -117,6 +124,10 @@ export class User extends EncryptedAggregateRoot {
 
   private onUserPasswordWasUpdated(event: UserPasswordWasUpdated) {
     this._password = Password.fromString(event.password);
+  }
+
+  private onUserWasMarkedAsNoShow(event: UserWasMarkedAsNoShow) {
+    this._noShow = event.noShow;
   }
 
   private onUserWasDeleted(event: UserWasDeleted) {

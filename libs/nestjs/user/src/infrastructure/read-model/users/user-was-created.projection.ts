@@ -13,7 +13,7 @@ export class UserWasCreatedProjection implements IEventHandler<UserWasCreated> {
   ) {}
 
   async handle(event: UserWasCreated) {
-    const user = new this.users({ ...event.payload });
+    const user = new this.users({ ...event.payload, noShow: false });
 
     await user.save();
   }

@@ -11,6 +11,7 @@ export const UserSchema = new Schema(
     username: { type: String, index: { unique: true } },
     roles: [String],
     password: String,
+    noShow: Boolean,
   },
   {
     versionKey: false,

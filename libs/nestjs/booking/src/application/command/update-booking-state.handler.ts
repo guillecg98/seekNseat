@@ -28,9 +28,8 @@ export class UpdateBookingStateHandler
     }
 
     const bookingState = State.fromString(command.bookingState as States);
-    const noShow = command.noShow;
 
-    booking.updateBookingState(bookingState, noShow);
+    booking.updateBookingState(bookingState);
     this.bookings.save(booking);
   }
 }

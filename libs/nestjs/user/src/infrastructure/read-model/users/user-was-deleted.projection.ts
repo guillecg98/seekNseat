@@ -13,6 +13,6 @@ export class UserWasDeletedProjection implements IEventHandler<UserWasDeleted> {
   ) {}
 
   async handle(event: UserWasDeleted) {
-    this.users.findByIdAndDelete(event.aggregateId).exec();
+    await this.users.findByIdAndDelete(event.aggregateId).exec();
   }
 }

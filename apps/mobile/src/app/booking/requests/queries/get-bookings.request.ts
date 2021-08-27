@@ -1,10 +1,14 @@
-import { BookingDTO } from "@seekNseat/contracts/booking";
-import axios from "axios"
+import axios from 'axios';
 
-export const getBookings = async (businessId: string) => {
-  try{
-    return await axios.get(`http://localhost:3333/api/bookings?businessId=`+businessId);
+export const getBookings = async (businessId: string, token: string) => {
+  try {
+    return await axios.get(
+      `http://localhost:3333/api/bookings?businessId=` + businessId,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
   } catch (e) {
-    console.log(e)
+    console.log(e);
   }
-}
+};

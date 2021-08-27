@@ -1,8 +1,8 @@
 import { Inject } from '@nestjs/common';
-import { IQueryHandler, QueryBus, QueryHandler } from '@nestjs/cqrs';
+import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { BookingDTO } from '@seekNseat/contracts/booking';
-import { BusinessId, GetBusinessQuery } from '@seekNseat/nestjs/business';
-import { GetUserQuery, UserId } from '@seekNseat/nestjs/user';
+import { BusinessId } from '@seekNseat/nestjs/business';
+import {  UserId } from '@seekNseat/nestjs/user';
 
 import { BOOKING_FINDER, IBookingFinder } from '../services';
 import { GetBookingsQuery } from './get-bookings.query';

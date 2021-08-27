@@ -16,7 +16,7 @@ export const PublishBusinessButton = (props: Props) => {
         <Button
             style={styles.publishBusinessButton}
             mode='contained'
-            color='#4884CA'
+            color='#FFC074'
             uppercase={false}
             onPress={props.onPress}
             >

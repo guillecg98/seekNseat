@@ -1,10 +1,15 @@
-import axios from "axios";
+import axios from 'axios';
 
-export const getBusinesses = async () => {
-    try {
-        // return await axios.get(`${process.env.RN_REMOTE_URL}/api/businesses`);
-        return await axios.get('http://localhost:3333/api/businesses');
-    } catch (e) {
-        console.error(e);
-    }
-}
+export const getBusinesses = async (category: string, token: string) => {
+  try {
+    const url = category
+      ? `http://localhost:3333/api/businesses?category=` + category
+      : 'http://localhost:3333/api/businesses';
+    // return await axios.get(`${process.env.RN_REMOTE_URL}/api/businesses`);
+    return await axios.get(url, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  } catch (e) {
+    console.error(e);
+  }
+};

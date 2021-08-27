@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
 });
 
 const data = [
+  { label: 'Cualquiera', value: ''},
   { label: 'Indio', value: 'indio' },
   { label: 'Chino', value: 'chino' },
   { label: 'Mexicano', value: 'mexicano' },
@@ -93,10 +94,10 @@ const NumberOfFoodiesInput = ({ name, control }) => {
       leftIcon={
         <Icon name="people-outline" size={22} type="ionicons" color="#494949" />
       }
-      label="Numero de personas"
+      label="Número de personas"
       labelStyle={{ color: '#494949' }}
       onChangeText={field.onChange}
-      placeholder="Numero de personas"
+      placeholder="Número de personas"
       keyboardType="numeric"
     />
   );
@@ -105,8 +106,8 @@ const NumberOfFoodiesInput = ({ name, control }) => {
 export const UserHomePageScreen = ({ navigation }) => {
   const { user, bookingData, setBookingData } = useContext(AuthContext);
   const { control, handleSubmit } = useForm();
-  const [category, setCategory] = useState(null);
   const [isTimePickerVisible, setTimePickerVisible] = useState(false);
+  const [category, setCategory] = useState(null);
 
   const showTimePicker = () => {
     setTimePickerVisible(true);
@@ -130,27 +131,28 @@ export const UserHomePageScreen = ({ navigation }) => {
       ...bookingData,
       foodies: parseInt(inputData.foodies),
     }));
-    navigation.navigate('Businesses', { selecctedCategory: category});
+    navigation.navigate('Businesses', {
+      selectedCategory: category,
+    });
   };
 
   return user && bookingData ? (
     <View style={styles.container}>
       <View style={styles.sectionHeader}>
-        <Text style={styles.textHeader}>
-          {' '}
-          Bienvenido, {user.givenName}!{' '}
-        </Text>
+        <Text style={styles.textHeader}> Bienvenido, {user.givenName}! </Text>
       </View>
 
       <View style={styles.section}>
         <SearchBar />
         <Dropdown
           style={styles.dropdown}
-          placeholderStyle={{ fontSize: 18, textAlign: 'justify' }}
-          placeholder="Busca por categoría"
           data={data}
+          search
+          searchPlaceholder="Buscar"
           labelField="label"
           valueField="value"
+          placeholderStyle={{ fontSize: 18, textAlign: 'justify' }}
+          placeholder="Busca por categoría"
           value={category}
           onChange={(item) => {
             setCategory(item.value);
@@ -175,6 +177,7 @@ export const UserHomePageScreen = ({ navigation }) => {
             color="#494949"
           />
         </View>
+
         <DateTimePickerModal
           isVisible={isTimePickerVisible}
           mode="time"

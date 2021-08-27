@@ -42,7 +42,6 @@ export class BookingService {
         new UpdateBookingStateCommand(
             id,
             editBookingDTO.bookingState,
-            editBookingDTO.noShow
         )
       );
 

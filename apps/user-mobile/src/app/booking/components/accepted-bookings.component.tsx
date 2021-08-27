@@ -1,9 +1,10 @@
 import { BookingDTO } from '@seekNseat/contracts/booking';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Icon, ListItem } from 'react-native-elements';
 import { Modal, Portal, Provider } from 'react-native-paper';
 
+import { AuthContext } from '../../auth/navigation';
 import { States } from '../../utils';
 import { cancelBooking } from '../requests';
 import { BookingActionButton } from './booking-action-button.component';
@@ -37,6 +38,7 @@ interface Props {
 }
 
 export const AcceptedBookings = (props: Props) => {
+  const { bearerToken } = useContext(AuthContext);
   const [acceptedBookings, setAcceptedBookings] = useState<BookingDTO[]>(
     props.acceptedBookings
   );
@@ -46,7 +48,7 @@ export const AcceptedBookings = (props: Props) => {
   const hideModal = () => setVisible(false);
 
   const onPressCancelBooking = (booking: BookingDTO) => {
-    cancelBooking(booking._id, States.CanceledByUser, false).then((res) =>
+    cancelBooking(booking._id, States.CanceledByUser, false, bearerToken).then((res) =>
       setAcceptedBookings(
         acceptedBookings.filter(
           (acceptedBooking) => acceptedBooking._id !== booking._id

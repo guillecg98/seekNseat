@@ -65,7 +65,7 @@ interface Props {
 export const BasicInfoCard = (props: Props) => {
   return (
     <Card style={styles.container}>
-      <Card.Title title="Tus resumen para hoy" />
+      <Card.Title title="Este es tu resumen para hoy" />
       <Card.Content style={styles.cardHeader}>
         <Card style={styles.cardHeaderItem}>
           <Icon

@@ -20,14 +20,10 @@ export const eventTransformers = {
       event.payload.businessId,
       event.payload.businessName,
       event.payload.numberOfFoodies,
-      event.payload.time,
+      event.payload.time
     ),
   BookingStateWasUpdated: (event: Event<EditBookingDTO>) =>
-    new BookingStateWasUpdated(
-      event.aggregateId,
-      event.payload.bookingState,
-      event.payload.noShow
-    ),
+    new BookingStateWasUpdated(event.aggregateId, event.payload.bookingState),
   BookingWasCanceled: (event: Event<EditBookingDTO>) =>
     new BookingWasCanceled(event.aggregateId, event.payload.bookingState),
   BookingWasDeleted: (event: Event) => new BookingWasDeleted(event.aggregateId),

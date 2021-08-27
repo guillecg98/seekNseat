@@ -5,6 +5,7 @@ import {
   BusinessesScreen,
   BusinessScreen,
   UserHomePageScreen,
+  UserProfileScreen,
 } from '../screens';
 
 const Stack = createStackNavigator();
@@ -39,6 +40,7 @@ export const HomeStack = () => {
           headerTintColor: 'white',
         }}
       />
+      <Stack.Screen name="Profile" component={UserProfileScreen} />
     </Stack.Navigator>
   );
 };

@@ -1,8 +1,10 @@
 import { BookingDTO } from '@seekNseat/contracts/booking';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { ListItem } from 'react-native-elements';
 
+import { AuthContext } from '../../auth/navigation';
+import { getUser } from '../requests';
 import { BookingActionButton } from './booking-action-button.component';
 
 const styles = StyleSheet.create({
@@ -32,6 +34,7 @@ interface Props {
 }
 
 export const AcceptedBookings = (props: Props) => {
+  const { bearerToken } = useContext(AuthContext);
   const [acceptedBookings, setAcceptedBookings] = useState<BookingDTO[]>(
     props.acceptedBookings
   );
@@ -65,7 +68,7 @@ export const AcceptedBookings = (props: Props) => {
                   Hora: {booking.time.toString().slice(11, -8)}{' '}
                 </ListItem.Title>
               </View>
-              {booking.noShow ? (
+              {getUser(booking.userId, bearerToken).then((res) => res.data.noShow) ? (
                 <ListItem.Title style={styles.noShow}> No Show </ListItem.Title>
               ) : null}
               <View style={{ marginTop: 10, flexDirection: 'row' }}>

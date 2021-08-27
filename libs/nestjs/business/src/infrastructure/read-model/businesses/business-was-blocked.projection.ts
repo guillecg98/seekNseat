@@ -15,7 +15,7 @@ export class BusinessWasBlockedProjection
   ) {}
 
   async handle(event: BusinessWasBlocked) {
-    await await this.businesses
+    await this.businesses
       .findByIdAndUpdate(event.aggregateId, {
         blocked: event.blocked,
       })

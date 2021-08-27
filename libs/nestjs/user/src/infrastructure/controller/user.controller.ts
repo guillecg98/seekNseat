@@ -16,7 +16,7 @@ import {
   Res,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CreateUserDto, EditUserDto, UserDto } from '@seekNseat/contracts/user';
+import { CreateUserDto, EditUserDto, NoShowUserDto, UserDto } from '@seekNseat/contracts/user';
 import { catchError, Role, Roles } from '@seekNseat/nestjs/common';
 import { Response } from 'express';
 
@@ -82,6 +82,22 @@ export class UserController {
         throw new NotFoundException('User not found');
       } else {
         throw catchError(e);
+      }
+    }
+  }
+
+  @ApiOperation({ summary: 'Mark no show user' })
+  @ApiResponse({ status: 204, description: 'User marked as no-show' })
+  @ApiResponse({ status: 404, description: 'Not found' })
+  @Put('noshow/:id')
+  async noShow(@Param('id') id: string,  @Body() userDto: NoShowUserDto) {
+    try {
+      return await this.userService.noShow(id, userDto);
+    } catch (err) {
+      if (err instanceof IdNotFoundError) {
+        throw new NotFoundException('User not found');
+      } else {
+        throw catchError(err);
       }
     }
   }

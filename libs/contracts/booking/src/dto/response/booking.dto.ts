@@ -9,7 +9,6 @@ interface Props {
   numberOfFoodies: number;
   time: Date;
   bookingState: string;
-  noShow?: boolean;
 }
 
 export class BookingDTO {
@@ -37,9 +36,6 @@ export class BookingDTO {
 
   @ApiProperty()
   public readonly bookingState: string;
-
-  @ApiProperty()
-  public readonly noShow: boolean;
 
   constructor(props: Partial<Props>) {
     Object.assign(this, props)

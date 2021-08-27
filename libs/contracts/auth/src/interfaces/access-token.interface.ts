@@ -1,5 +1,6 @@
 export interface AccessTokenInterface {
   access_token: string;
+  id: string;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
