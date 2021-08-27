@@ -3,7 +3,7 @@ import 'react-native-get-random-values';
 import { BusinessDTO } from '@seekNseat/contracts/business';
 import React, { useContext, useEffect, useState } from 'react';
 import { useController, useForm } from 'react-hook-form';
-import { StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { MultiSelect } from 'react-native-element-dropdown';
 import { Input } from 'react-native-elements';
 import { v4 as uuidv4 } from 'uuid';
@@ -46,6 +46,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 20,
+  },
+  activityIndicatorContainer: {
+    flex: 1,
+    padding: 20,
+    justifyContent: 'center',
   },
 });
 const data = [
@@ -122,13 +127,6 @@ export const BusinessRegisterScreen = ({ navigation }) => {
     }
   }, [bearerToken]);
 
-  if (
-    businesses &&
-    businesses.some((business) => business.ownerId === ownerId)
-  ) {
-    setOwner(true);
-  }
-
   const onPublishBusiness = (inputData) => {
     const id = uuidv4();
     createBusiness(
@@ -143,48 +141,65 @@ export const BusinessRegisterScreen = ({ navigation }) => {
     setOwner(true);
   };
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.headerSection}>
-        <Text style={styles.textIntro}>
-          {' '}
-          Bienvenido, {user ? user.givenName : null}!{' '}
-        </Text>
-        <Text
-          style={{
-            color: '#2b2b2b',
-            textAlign: 'center',
-            fontSize: 18,
-            marginTop: 20,
-          }}
-        >
-          {' '}
-          ... para empezar ayúdanos con algunos datos básicos
-        </Text>
+  if (!businesses) {
+    return (
+      <View style={styles.activityIndicatorContainer}>
+        <ActivityIndicator animating={true} size="large" color="#FFC074" />
       </View>
+    );
+  }
 
-      <View style={styles.section}>
-        <MultiSelect
-          style={styles.dropdown}
-          data={data}
-          labelField="label"
-          valueField="value"
-          placeholder="Añade catagorías"
-          placeholderStyle={{ fontSize: 18 }}
-          search
-          searchPlaceholder="Buscar"
-          value={categories}
-          onChange={(item) => {
-            setCategories(item);
-          }}
-        />
-        <NameInput name="name" control={control} />
-        <ContactPhoneInput name="contactPhone" control={control} />
-      </View>
+  if (businesses.some((business) => business.ownerId === ownerId)) {
+    const business = businesses.find(
+      (business) => business.ownerId === ownerId
+    );
+    setBusinessId(business._id);
+    setOwner(true);
+    return null;
+  } else {
+    return (
+      <View style={styles.container}>
+        <View style={styles.headerSection}>
+          <Text style={styles.textIntro}>
+            {' '}
+            Bienvenido, {user ? user.givenName : null}!{' '}
+          </Text>
+          <Text
+            style={{
+              color: '#2b2b2b',
+              textAlign: 'center',
+              fontSize: 18,
+              marginTop: 20,
+            }}
+          >
+            {' '}
+            ... para empezar ayúdanos con algunos datos básicos
+          </Text>
+        </View>
 
-      <View style={styles.sectionFooter}>
-        <PublishBusinessButton onPress={handleSubmit(onPublishBusiness)} />
+        <View style={styles.section}>
+          <MultiSelect
+            style={styles.dropdown}
+            data={data}
+            labelField="label"
+            valueField="value"
+            placeholder="Añade categorías"
+            placeholderStyle={{ fontSize: 18 }}
+            search
+            searchPlaceholder="Buscar"
+            value={categories}
+            onChange={(item) => {
+              setCategories(item);
+            }}
+          />
+          <NameInput name="name" control={control} />
+          <ContactPhoneInput name="contactPhone" control={control} />
+        </View>
+
+        <View style={styles.sectionFooter}>
+          <PublishBusinessButton onPress={handleSubmit(onPublishBusiness)} />
+        </View>
       </View>
-    </View>
-  );
+    );
+  }
 };

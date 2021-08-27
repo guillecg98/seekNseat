@@ -17,7 +17,7 @@ export const SaveProfileButton = (props: Props) => {
     return (
         <Button
             titleStyle={styles.button}
-            title='Save'
+            title='Guardar'
             type='clear'
             onPress={props.onPress} />
     )

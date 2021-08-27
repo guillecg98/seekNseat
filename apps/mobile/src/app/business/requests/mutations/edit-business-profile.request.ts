@@ -14,6 +14,7 @@ export const editBusinessProfile = async (
         contactPhone: business.contactPhone,
         address: business.address,
         description: business.description,
+        categories: business.categories,
       },
       {
         headers: { Authorization: `Bearer ${token}` },
