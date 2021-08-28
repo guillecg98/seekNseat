@@ -8,8 +8,8 @@ interface Props {
     address?: string;
     description?: string;
     blocked?: boolean;
+    categories: string[],
     //public readonly images: string[],
-    //public readonly categories: CategoryDTO[],
 }
 
 export class BusinessDTO {
