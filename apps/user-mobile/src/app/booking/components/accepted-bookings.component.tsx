@@ -78,7 +78,7 @@ export const AcceptedBookings = (props: Props) => {
                   <Text style={{fontWeight: 'bold'}}>{booking.businessName}</Text>
                 </ListItem.Title>
                 <ListItem.Title style={{ fontSize: 18, margin: 5 }}>
-                  Ha aceptdo tu solicitud!
+                  Ha aceptado tu solicitud!
                 </ListItem.Title>
                 <ListItem.Title style={{ alignSelf: 'center', textAlign: 'justify', fontSize: 18, margin: 15 }}>
                   Tu mesa para {booking.numberOfFoodies} estará lista a las{' '}

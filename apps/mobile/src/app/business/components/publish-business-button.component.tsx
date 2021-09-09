@@ -20,7 +20,7 @@ export const PublishBusinessButton = (props: Props) => {
             uppercase={false}
             onPress={props.onPress}
             >
-                Publish
+                Publicar establecimiento
         </Button>
     )
 }

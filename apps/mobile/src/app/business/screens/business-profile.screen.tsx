@@ -1,7 +1,5 @@
 import { EditBusinessDTO } from '@seekNseat/contracts/business';
-import { isMilitaryTime } from 'class-validator';
-import React, { useContext, useEffect, useState } from 'react';
-import { useController, useForm } from 'react-hook-form';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   Image,
@@ -12,11 +10,12 @@ import {
 } from 'react-native';
 import { MultiSelect } from 'react-native-element-dropdown';
 import { Input } from 'react-native-elements';
+import * as ImagePicker from 'react-native-image-picker';
 import { Divider } from 'react-native-paper';
 
 import { LogoutButton } from '../../auth/components';
 import { AuthContext } from '../../auth/navigation';
-import { SaveProfileButton } from '../components';
+import { DemoButton, DemoResponse, SaveProfileButton } from '../components';
 import { editBusinessProfile, getBusiness } from '../requests';
 
 const styles = StyleSheet.create({
@@ -60,6 +59,7 @@ const styles = StyleSheet.create({
     margin: 10,
     borderBottomColor: '#969696',
     borderBottomWidth: 2,
+    height: 45,
   },
   sectionFooter: {
     flex: 1,
@@ -72,7 +72,22 @@ const styles = StyleSheet.create({
     padding: 20,
     justifyContent: 'center',
   },
+  buttonContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginVertical: 8,
+  },
+  image: {
+    marginVertical: 24,
+    alignItems: 'center',
+  },
 });
+
+interface Action {
+  title: string;
+  type: 'capture' | 'library';
+  options: ImagePicker.CameraOptions | ImagePicker.ImageLibraryOptions;
+}
 
 const data = [
   { label: 'Indio', value: 'indio' },
@@ -86,17 +101,49 @@ const data = [
   { label: 'Mediterránea', value: 'mediterranea' },
 ];
 
+const actions: Action[] = [
+  {
+    title: 'Tomar Foto',
+    type: 'capture',
+    options: {
+      saveToPhotos: true,
+      mediaType: 'photo',
+      includeBase64: false,
+    },
+  },
+  {
+    title: 'Abrir Galería',
+    type: 'library',
+    options: {
+      maxHeight: 200,
+      maxWidth: 200,
+      selectionLimit: 0,
+      mediaType: 'photo',
+      includeBase64: false,
+    },
+  },
+];
+
 export const BusinessProfileScreen = () => {
   const [showContent, setShowContent] = useState(true);
   const [categories, setCategories] = useState([]);
   const [businessToEdit, setBusinessToEdit] = useState<EditBusinessDTO>();
   const { bearerToken, businessId, user, logout } = useContext(AuthContext);
+  const [image, setImage] = useState<any>(null);
 
   useEffect(() => {
     getBusiness(businessId, bearerToken).then((res) => {
       setBusinessToEdit(res?.data);
       setCategories(res.data.categories);
     });
+  }, []);
+
+  const onUploadImage = useCallback((type, options) => {
+    if (type === 'capture') {
+      ImagePicker.launchCamera(options, setImage);
+    } else {
+      ImagePicker.launchImageLibrary(options, setImage);
+    }
   }, []);
 
   const onSaveProfile = () => {
@@ -257,6 +304,31 @@ export const BusinessProfileScreen = () => {
               })
             }
           />
+          <View style={styles.buttonContainer}>
+            {actions.map(({ title, type, options }) => {
+              return (
+                <DemoButton
+                  key={title}
+                  onPress={() => onUploadImage(type, options)}
+                >
+                  {title}
+                </DemoButton>
+              );
+            })}
+          </View>
+          {/* <DemoResponse>{image}</DemoResponse> */}
+
+          {image?.assets &&
+            image.assets.map(({ uri }) => (
+              <View key={uri} style={styles.image}>
+                <Image
+                  resizeMode="cover"
+                  resizeMethod="scale"
+                  style={{ width: 200, height: 200 }}
+                  source={{ uri: uri }}
+                />
+              </View>
+            ))}
           <LogoutButton onPress={logout} />
         </ScrollView>
       </ScrollView>

@@ -46,7 +46,7 @@ export class EditBusinessHandler
       return;
     }
 
-    business.categorires.map(
+    business.categories.map(
       (category) =>
         !command.categories.includes(category) &&
         business.removeCategory(category)
