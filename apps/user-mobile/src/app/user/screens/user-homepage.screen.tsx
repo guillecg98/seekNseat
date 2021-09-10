@@ -150,6 +150,7 @@ export const UserHomePageScreen = ({ navigation }) => {
       </View>
 
       <View style={styles.section}>
+          <ScrollView>
           <SearchBar />
           <Dropdown
             style={styles.dropdown}
@@ -165,7 +166,6 @@ export const UserHomePageScreen = ({ navigation }) => {
               setCategory(item.value);
             }}
           />
-        <ScrollView>
           <NumberOfFoodiesInput name="foodies" control={control} />
 
           <View style={styles.timeSection}>
