@@ -1,5 +1,5 @@
 // Replace "com.example" here and below with your app's package name from the top of MainActivity.java
-package es.uco.aulasoftwarelibre.seeknseat.client;
+package es.uco.aulasoftwarelibre.seeknseat.user.mobile;
 
 import com.wix.detox.Detox;
 import com.wix.detox.config.DetoxConfig;
@@ -29,7 +29,7 @@ public class DetoxTest {
         DetoxConfig detoxConfig = new DetoxConfig();
         detoxConfig.idlePolicyConfig.masterTimeoutSec = 90;
         detoxConfig.idlePolicyConfig.idleResourceTimeoutSec = 60;
-        detoxConfig.rnContextLoadTimeoutSec = (es.uco.aulasoftwarelibre.seeknseat.client.BuildConfig.DEBUG ? 180 : 60);
+        detoxConfig.rnContextLoadTimeoutSec = (es.uco.aulasoftwarelibre.seeknseat.user.mobile.BuildConfig.DEBUG ? 180 : 60);
 
         Detox.runTests(mActivityRule, detoxConfig);
     }
