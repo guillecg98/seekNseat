@@ -46,12 +46,13 @@ export const SignInScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={[styles.text, { marginTop: 20 }]}> Bienvenido a</Text>
-      <Text style={styles.text}> Seek N Seat Restaurants</Text>
+      <Text style={styles.text}> Seek N Seat</Text>
       <View style={styles.sectionContainer}>
         <Image
           source={require('../../assets/retaurant-logo.png')}
           style={styles.logo}
         />
+         <Text style={styles.text}> Restaurants</Text>
         <SocialButton
           buttonTitle="Inicia sesión con Google"
           buttonType="google"

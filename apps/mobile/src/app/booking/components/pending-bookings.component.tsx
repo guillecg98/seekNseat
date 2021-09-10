@@ -87,6 +87,7 @@ export const PendingBookings = (props: Props) => {
               </View>
               {getUser(booking.userId, bearerToken).then((res) => res.data.noShow) ? (
                 <ListItem.Title style={styles.noShow}> No Show </ListItem.Title>
+                // null
               ) : null}
               <View style={{ marginTop: 10, flexDirection: 'row' }}>
                 <BookingActionButton

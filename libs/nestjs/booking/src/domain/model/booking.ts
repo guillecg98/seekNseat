@@ -31,7 +31,7 @@ export class Booking extends AggregateRoot {
     businessId: BusinessId,
     businessName: BusinessName,
     numberOfFoodies: NumberOfFoodies,
-    time: Date,
+    time: Date
   ): Booking {
     const booking = new Booking();
     booking.apply(
@@ -42,7 +42,7 @@ export class Booking extends AggregateRoot {
         businessId.value,
         businessName.value,
         numberOfFoodies.value,
-        time,
+        time
       )
     );
 
@@ -85,6 +85,22 @@ export class Booking extends AggregateRoot {
     return this._bookingState;
   }
 
+  updateBookingState(bookingState: State) {
+    this.apply(new BookingStateWasUpdated(this.id.value, bookingState.value));
+  }
+
+  cancel(bookingState: State) {
+    this.apply(new BookingWasCanceled(this.id.value, bookingState.value));
+  }
+
+  delete(): void {
+    if (this._deleted) {
+      return;
+    }
+
+    this.apply(new BookingWasDeleted(this.id.value));
+  }
+
   private onBookingWasRequested(event: BookingWasRequested) {
     this._id = BookingId.fromString(event.id);
     this._userId = UserId.fromString(event.userId);
@@ -97,30 +113,14 @@ export class Booking extends AggregateRoot {
     this._deleted = undefined;
   }
 
-  updateBookingState(bookingState: State) {
-    this.apply(
-      new BookingStateWasUpdated(this.id.value, bookingState.value)
-    );
-  }
-
   private onBookingStateWasUpdated(event: BookingStateWasUpdated) {
     this._bookingState = State.fromString(event.bookingState as States);
-  }
-
-  cancel(bookingState: State) {
-    this.apply(new BookingWasCanceled(this.id.value, bookingState.value));
   }
 
   private onBookingWasCanceled(event: BookingWasCanceled) {
     this._bookingState = State.fromString(event.bookingState as States);
   }
-  delete(): void {
-    if (this._deleted) {
-      return;
-    }
 
-    this.apply(new BookingWasDeleted(this.id.value));
-  }
   private onBookingWasDeleted(event: BookingWasDeleted) {
     this._deleted = new Date(event.metadata._ocurred_on);
   }

@@ -1,11 +1,11 @@
 import 'react-native-get-random-values';
 
 import { BusinessDTO } from '@seekNseat/contracts/business';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useController, useForm } from 'react-hook-form';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { MultiSelect } from 'react-native-element-dropdown';
-import { Input } from 'react-native-elements';
+import { Image, Input } from 'react-native-elements';
 import { v4 as uuidv4 } from 'uuid';
 
 import { AuthContext } from '../../auth/navigation';
@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
     margin: 10,
     borderBottomColor: '#FFC074',
     borderBottomWidth: 2,
+    height: 45,
   },
   sectionFooter: {
     flex: 1,

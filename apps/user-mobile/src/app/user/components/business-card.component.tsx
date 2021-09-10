@@ -33,7 +33,7 @@ export const BusinessCard = (props: Props) => {
   return (
     <ScrollView>
       <Card>
-        <Card.Cover source={{ uri: 'https://static1-sevilla.abc.es/Media/201411/24/tgb-restalia-campana--644x362.jpg' }} />
+        <Card.Cover source={{ uri: 'https://lamafia.es/wp-content/uploads/2017/05/La-Mafia-se-sienta-a-la-mesa-con-Deliveroo.jpg' }} />
         <Card.Content style={{ padding: 15 }}>
           <Title style={{margin: 5}}> {props.business.name} </Title>
           <View

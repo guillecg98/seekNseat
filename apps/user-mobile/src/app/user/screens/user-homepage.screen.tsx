@@ -1,6 +1,12 @@
 import React, { useContext, useState } from 'react';
 import { useController, useForm } from 'react-hook-form';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import { Button, Icon, Input } from 'react-native-elements';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
@@ -38,6 +44,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderBottomColor: '#0D8686',
     borderBottomWidth: 1,
+    height: 45,
   },
   timeSection: {
     flexDirection: 'row',
@@ -69,7 +76,7 @@ const styles = StyleSheet.create({
 });
 
 const data = [
-  { label: 'Cualquiera', value: ''},
+  { label: 'Cualquiera', value: '' },
   { label: 'Indio', value: 'indio' },
   { label: 'Chino', value: 'chino' },
   { label: 'Mexicano', value: 'mexicano' },
@@ -143,47 +150,49 @@ export const UserHomePageScreen = ({ navigation }) => {
       </View>
 
       <View style={styles.section}>
-        <SearchBar />
-        <Dropdown
-          style={styles.dropdown}
-          data={data}
-          search
-          searchPlaceholder="Buscar"
-          labelField="label"
-          valueField="value"
-          placeholderStyle={{ fontSize: 18, textAlign: 'justify' }}
-          placeholder="Busca por categoría"
-          value={category}
-          onChange={(item) => {
-            setCategory(item.value);
-          }}
-        />
-        <NumberOfFoodiesInput name="foodies" control={control} />
-
-        <View style={styles.timeSection}>
-          <Text style={styles.timeText}> Selecciona la hora </Text>
-          <Button
-            buttonStyle={styles.timeButton}
-            titleStyle={styles.timeButtonTitle}
-            type="outline"
-            title={bookingData.time.toJSON().slice(11, -8)}
-            onPress={showTimePicker}
+          <ScrollView>
+          <SearchBar />
+          <Dropdown
+            style={styles.dropdown}
+            data={data}
+            search
+            searchPlaceholder="Buscar"
+            labelField="label"
+            valueField="value"
+            placeholderStyle={{ fontSize: 18, textAlign: 'justify' }}
+            placeholder="Busca por categoría"
+            value={category}
+            onChange={(item) => {
+              setCategory(item.value);
+            }}
           />
-          <Icon
-            style={{ marginTop: 10 }}
-            name="alarm"
-            size={22}
-            type="ionicons"
-            color="#494949"
-          />
-        </View>
+          <NumberOfFoodiesInput name="foodies" control={control} />
 
-        <DateTimePickerModal
-          isVisible={isTimePickerVisible}
-          mode="time"
-          onConfirm={handleConfirm}
-          onCancel={hideTimePicker}
-        />
+          <View style={styles.timeSection}>
+            <Text style={styles.timeText}> Selecciona la hora </Text>
+            <Button
+              buttonStyle={styles.timeButton}
+              titleStyle={styles.timeButtonTitle}
+              type="outline"
+              title={bookingData.time.toJSON().slice(11, -8)}
+              onPress={showTimePicker}
+            />
+            <Icon
+              style={{ marginTop: 10 }}
+              name="alarm"
+              size={22}
+              type="ionicons"
+              color="#494949"
+            />
+          </View>
+
+          <DateTimePickerModal
+            isVisible={isTimePickerVisible}
+            mode="time"
+            onConfirm={handleConfirm}
+            onCancel={hideTimePicker}
+          />
+        </ScrollView>
       </View>
 
       <View style={styles.sectionFooter}>

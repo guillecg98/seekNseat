@@ -8,7 +8,9 @@
 # dependencies
 /node_modules
 /apps/mobile/node_modules
+/apps/user-mobile/node_modules
 /apps/mobile/android/app/google-services.json
+/apps/user-mobile/android/app/google-services.json
 
 # IDEs and editors
 /.idea

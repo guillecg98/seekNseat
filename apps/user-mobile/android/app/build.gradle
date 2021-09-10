@@ -131,7 +131,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "es.uco.aulasoftwarelibre.seeknseat.client"
+        applicationId "es.uco.aulasoftwarelibre.seeknseat.user.mobile"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

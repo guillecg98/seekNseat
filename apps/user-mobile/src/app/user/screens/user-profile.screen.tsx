@@ -58,7 +58,7 @@ export const UserProfileScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>User Profile</Text>
+        <Text style={styles.title}>Mi Perfil</Text>
       </View>
 
       <View style={{ flexGrow: 1, alignItems: 'center' }}>
@@ -72,9 +72,7 @@ export const UserProfileScreen = () => {
 
       <View style={styles.bodyContent}>
         <Text style={styles.userName}>{user.name}</Text>
-        <Text style={styles.text}> email: {user.email}</Text>
-        <Text style={styles.text}> givenName: {user.givenName}</Text>
-        <Text style={styles.text}> famName: {user.familyName}</Text>
+        <Text style={styles.text}> {user.email}</Text>
       </View>
 
       <LogoutButton onPress={onLogOut} />

@@ -76,12 +76,12 @@ export class Business extends AggregateRoot {
     return this._blocked;
   }
 
-  get categorires(): string[] {
+  get categories(): string[] {
     return Array.from(this._categories);
   }
 
   hasCategory(category: string): boolean {
-    return this.categorires.includes(category);
+    return this.categories.includes(category);
   }
 
   addCategory(category: string) {
@@ -98,6 +98,35 @@ export class Business extends AggregateRoot {
     }
 
     this.apply(new CategoryWasRemoved(this.id.value, category));
+  }
+
+  editProfile(
+    name: BusinessName,
+    contactPhone: BusinessContactPhone,
+    address: string,
+    description: string
+  ) {
+    this.apply(
+      new BusinessProfileWasEdited(
+        this.id.value,
+        name.value,
+        contactPhone.value,
+        address,
+        description
+      )
+    );
+  }
+
+  blockBookingRequests(blocked: boolean) {
+    this.apply(new BusinessWasBlocked(this.id.value, blocked));
+  }
+
+  delete(): void {
+    if (this._deleted) {
+      return;
+    }
+
+    this.apply(new BusinessWasDeleted(this.id.value));
   }
 
   private onBusinessWasCreated(event: BusinessWasCreated) {
@@ -122,23 +151,6 @@ export class Business extends AggregateRoot {
     );
   }
 
-  editProfile(
-    name: BusinessName,
-    contactPhone: BusinessContactPhone,
-    address: string,
-    description: string
-  ) {
-    this.apply(
-      new BusinessProfileWasEdited(
-        this.id.value,
-        name.value,
-        contactPhone.value,
-        address,
-        description,
-      )
-    );
-  }
-
   private onBusinessProfileWasEdited(event: BusinessProfileWasEdited) {
     this._name = BusinessName.fromString(event.name);
     this._contactPhone = BusinessContactPhone.fromString(event.contactPhone);
@@ -146,20 +158,8 @@ export class Business extends AggregateRoot {
     this._description = event.description;
   }
 
-  blockBookingRequests(blocked: boolean) {
-    this.apply(new BusinessWasBlocked(this.id.value, blocked));
-  }
-
   private onBusinessWasBlocked(event: BusinessWasBlocked) {
     this._blocked = event.blocked;
-  }
-
-  delete(): void {
-    if (this._deleted) {
-      return;
-    }
-
-    this.apply(new BusinessWasDeleted(this.id.value));
   }
 
   private onBusinessWasDeleted(event: BusinessWasDeleted) {

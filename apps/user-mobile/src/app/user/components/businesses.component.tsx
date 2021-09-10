@@ -60,10 +60,10 @@ export const Businesses = (props: Props) => {
               ) : null}
             </ListItem.Content>
             <Avatar
-              avatarStyle={{ borderRadius: 12, alignItems: 'center' }}
+              avatarStyle={{ borderWidth: 0.5,borderRadius: 12, alignItems: 'center' }}
               size="large"
               source={{
-                uri: 'https://www.emprendedores.es/wp-content/uploads/2015/01/ginos-logo-1542112796-1024x512.jpg',
+                uri: 'https://restaurante.guide/wp-content/uploads/2020/03/tokyo-cartagena-logo.jpg',
               }}
             />
             <ListItem.Content style={{ alignItems: 'center' }}>

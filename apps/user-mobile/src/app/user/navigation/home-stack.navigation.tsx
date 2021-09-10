@@ -22,7 +22,7 @@ export const HomeStack = () => {
         name="Businesses"
         component={BusinessesScreen}
         options={{
-          headerTitle: 'Back to Home',
+          headerTitle: '',
           headerStyle: {
             backgroundColor: '#0D8686',
           },
@@ -33,7 +33,7 @@ export const HomeStack = () => {
         name="Business"
         component={BusinessScreen}
         options={{
-          headerTitle: 'Back to Search',
+          headerTitle: '',
           headerStyle: {
             backgroundColor: '#0D8686',
           },
